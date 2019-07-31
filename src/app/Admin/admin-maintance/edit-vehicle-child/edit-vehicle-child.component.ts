@@ -13,6 +13,9 @@ export class EditVehicleChildComponent implements OnInit {
 // From child component to parent component
    @Output() valueSelected = new EventEmitter();
    @Output() editData = new EventEmitter();
+
+
+  
   // From parent component
   @Input() maintanData: any;
   constructor(private service: AdminMaintanceService) { }
@@ -27,23 +30,7 @@ export class EditVehicleChildComponent implements OnInit {
   console.log(data)
   $('#myupdate').modal('show');
   }
-  // OpenPopUp(data: any) {
-  //   if(data){
-
-  //     $('#myupdate').modal('show');
-  //   }    
-  // }
-
-
-  confirmRemoveYear() {
-
-    // this.service.updateYear({is_delete, model})
-    //     .subscribe((data) => { 
-    //       console.log(data)
-    //     }, error => {
-    //       console.log(error);
-    //     })
-  }
+ 
 
    /* Display Delete popup */
    displayDeleteConfrimPopUp(data:any){
@@ -59,7 +46,6 @@ export class EditVehicleChildComponent implements OnInit {
   }
 
   editPopup(data){
-    
     this.editData = data;
    
   }

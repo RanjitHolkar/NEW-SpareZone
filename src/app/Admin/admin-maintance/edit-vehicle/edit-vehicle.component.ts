@@ -26,11 +26,13 @@ export class EditVehicleComponent implements OnInit {
 
 
   @Input() valueSelected: any;
-
+  @Input() editData: any;
 
   constructor(private formBuilder: FormBuilder, private maintenanceService: AdminMaintanceService, private toastr: ToastrManager) { }
 
   ngOnInit() {
+    console.log("From edit vehicle")
+    this.editDataFromChild
     $('#maintenancePopup').hide();
     $('#maintainDeletePopup').hide();
     this.getVehicleDatabase();
@@ -165,8 +167,10 @@ export class EditVehicleComponent implements OnInit {
     $('#maintainDeletePopup').hide();
   }
 
+  
   dataFromVehicleChild(data) {
     this.FromVehicleChildData = data;
+    
 
     // this.maintenanceService.updateYear()
     console.log(data);
@@ -261,8 +265,9 @@ export class EditVehicleComponent implements OnInit {
       this.commonCallForMaintance(this.API_URL, postData);
     }
   }
-
+  
   editDataFromChild(editData){
+    $('#maintainDeletePopup').show();
     console.log("From editDataFromChild")
     console.log(editData);
   }
