@@ -1,0 +1,31 @@
+<div class="commonBGdiv">
+    <img src="assets/images/bg.png" class="bgImageCommon">
+</div>
+<app-admin-nav></app-admin-nav>
+
+<div class="profileTabSection  divCenter container marT70">
+        <div class=" profileTabSectionInner">
+            <div class=" profileTabSectionContent">
+                    <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#home">Profile Settings</a></li>
+                            <li><a data-toggle="tab" href="#menu1" >Genreal Settings</a></li>
+                            <li><a data-toggle="tab" href="#menu2">Supplier Settings</a></li>
+                            <li><a data-toggle="tab" href="#menu3">CMS Settings</a></li>
+                        </ul>
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                    <app-profile-setting></app-profile-setting>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">      
+                    <app-general-setting></app-general-setting>
+                    </div>
+                    <div id="menu2" class="tab-pane fade"> 
+                    <app-supplier-setting></app-supplier-setting>   
+                    </div>
+                    <div id="menu3" class="tab-pane fade">
+                        <app-cms-setting></app-cms-setting>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

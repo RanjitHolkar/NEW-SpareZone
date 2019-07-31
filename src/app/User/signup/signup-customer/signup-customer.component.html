@@ -1,0 +1,282 @@
+<div class="wrapper">
+  <app-user-nav></app-user-nav>
+      <div class="commonBgDiv"><img src="assets/images/banner.jpg" alt="" /></div>
+        <div class="banner-wrap">
+           <div class="banner">
+            <div class="banner-in">
+             <div class="container">
+              <div class="row">
+                 <div class="col-md-12">
+                  <div class="wrap-box">
+                   <!--==PERSONAL INFO START==-->
+                   <div class="personal_i" *ngIf="SignInFormFirst.value.account_type == 1" >
+                    <div class="boxs active">
+                       <div class="boxs-in">
+                        <h3>Sign Up Details</h3>
+                        <div class="frm">
+                         <form class="jform" [formGroup]="SignInFormFirst" (submit)="signUpFirstFormSubmit()">
+                          <h5>Account Type</h5>
+                          <div class="pers">
+                             <button class="btn-def" type="button">Personal</button>
+                             <button id="business_1" class="btn-def-blu" type="button" (click)="accountType(2)">Business</button>
+                          </div>
+                          <div class="field">
+                             <input type="text" placeholder="Email" formControlName="email_id"/>
+                             <div *ngIf="submitFirst && first.email_id.errors" class="invalid-feedback">
+                                 <div *ngIf="first.email_id.errors.required" >Email is required</div>
+                                 <div *ngIf="first.email_id.errors.email">Email must be a valid email address</div>
+                             </div>
+                          </div>
+                          <div class="field">
+                             <input type="password" placeholder="Confirm Password" formControlName="password" />
+                             <div *ngIf="submitFirst && first.password.errors" class="invalid-feedback">
+                                 <div *ngIf="first.password.errors.required">Password is required</div>
+                             </div>
+                          </div>
+                          <div class="btnl">
+                             <input type="hidden" formControlName="account_type" >
+                             <button class="btn-def flr btnsld" type="submit" value="Find Part" data-tab="NextStep">Sign Up!</button>									
+                          </div>
+                          <div class="sghere">
+                             <a  class="stxt" routerLink="/signup-supplier" [ngClass]="{'disableda': secondForm}">Supplier? Sign Up here.</a>
+                          </div>
+                         </form>
+                        </div>
+                       </div>
+                    </div>
+                    <div class="boxs box-2 active" [ngClass]="{ 'active': secondForm }">
+                       <div class="boxs-in">
+                        <div class="frm">
+                         <form class="jform" [formGroup]="SignInFormSecond" (submit)="signUpSecondFormSubmit()">
+                          <div class="field">
+                             <input type="text" placeholder="Username" formControlName="user_name"/>
+                             <div *ngIf="submitSecond && second.user_name.errors" class="invalid-feedback">
+                                 <div *ngIf="second.user_name.errors.required">Username is required</div>
+                             </div>
+                             <!-- <fieldset class="active">Username</fieldset> -->
+                          </div>
+                          <div class="field">
+                             <input type="text" formControlName="first_name"  placeholder="Firstname"/>
+                             <div *ngIf="submitSecond && second.first_name.errors" class="invalid-feedback">
+                                 <div *ngIf="second.first_name.errors.required">Firstname is required</div>
+                             </div>
+                             <!-- <fieldset>Firstname</fieldset> -->
+                          </div>
+                          <div class="field">
+                             <input type="text" formControlName="last_name"  placeholder="Lastname"/>
+                             <div *ngIf="submitSecond && second.last_name.errors" class="invalid-feedback">
+                                 <div *ngIf="second.last_name.errors.required">Lastname is required</div>
+                             </div>
+                             <!-- <fieldset>Lastname</fieldset> -->
+                          </div>
+                          <div class="field">
+                             <input type="text" formControlName="business_address" placeholder="Address"  />
+                             <div *ngIf="submitSecond && second.business_address.errors" class="invalid-feedback">
+                                 <div *ngIf="second.business_address.errors.required">Address is required</div>
+                             </div>
+                             <!-- <fieldset>Address</fieldset> -->
+                          </div>
+                          <div class="field">
+                             <input type="number"  formControlName="personal_contact" placeholder="Mobile Number" />
+                             <div *ngIf="submitSecond && second.personal_contact.errors" class="invalid-feedback">
+                                 <div *ngIf="second.personal_contact.errors.required">Mobile Number is required</div>
+                             </div>
+                             <!-- <fieldset class="active">Mobile Number</fieldset> -->
+                          </div>
+                          <div class="sub">
+                             <button class="btn-no" type="button" (click)="submitSecond = false; SignInFormSecond.reset()" [disabled]="thirdForm">Reset All</button>
+                             <button class="btn-def flr btnsld" type="submit" value="Next Step" >Next Step</button>									
+                          </div>
+                         </form>
+                        </div>
+                       </div>
+                    </div>
+                    <div class="boxs box-3" id="Done" [ngClass]="{ 'active': thirdForm }">
+                       <div class="boxs-in">
+                        <div class="frm">
+                         <form class="jform" >
+                          <h4 class="blueTextHead">Upload Profile Picture</h4>
+                          <h4 class="text-center invalid-feedback" *ngIf="fileError" >Profile Image required</h4>
+                          <div class="field">
+                             <label class="upload_picture"><input type="file" (change)="fileUpload($event)" /><img [src]="imagesUrl" *ngIf="imagesUrl != undefined"></label>
+                          </div>
+                          <div class="sub">
+                             <button class="btn-no" type="reset" (click)="images ='';imagesUrl=undefined" [disabled]="customerSucess == 1">Reset All</button>
+                             <button class="btn-def flr btnsld" type="submit" value="Done" (click)="signup()" >Done</button>									
+                          </div>
+                         </form>
+                        </div>
+                       </div>
+                    </div>
+                    <div class="boxs box-4" id="Close" [ngClass]="{ 'active': customerSucess == 1 }">
+                       <div class="boxs-in">
+                        <h4>SUCCESS</h4>
+                        <div class="frm">
+                         <form class="jform" action="javascript:;">
+                          <img src="assets/images/right.png" class="rigt" alt="" />
+                          <p class="sps">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                          <div class="field">
+                             <fieldset class="text-center personal_p">Your Personal User Member No. is  <span>{{memberId}}</span></fieldset>
+                          </div>
+                          <div class="sub">
+                             <button class="btn-def" type="button"  routerLink="/login">Close</button>									
+                             <button class="btn-def flr btnsld" type="button" routerLink="/add-vehicle">Add Vehicle</button>
+                          </div>
+                         </form>
+                        </div>
+                       </div>
+                    </div>
+                   </div>
+                   <!--==PERSONAL INFO END==-->
+                   <!--==BUSINESS INFO START==-->
+                   <div class="business_i" *ngIf="SignInFormFirst.value.account_type == 2">
+                    <div class="boxs active">
+                       <div class="boxs-in">
+                        <h3>Sign Up Details</h3>
+                        <div class="frm">
+                         <form class="jform" [formGroup]="SignInFormFirst" (submit)="signUpFirstFormSubmit()">
+                          <h5>Account Type</h5>
+                          <div class="pers">
+                             <button id="personal_1" class="btn-def-blu" type="button" value="Personal" (click)="accountType(1)">Personal</button>
+                             <button class="btn-def" type="button" value="Business">Business</button>
+                          </div>
+                          <div class="field">
+                             <input type="text" formControlName="email_id" placeholder="Email"  />
+                             <div *ngIf="submitFirst && first.email_id.errors" class="invalid-feedback">
+                              <div *ngIf="first.email_id.errors.required">Email is required</div>
+                              <div *ngIf="first.email_id.errors.email">Email must be a valid email address</div>
+                          </div>
+                          </div>
+                          <div class="field">
+                             <input type="password" placeholder="Confirm Password" formControlName="password" />
+                             <div *ngIf="submitFirst && first.password.errors" class="invalid-feedback">
+                              <div *ngIf="first.password.errors.required">Password is required</div>
+                             </div>
+                          </div>
+                          <div class="btnl">
+                              <input type="hidden" formControlName="account_type" >
+                             <button class="btn-def flr btnsld" type="submit" value="Find Part" >Sign Up!</button>									
+                          </div>
+                          <div class="sghere">
+                             <a routerLink="/signup-supplier" [ngClass]="{'disableda': secondFormBussiness}">Supplier? Sign Up here.</a>
+                          </div>
+                         </form>
+                        </div>
+                       </div>
+                    </div>
+                    <div class="boxs box-2" id="NextStep1" [ngClass]="{ 'active': secondFormBussiness }">
+                       <div class="boxs-in">
+                        <div class="frm">
+                         <form class="jform" [formGroup]="signUpFormSecondBussiness" (submit)="signUpFirstFormBusinesSubmit()">
+                          <div class="field">
+                             <input type="text"  placeholder="Business name" formControlName="business_name"/>
+                             <div *ngIf="firstFormBusines && bFirst.business_name.errors" class="invalid-feedback">
+                              <div *ngIf="bFirst.business_name.errors.required">Business Name is required</div>
+                             </div>
+                          </div>
+                          <div class="field">
+                             <input type="text" placeholder="Contact Person" formControlName="contact_person"  />
+                             <div *ngIf="firstFormBusines && bFirst.contact_person.errors" class="invalid-feedback">
+                              <div *ngIf="bFirst.contact_person.errors.required">Contact Person is required</div>
+                             </div>
+                             <!-- <fieldset></fieldset> -->
+                          </div>
+                          <div class="field">
+                             <input type="text" placeholder="Personal Contact" formControlName="personal_contact"  />
+                             <div *ngIf="firstFormBusines && bFirst.personal_contact.errors" class="invalid-feedback">
+                              <div *ngIf="bFirst.personal_contact.errors.required">Personal Contact is required</div>
+                             </div>
+                             <!-- <fieldset></fieldset> -->
+                          </div>
+                          <div class="field">
+                             <input type="text" placeholder="Business Address" formControlName="business_address"  />
+                             <div *ngIf="firstFormBusines && bFirst.business_address.errors" class="invalid-feedback">
+                              <div *ngIf="bFirst.business_address.errors.required">Business Address is required</div>
+                             </div>
+                             <!-- <fieldset>Business Address</fieldset> -->
+                          </div>
+                          <div class="field">
+                             <input type="text" placeholder="Business Contact Number" formControlName="business_contact"  />
+                             <div *ngIf="firstFormBusines && bFirst.business_contact.errors" class="invalid-feedback">
+                              <div *ngIf="bFirst.business_contact.errors.required">Business Contact Number</div>
+                             </div>
+                             <!-- <fieldset></fieldset> -->
+                          </div>
+                          <div class="sub">
+                             <button class="btn-no" type="button" (click)="firstFormBusines = false; signUpFormSecondBussiness.reset()" [disabled]="thirdFormBussiness">Reset All</button>
+                             <button class="btn-def flr btnsld" type="submit" value="Next Step" >Next Step</button>									
+                          </div>
+                         </form>
+                        </div>
+                       </div>
+                    </div>
+                    <div class="boxs box-3" id="Done1" [ngClass]="{ 'active': thirdFormBussiness }">
+                       <div class="boxs-in">
+                        <div class="frm">
+                         <form class="jform" [formGroup]="signUpFormThirdBussiness" (submit)="singUpBusines()">
+                          <div class="field">
+                             <input type="text"  placeholder="Business ABN" formControlName="business_abn" />
+                             <div *ngIf="secondFormBusines && bSecond.business_abn.errors" class="invalid-feedback">
+                                <div *ngIf="bSecond.business_abn.errors.required">Business Contact is required</div>
+                               </div>
+                             <!-- <fieldset></fieldset> -->
+                          </div>
+                          <div class="field">
+                             <select  placeholder="Business Type" formControlName="business_type">
+                              <option value="" [selected]=true>--Select Type--</option>
+                              <option [value]="type.business_type_id" *ngFor="let type of businessType">{{type.business_type_name}}</option>
+                             </select>
+                             <div *ngIf="secondFormBusines && bSecond.business_type.errors" class="invalid-feedback">
+                                <div *ngIf="bSecond.business_type.errors.required">Business Type is required</div>
+                              </div>
+                             <!-- <fieldset>Business Type</fieldset> -->
+                          </div>
+                          <div class="field">
+                             <h4 class="blueTextHead">Upload Profile Picture</h4>
+                             <label class="upload_picture busi_n"><input type="file" formControlName="profile_logo" (change)="fileUpload($event)"/> <img [src]="imagesUrl" *ngIf="imagesUrl != undefined"></label>
+                             <div *ngIf="secondFormBusines && bSecond.profile_logo.errors" class="invalid-feedback">
+                                <div *ngIf="bSecond.profile_logo.errors.required">Profile Picture is required</div>
+                              </div>
+                          </div>
+                          <div class="sub">
+                             <button class="btn-no" type="button"  (click)="secondFormBusines = false;imagesUrl=undefined; signUpFormThirdBussiness.reset()" [disabled]="customerSucess == 2">Reset All</button>
+                             <button class="btn-def flr btnsld" type="submit" value="Done">Done</button>									
+                          </div>
+                         </form>
+                        </div>
+                       </div>
+                    </div>
+                    <div class="boxs box-4" id="Close1" [ngClass]="{ 'active': customerSucess == 2 }">
+                       <div class="boxs-in">
+                        <h4>SUCCESS</h4>
+                        <div class="frm">
+                         <form class="jform" action="javascript:;">
+                          <img src="assets/images/right.png" class="rigt" alt="" />
+                          <p class="sps">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                          <!-- <span class="bl-text">Members Listing relating to your search</span> -->
+                          <div class="field">
+                             <fieldset class="text-center personal_p">Your Business User Member No. is <span>{{memberId}}</span></fieldset>
+                          </div>
+                          <div class="sub">
+                             <button class="btn-def" onclick="location.href = 'member-neworders.php';" type="button">New Workorder</button>
+                             <button class="btn-def flr btnsld" type="button" value="Close"  routerLink="/login">Close</button>									
+                          </div>
+                         </form>
+                        </div>
+                       </div>
+                    </div>
+                   </div>
+                   <!--==BUSINESS INFO END==-->
+                  </div>
+                 </div>
+              </div>
+             </div>
+            </div>
+           </div>
+        </div>
+  
+      <footer>
+        
+      </footer>
+    </div>
+

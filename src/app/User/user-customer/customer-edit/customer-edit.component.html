@@ -1,0 +1,325 @@
+<app-user-nav></app-user-nav>
+<!-- <header class="header">
+	<div class="container">
+		<div class="row">
+			<div class="mnu">
+				<span class="hamburger hamburger--collapse">
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+					</span>
+				</span>
+				<div class="respon navbar-main">
+					<div class="search-box">
+						<form>
+							<input type="text" placeholder="Track Here">
+							<button type="submit"><img src="assets/images/search-icon.png" alt="" /></button>
+						</form>
+					</div>
+					<ul class="nav navbar-nav">
+						<li><a href="member-listing.php">Members</a></li>
+						<li><a href="signup.php">Sign Up</a></li>
+						<li><a href="login.php">Login</a></li>
+						<li><a href="javascript:;" class="sidebar-btn">Contact</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="logo"><a href="index.php"><img src="assets/images/logo.png" alt="" /></a></div>
+</header> -->
+<div class="commonBgDiv"><img src="assets/images/banner.jpg" alt="" /></div>
+<div class="banner-wrap" *ngIf="accountType == 2">
+	<div class="banner" style="background-image:url(assets/images/banner.jpg);">
+		<div class="banner-in">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-offset-2 col-md-8 col-xs-12">
+						<div class="wrap-box listing ordr nvr edit_pro">
+							<div class="">
+								<div class="boxs-in">
+									<div class="frm" *ngFor="let customerDetails of customerDetails;let i=index">
+										<form class="jform" [formGroup]="businessForm" (submit)="updateDetails()">
+											<h3>Edit Profile</h3>
+											<div class="col-md-5 ed_left">
+												<div class="ed_left1">
+													<div class="upload_img">
+														<img [src]="imagesUrl || BaseUrl + customerDetails.profile_logo" alt="upload images" class="upload_imges">
+													</div>
+													<label>
+														<input type="file" (change)="fileUpload($event)"> Change Logo
+													</label>
+													<p>Member ID: {{customerDetails.member_no}}</p>
+												</div>
+												<!-- <div class="checkbox sale default">
+										<input id="checkbox101" type="checkbox">
+										<label class="label_supply" for="checkbox101">Auto Recommend Suppliers</label>
+									</div>
+									<div class="supplier_loogo text-center">
+										<img src="assets/images/supplier_logo.png" alt="supplier logo">
+									</div>
+									<div class="checkbox sale default">
+										<input id="checkbox102" type="checkbox">
+										<label class="label_supply" for="checkbox102">Capricon Member?</label>
+									</div>
+									<div class="field">
+										<input type="text" value="XXX-XXXX" >
+										<fieldset class="active">Capricorn No.</fieldset>
+										<div *ngIf="submit && f.contact_person.errors" class="invalid-feedback">
+													<div *ngIf="f.contact_person.errors.required">Contact Person is required</div>
+													</div>
+									</div>	 -->
+											</div>
+											<div class="col-md-7 ">
+												<div class="field">
+													<input type="text" 
+														[(ngModel)]="customerDetails.business_name" formControlName="business_name">
+													<fieldset class="active">Business Name</fieldset>
+													<div *ngIf="submit && f.business_name.errors" class="invalid-feedback">
+														<div *ngIf="f.business_name.errors.required">Business Name is required</div>
+													</div>
+												</div>
+												<div class="field">
+													<input type="text" 
+														[(ngModel)]="customerDetails.contact_person" formControlName="contact_person">
+													<fieldset class="active">Contact Person</fieldset>
+													<div *ngIf="submit && f.contact_person.errors" class="invalid-feedback">
+														<div *ngIf="f.contact_person.errors.required">Contact Person is required</div>
+													</div>
+												</div>
+												<div class="field">
+													<input type="text" 
+														[(ngModel)]="customerDetails.personal_contact" formControlName="personal_contact" readonly>
+													<fieldset class="active">Personal Contact </fieldset>
+													<div *ngIf="submit && f.personal_contact.errors" class="invalid-feedback">
+														<div *ngIf="f.personal_contact.errors.required">Personal Contact is required</div>
+													</div>
+												</div>
+												<div class="field">
+													<input type="text" 
+														[(ngModel)]="customerDetails.business_address" formControlName="business_address">
+													<fieldset class="active">Business Address</fieldset>
+													<div *ngIf="submit && f.business_address.errors" class="invalid-feedback">
+														<div *ngIf="f.business_address.errors.required">Business Address is required</div>
+													</div>
+												</div>
+
+												<!-- <div class="col-md-8 field">
+											<div class="row pr-15">	
+												<input type="text"  >
+												<fieldset class="active">Business Contact Number</fieldset>
+												<div *ngIf="submit && f.contact_person.errors" class="invalid-feedback">
+													<div *ngIf="f.contact_person.errors.required">Contact Person is required</div>
+													</div>
+											</div>
+										</div> -->
+												<!-- <div class="col-md-4 field">
+													<div class="row">
+														<input type="text" 
+															[(ngModel)]="customerDetails.business_name">
+														<fieldset class="active">Post Code</fieldset>
+														<div *ngIf="submit && f.contact_person.errors" class="invalid-feedback">
+													<div *ngIf="f.contact_person.errors.required">Contact Person is required</div>
+													</div>
+													</div>
+												</div> -->
+												<div class="col-md-4 field">
+													<div class="row">
+														<input type="text" 
+															[(ngModel)]="customerDetails.state" formControlName="state">
+														<fieldset class="active">State</fieldset>
+														<div *ngIf="submit && f.state.errors" class="invalid-feedback">
+													<div *ngIf="f.state.errors.required">State is required</div>
+													</div>
+													</div>
+												</div>
+												<div class="col-md-8 field">
+													<div class="row pl-15">
+														<input type="text" 
+															[(ngModel)]="customerDetails.business_abn" formControlName="business_abn">
+														<fieldset class="active">Business ABN</fieldset>
+														<div *ngIf="submit && f.business_abn.errors" class="invalid-feedback">
+													<div *ngIf="f.business_abn.errors.required">Business ABN is required</div>
+													</div>
+													</div>
+												</div>
+
+												<div class="field col-md-12">
+													<div class="row">
+														<input type="text" 
+															[(ngModel)]="customerDetails.business_contact" formControlName="business_contact">
+														<fieldset class="active">Business Contact Number</fieldset>
+														<div *ngIf="submit && f.business_contact.errors" class="invalid-feedback">
+													<div *ngIf="f.business_contact.errors.required">Business Contact Number is required</div>
+													</div>
+													</div>
+												</div>
+												<div class="field col-md-12">
+													<div class="row">
+														<!-- <img src="assets/images/arrow.png" alt=""> -->
+														<input type="text" [(ngModel)]="customerDetails.email_id" formControlName="email_id" readonly>
+														<fieldset class="active">Email</fieldset>
+														<div *ngIf="submit && f.email_id.errors" class="invalid-feedback">
+															<div *ngIf="f.email_id.errors.required"> Email is required</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group col-md-12 b_typee">
+													<div class="row">
+														<label for="exampleInputEmail2" class="days_label"> Business Type </label>
+														<select class="form-control bt"
+															[(ngModel)]="customerDetails.business_type" formControlName="business_type">
+															<option value="" [selected]=true>--select Type--</option>
+															<option *ngFor="let businessType of businessType" [value]="businessType.business_type_id" >{{businessType.business_type_name}}</option>
+														</select>
+														<div *ngIf="submit && f.business_type.errors" class="invalid-feedback">
+																<div *ngIf="f.business_type.errors.required"> Business Type is required</div>
+														</div>
+													</div>
+												</div>
+
+												<div class="text-center button_email_report">
+													<!-- <button class="btn-def btnsld white e_d" data-dismiss="modal"
+														type="button" value="Find Part"
+														data-tab="NextStep">Print</button> -->
+													<button class="btn-def btnsld e_d" type="submit" value="Find Part"
+														data-tab="NextStep">Submit</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		</div>
+
+		<!-- Personal Customer Edit Details Start -->
+		<div class="banner-wrap" *ngIf="accountType == 1">	
+				<div class="banner" style="background-image:url(assets/images/banner.jpg);">
+				<div class="banner-in">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-offset-2 col-md-8 col-xs-12">
+								<div class="wrap-box listing ordr nvr edit_pro">
+									<div class="">
+										<div class="boxs-in" *ngFor="let personalDetails of customerDetails">
+											<div class="frm">
+										<form class="jform" [formGroup]="personalForm" (submit)="updatePersonalDetails()">
+											<h3>Edit Profile</h3>
+											<div class="col-md-5 ed_left">
+												<div class="ed_left1">
+													<div class="upload_img">
+														<img [src]="imagesUrl || BaseUrl + personalDetails.profile_logo" alt="upload images" class="upload_imges">
+													</div>	
+													<label>
+														<input type="file" (change)="fileUpload($event)"> Change Logo
+													</label>
+													<p>Member ID: {{personalDetails.member_no}}</p>
+												</div>
+										
+											</div>		
+											<div class="col-md-7 ">
+													<div class="field">
+														<input type="text"  formControlName="user_name" [(ngModel)]="personalDetails.user_name">
+														<fieldset class="active">User Name</fieldset>
+														<div *ngIf="submited && pform.user_name.errors" class="invalid-feedback">
+															<div *ngIf="pform.user_name.errors.required"> User Name is required</div>
+														</div>
+													</div>
+													<div class="field">
+														<input type="text"  formControlName="first_name" [(ngModel)]="personalDetails.first_name">
+														<fieldset class="active">First Name</fieldset>
+														<div *ngIf="submited && pform.first_name.errors" class="invalid-feedback">
+																<div *ngIf="pform.first_name.errors.required"> First Name is required</div>
+															</div>
+													</div>
+													<div class="field">
+														<input type="text"  formControlName="last_name" [(ngModel)]="personalDetails.last_name">
+														<fieldset class="active">Last Name</fieldset>
+														<div *ngIf="submited && pform.last_name.errors" class="invalid-feedback">
+																<div *ngIf="pform.last_name.errors.required"> Last Name is required</div>
+															</div>
+													</div>
+													<div class="field">
+														<input type="text"  formControlName="contact_person" [(ngModel)]="personalDetails.contact_person">
+														<fieldset class="active">Contact Person</fieldset>
+														<div *ngIf="submited && pform.contact_person.errors" class="invalid-feedback">
+																<div *ngIf="pform.contact_person.errors.required"> Contact Person is required</div>
+															</div>
+													</div>
+													<div class="field">
+														<input type="text" formControlName="business_address" [(ngModel)]="personalDetails.business_address">
+														<fieldset class="active">Address</fieldset>
+														<div *ngIf="submited && pform.business_address.errors" class="invalid-feedback">
+																<div *ngIf="pform.business_address.errors.required"> Address is required</div>
+															</div>
+													</div>
+			
+													<div class="col-md-8 field">
+														<div class="row pr-15">	
+															<input type="text"  formControlName="suburbs" [(ngModel)]="personalDetails.suburbs">
+															<fieldset class="active">Suburbs</fieldset>
+															<div *ngIf="submited && pform.suburbs.errors" class="invalid-feedback">
+																<div *ngIf="pform.suburbs.errors.required"> Suburbs is required</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-4 field">
+														<div class="row">	
+															<input type="text"  formControlName="postcode" [(ngModel)]="personalDetails.postcode">
+															<fieldset class="active">Post Code</fieldset>
+															<div *ngIf="submited && pform.postcode.errors" class="invalid-feedback">
+																<div *ngIf="pform.postcode.errors.required">Post Cod is required</div>
+															</div>
+														</div>
+													</div>	
+													<div class="clearfix"></div>
+													<div class="col-md-4 field">
+														<div class="row">	
+															<input type="text"  formControlName="state" [(ngModel)]="personalDetails.state">
+															<fieldset class="active">State</fieldset>
+															<div *ngIf="submited && pform.state.errors" class="invalid-feedback">
+																<div *ngIf="pform.state.errors.required"> State is required</div>
+															</div>
+														</div>
+													</div>
+													<div class="field col-md-12">
+														<div class="row">
+															<input type="text"  formControlName="personal_contact" [(ngModel)]="personalDetails.personal_contact">
+															<fieldset class="active">Phone Number</fieldset>
+															<div *ngIf="submited && pform.personal_contact.errors" class="invalid-feedback">
+																<div *ngIf="pform.personal_contact.errors.required"> Email is required</div>
+															</div>
+														</div>
+													</div>
+													<div class="field col-md-12">
+														<div class="row">
+														<!-- <img src="assets/images/arrow.png" alt=""> -->
+															<input type="text"  formControlName="email_id" [(ngModel)]="personalDetails.email_id" readonly>
+															<fieldset class="active">Email</fieldset>
+															<div *ngIf="submited && pform.email_id.errors" class="invalid-feedback">
+																<div *ngIf="pform.email_id.errors.required"> Email is required</div>
+															</div>
+														</div>
+													</div>
+													
+													<div class="text-center button_email_report fullwidth">
+														<!-- <button class="btn-def btnsld white e_d" data-dismiss="modal" type="submit" value="Find Part" data-tab="NextStep">Print</button>									 -->
+														<button class="btn-def " type="submit" value="Find Part" data-tab="NextStep">Submit</button>									
+													</div>
+												</div>	
+											</form>	
+										</div>
+									</div>			
+								</div>
+							</div>
+						</div>		
+					</div>		
+					</div>
+				</div>
+			</div>
+			</div>

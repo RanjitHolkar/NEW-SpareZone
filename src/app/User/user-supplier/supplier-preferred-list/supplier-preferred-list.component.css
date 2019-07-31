@@ -1,0 +1,8 @@
+/* .active{
+    background-color: #666;
+    color: skyblue;
+  } */
+ img.closeBtn {
+    width: 12px;
+    filter: invert(1);
+  }

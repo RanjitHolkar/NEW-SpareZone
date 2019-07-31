@@ -1,0 +1,22 @@
+.error{
+    color: red;
+}
+/* .newBtnPopup{
+    box-shadow: 0px 1px 6px 0px #dddddde8;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px 0px 20px;
+    display: block;
+    position: absolute;
+    z-index: 99;
+    background-color: #fff;
+} */
+
+.btnDiv{
+    max-height: 370px;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+.mart5{
+    margin-top: 5px;
+}

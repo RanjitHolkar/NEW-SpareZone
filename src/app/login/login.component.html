@@ -1,0 +1,103 @@
+<div class="wrapper">
+  <app-user-nav></app-user-nav>
+      <div class="commonBgDiv"><img src="assets/images/banner.jpg" alt="" /></div>
+        <div class="banner-wrap">	
+    <div class="banner" style="background-image:url(assets/images/banner.jpg);">
+    <div class="banner-in">
+      <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="wrap-box">
+            <div class="boxs active">
+            <div class="boxs-in">
+              <h3>Login Details</h3>						
+              <div class="frm logn">
+                <form class="jform" [formGroup]="loginForm" (submit)="login()">							
+                  <div class="field">
+                    <input type="text" formControlName="email_id" placeholder="Username"/>
+                    <div *ngIf="submit && f.email_id.errors" class="errors">
+                      Username is required
+                    </div>
+                  </div>
+                  <div class="field">
+                    <input type="password" formControlName="password" placeholder="Password" />
+                    <div *ngIf="submit && f.password.errors" class="errors">
+                      Password is required
+                    </div>
+                  </div>														
+                  <div class="btnl">
+                    <button class="btn-def" type="submit">Login</button>	
+                    <a href="javascript:;" data-toggle="modal" data-target=".forgot-password" class="fpas">Forgot Password?</a>
+                  </div>	
+                  <div class="lxt">
+                    <span class="stxt">Skip this Step<br />
+                    Keep track of your searches and quotes</span>
+                  </div>		
+                  <div class="pers">
+                    <button class="btn-def" type="button"  routerLink="/signup-customer">Sign Up</button>
+                    <button class="btn-def" style="margin-right: 0px;" type="button" value="Quest">Quest</button>
+                  </div>	
+                  <div class="dhacc">
+                    <a href="javascript:;" class="stxt">Dont have an account?</a>
+                  </div>
+                </form>
+              </div>					
+            </div>					
+            </div>
+          </div>
+        </div>		
+        </div>		
+      </div>
+      </div>
+    </div>
+  </div>
+  <!--== LOGIN START ==-->
+  <div class="modal fade forgot-password" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content fp_pl">
+      <div class="modal-body frm dou">
+        <form class="jform">
+          <h5 class="text-left fp">Forgot password</h5>
+          <p class="register_email">Please Enter your Registered Email Address to Receive Change Password instruction</p>
+        <div class="field f_fields">	
+          <img src="assets/images/arrow.png" alt="">
+          <input type="text" value="example@email.com" name="">
+          <fieldset class="active">Model</fieldset>
+        </div>
+          <div class="buttons_set"><button class="btn-def btnsld reg-link"  data-toggle="modal" data-target=".successfull" type="button" value="Find Part">Reset</button>									
+        </div>
+      </form>
+      </div>
+      </div>
+    </div>
+    </div>
+  <!--== LOGIN END ==-->
+  
+  
+  <!--== EMAIL-SENT SUCCESSFULLY START ==-->
+    <div class="modal fade successfull" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content modal_c reset">
+          <div class="modal-body reset_address">
+            <img src="assets/images/correct.png" class="center-block" alt="correct">
+            <p class="success_text">Reset Instruction has been send to your email address.</p>	
+          </div>
+          <div class="text-center">
+        <button type="button" class="btn btn-def go_back" data-dismiss="modal">Go Back</button>
+        </div>
+      </div>
+  
+      </div>
+    </div>
+  <!--== EMAIL-SENT SUCCESSFULLY END ==-->
+  
+  
+      <footer>
+        <div class="container">
+          <div class="row">
+  
+          </div>
+        </div>
+      </footer>
+    </div>

@@ -1,0 +1,604 @@
+<app-user-nav></app-user-nav>
+<!-- member account -->
+  <div class="supplierDiv memeberAccountmain">
+    <div class="supplierDivInner">
+      <div class="custumPop max900">
+        <div class="custumPopHead noBord">
+          <h4 class="popHead">Profile Details</h4>
+        </div>
+        <div class="custumPopBody"  *ngFor="let details of userDetails">
+          <div class="popSupplierText padd0">
+            <!-- member account Left section -->
+            <div class="width60N memAccRight">
+            <form [formGroup]="editForm" (submit)="updateDetails()">
+              <div class="memAccRightInner">
+                <div class="width40N">
+                  <div class="imageDiv">
+                    <img [src]="imagesUrl || base_url + details.profile_logo" class="profilrPicIcon" class="profilrPicIcon">
+                  </div>
+                  <div class="btnDiv">
+                      <div class="uploadBtnDiv" *ngIf="!viewDetails">
+                          <button class="btn btnBlueNew uploadBtn">Change Logo</button>
+                          <input type="file" class="uploadInput" (change)="uploadFiles($event)">
+                      </div>
+                    <p>Member ID: {{details.member_no}}</p>
+                  </div>
+                  <div class="formgroup marT30 text-center">
+                    
+                    <img src="assets/images/supplier.png" class="supplierImg">
+                  </div>
+                  <div class="formgroup mar0">
+                    <p><img src="assets/images/checkBox.png" class="checkIcon">Capricon Member</p>
+                    
+                  </div>
+                  <div class="formgroup">
+                    <label>Capricorn No.</label>
+                    <input type="text" class="commonInput" formControlName="is_capricon" [(ngModel)]="details.is_capricon">
+                    <div *ngIf="submit && f.is_capricon.errors" class="invalid-feedback">
+                        <div *ngIf="f.is_capricon.errors.required" >Capricorn No. is required</div>
+                    </div>
+                  </div>
+                  <div class="formgroup marT30">
+                    <label>Account Notes:</label>
+                    <p class="smallDate">1:00pm 02-04-2018</p>
+                    
+                  </div>
+                </div>
+                
+                <div class="width60N paddLR20 memRightBtnGroup" *ngIf="viewDetails">
+                  <div class="text-center disF ">
+                    <button class="btn commonWhiteBtn commonWhiteBtn1" (click)="viewDetails = false">Edit</button>
+                    <button class="btn commonWhiteBtn commonWhiteBtn2">Reset Password</button>
+                  </div>
+                   <!-- member account view admin left -->
+                  <!--  <div class="text-center disF memberBntGroup">
+                    <button class="btn commonWhiteBtn commonWhiteBtn1">Edit</button>
+                    <button class="btn commonBlueBtn">Hold</button>
+                    <button class="btn commonWhiteBtn redBtn">Delete</button>
+                    <button class="btn commonWhiteBtn commonWhiteBtn2">Reset Password</button>
+                  </div> -->
+                   <!-- member account view admin left close-->
+                  <div class="formgroup">
+                    <label class="blueLabel">Woodville Auto Wreckers</label>
+                    <p class="savedText">{{details.business_name}}</p>
+                  </div>
+                  
+                  <div class="formgroup">
+                    <label>Address</label>
+                    <p class="savedText">{{details.business_address}}</p>
+                    <p class="savedText">{{details.state}}</p>
+                    <!-- <p class="savedText">SA</p> -->
+                  </div>
+                  
+                  
+                  <div class="formgroup">
+                    <label>ABN </label>
+                    <p class="savedText">{{details.business_abn}}</p>
+                  </div>
+                  
+                  <div class="formgroup">
+                    <label>Phone Number:</label>
+                    <p class="savedText">{{details.personal_contact}}</p>
+                  </div>
+                  <div class="formgroup">
+                    <label>Email</label>
+                    <input type="text" class="commonInput" formControlName="email_id" [(ngModel)]="details.email_id" readonly>
+                  </div>
+                  <div class="formgroup">
+                    <label>Account Type</label>
+                    <p class="savedText"><span class="blackroundN"></span>{{details.business_type}}</p>
+                  </div>
+                </div>
+
+                <!-- Edit Page Profile Start -->
+                <div class="width60N" *ngIf="viewDetails == false">
+                  <div >
+                  <div class="formgroup">
+                    <label>Business Name</label>
+                    <input type="text" class="commonInput" formControlName="business_name" [(ngModel)]="details.business_name">
+                    <div *ngIf="submit && f.business_name.errors" class="invalid-feedback">
+                        <div *ngIf="f.business_name.errors.required" >Business Name is required</div>
+                    </div>
+                  </div>
+                  <div class="formgroup">
+                    <label>Contact Person</label>
+                    <input type="text" class="commonInput" formControlName="contact_person" [(ngModel)]="details.contact_person">
+                    <div *ngIf="submit && f.contact_person.errors" class="invalid-feedback">
+                        <div *ngIf="f.contact_person.errors.required" >Contact Person is required</div>
+                    </div>
+                  </div>
+                  <div class="formgroup">
+                    <label>Address</label>
+                    <input type="text" class="commonInput" formControlName="business_address" [(ngModel)]="details.business_address">
+                    <div *ngIf="submit && f.business_address.errors" class="invalid-feedback">
+                        <div *ngIf="f.business_address.errors.required" >Address is required</div>
+                    </div>
+                  </div>
+                  <div class="formgroup DisF marB10">
+                    <div class="formgroup formgroupN2">
+                      <label>Suburb</label>
+                      <input type="text" class="commonInput" formControlName="suburbs" [(ngModel)]="details.suburbs">
+                      <div *ngIf="submit && f.suburbs.errors" class="invalid-feedback">
+                          <div *ngIf="f.suburbs.errors.required" >Suburb is required</div>
+                      </div>
+                    </div>
+                    <div class="formgroup formgroupN1 ">
+                      <label>Post Code </label>
+                      <input type="text" class="commonInput" formControlName="postcode" (keypress)="numberOnly($event)" [(ngModel)]="details.postcode">
+                      <div *ngIf="submit && f.postcode.errors" class="invalid-feedback">
+                          <div *ngIf="f.postcode.errors.required" >Post Code is required</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="formgroup DisF marB10">
+                    <div class="formgroup formgroupN1" >
+                      <label>State</label>
+                      <input type="text" class="commonInput" formControlName="state" [(ngModel)]="details.state">
+                      <div *ngIf="submit && f.state.errors" class="invalid-feedback">
+                          <div *ngIf="f.state.errors.required" >State is required</div>
+    
+                      </div>
+                    </div>
+                    <div class="formgroup formgroupN2 ">
+                      <label>ABN </label>
+                      <input type="text" class="commonInput" formControlName="business_abn" [(ngModel)]="details.business_abn" >
+                      <div *ngIf="submit && f.business_abn.errors" class="invalid-feedback">
+                          <div *ngIf="f.business_abn.errors.required" >ABN is required</div>
+    
+                      </div>
+                    </div>
+                  </div>
+                  <div class="formgroup">
+                    <label>Phone Number:</label>
+                    <input type="text" class="commonInput" formControlName="personal_contact" [(ngModel)]="details.personal_contact" readonly>
+                    <div *ngIf="submit && f.personal_contact.errors" class="invalid-feedback">
+                        <div *ngIf="f.personal_contact.errors.required" >Phone Number is required</div>
+                    </div>
+                  </div>
+                  <div class="formgroup">
+                    <label>Email</label>
+                    <input type="text" class="commonInput" formControlName="email_id" [(ngModel)]="details.email_id" readonly> 
+                    <div *ngIf="submit && f.email_id.errors" class="invalid-feedback">
+                        <div *ngIf="f.email_id.errors.required" >Email is required</div>
+                    </div>
+                  </div>
+                  <div class="formgroup">
+                    <label>Business Type</label>
+                    <select class="commonInput" formControlName="business_type" [(ngModel)]="details.business_type">
+                      <option *ngFor="let type of businessType" [value]="type.business_type_id"> {{ type.business_type_name }} </option>
+                    </select>
+                    <div *ngIf="submit && f.business_type.errors" class="invalid-feedback">
+                        <div *ngIf="f.business_type.errors.required" >Business Type is required</div>
+                    </div>
+                  </div>
+                  <div class="formgroup">
+                      <label>Group Type</label>
+                      <select class="commonInput" formControlName="group_id" [(ngModel)]="details.group_id">
+                        <!-- <option value="" [selected]=true>--Select group--</option> -->
+                        <option *ngFor="let type of supplierGroup" [value]="type.supplier_setting_id"> {{ type.group_name }} </option>
+                      </select>
+                      <div *ngIf="submit && f.group_id.errors" class="invalid-feedback">
+                          <div *ngIf="f.group_id.errors.required" >Group Type is required</div>
+                      </div>
+                    </div>
+                  
+                  <div class="clearfix "></div>
+                  <div class="text-center marT30">
+                    <!-- <button class="btn commonWhiteBtn">Print</button> -->
+                    <button class="btn commonBlueBtn lightBlueBtn" type="submit">Submit</button>
+                  </div>
+                  </div>
+                </div>
+                <!-- Edit Profile End -->
+                
+              </div>
+              <div class="formgroup disF">
+                <!-- <div class="width40N ">
+                  <p class="smallBlue">Note is test</p>
+                </div> -->
+                <!-- <div class="width60N paddLR20">
+                  <p class="smallBlue">Dave</p>
+                </div> -->
+              </div>
+              </form>
+            </div>
+            <!-- member account Left section end -->
+            <!-- member account right section start -->
+            <div class="width40N memAccLeft">
+              <div class=" profileTabSectionInner memberAccountTab">
+                <div class=" profileTabSectionContent">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">Users</a></li>
+                    <li><a data-toggle="tab" href="#menu1">Accounts</a></li>
+                    <li><a data-toggle="tab" href="#menu2">Settings</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <!-- Profile Settings tab content-->
+                    <div id="home" class="tab-pane fade in active">
+                      <div class="memberUserTab">
+                        <div class="memAcchead">
+                          <div class="srollDivDisF">
+                            <div class="disFN">
+                              <div class="singleBoxUser" *ngFor="let subSupplierDetails of subSupplierDetails;let i = index">
+                                <div class="singleBoxUserList">
+                                  <div class="userDivIcon">
+                                    <img src="assets/images/userIcon.png" class="userIcon">
+                                  </div>
+                                  <div class="btn-group disF">
+                                    <button type="button" class="btn bordR" (click)="viewSubSupplierDetails(i,subSupplierDetails.sub_supplier_id)">View</button>
+                                    <button type="button" class="btn colorRed" (click)="removeSubSupplier(i,subSupplierDetails.sub_supplier_id)">Delete</button>
+                                  </div>
+                                </div>
+                                <div class="singleBoxUserText active">
+                                  <h4>{{subSupplierDetails.full_name}}</h4>
+                                  <p>{{subSupplierDetails.position == 5 ? 'Admin' : subSupplierDetails.position == 6 ? 'Accountant':'Sales'}}</p>
+                                </div>
+                              </div>
+                              <div class="singleBoxUser" (click)="addSubSupplier.reset();acctionButton = 'Save';submited = false">
+                                <div class="singleBoxUserList addUserList">
+                                  <div class="userDivIcon">
+                                    <img src="assets/images/addIcon.png" class="userIcon">
+                                  </div>
+                                </div>
+                                <div class="singleBoxUserText">
+                                  <h4>Add New</h4>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="UserDetailMemAcc">
+                          <div>
+                          <form [formGroup]="addSubSupplier" (submit)="addEditSubSupplier()" >
+                          <h4 class="head">User Details</h4>
+                          <div class="formgroup DisF marB10">
+                            <div class="formgroup formgroup3">
+                              <label>User ID</label>
+                              <input type="text" class="commonInput" formControlName="user_id">
+                              <div *ngIf="submited && fo.user_id.errors" class="invalid-feedback">
+                                  <div *ngIf="fo.user_id.errors.required" >User ID is required</div>
+                              </div>
+                            </div>
+                            <div class="formgroup formgroup3 ">
+                              <label>Password </label>
+                              <input type="password" class="commonInput noBord" formControlName="password">
+                              <div *ngIf="submited && fo.password.errors" class="invalid-feedback">
+                                  <div *ngIf="fo.password.errors.required" >Password is required</div>
+                              </div>
+                            </div>
+                            <a class="resetBtn">Reset</a>
+                          </div>
+                          <div class="formgroup DisF marB10">
+                            <div class="formgroup formgroup3 ">
+                              <label>Name</label>
+                              <input type="text" class="commonInput" formControlName="full_name">
+                              <div *ngIf="submited && fo.full_name.errors" class="invalid-feedback">
+                                  <div *ngIf="fo.full_name.errors.required" >Name is required</div>
+                              </div>
+                            </div>
+                            <div class="formgroup formgroup3 ">
+                              <label>Employer ID </label>
+                              <input type="text" class="commonInput" formControlName="employer_id">
+                              <div *ngIf="submited && fo.employer_id.errors" class="invalid-feedback">
+                                  <div *ngIf="fo.employer_id.errors.required" >Employer ID is required</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="formgroup DisF marB10">
+                            <div class="formgroup formgroup3 ">
+                              <label>Position</label>
+                              <select class="commonInput" formControlName="position">
+                                <option value='' [selected]=true>--Select Postion--</option>
+                                <option value="5">Admin</option>
+                                <option value="6">Accountant</option>
+                                <option value="7">Sales</option>
+                              </select>
+                              <div *ngIf="submited && fo.position.errors" class="invalid-feedback">
+                                  <div *ngIf="fo.position.errors.required" >Position is required</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="formgroup">
+                            <div class="formgroup">
+                              <label>Email</label>
+                              <input type="text" class="commonInput" formControlName="email_id">
+                              <div *ngIf="submited && fo.email_id.errors" class="invalid-feedback">
+                                  <div *ngIf="fo.email_id.errors.required" >Email is required</div>
+                                  <div *ngIf="fo.email_id.errors.email">Email must be a valid email address</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="formgroup text-center marT10">
+                            <button class="btn commonBlueBtn min150" type="submit">{{acctionButton}}</button>
+                          </div>
+                         </form>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Profile Settings tab content end-->
+                    <!-- general Settings tab content start-->
+                    <div id="menu1" class="tab-pane fade">
+                      <div class="AccountStatDiv">
+                        <div class="AccountStatDivInner">
+                          <div class="memStateHead disF">
+                            <h3>Account Stats</h3>
+                            <h5>View activity log</h5>
+                          </div>
+                          <div class="totOrderMain ">
+                            <div class="totOrder disF">
+                              <h4>Total Orders</h4>
+                              <p>$5400.56</p>
+                            </div>
+                            <div class=" disF">
+                              <h4>$5400.56</h4>
+                              <p>$102.55</p>
+                            </div>
+                          </div>
+                          <div class="disF">
+                            <button class="btn commonWhiteBtn btnNadd">Prepaid Transaction Receipt </button>
+                          </div>
+                          <div class="memStateHead memStateHeadRound disF">
+                            <h3>Recent Orders</h3>
+                            <h5>Most Recent</h5>
+                          </div>
+                          <div class="rentOrderMain">
+                            <div class="rentOrder disF">
+                              <div class=" disF commonBlueBtn">
+                                <p>W3344</p>
+                                <p>10:00pm 18-12</p>
+                              </div>
+                              <button class="btn commonWhiteBtn">View </button>
+                            </div>
+                            <div class="rentOrder disF">
+                              <div class=" disF commonBlueBtn">
+                                <p>W3344</p>
+                                <p>10:00pm 18-12</p>
+                              </div>
+                              <button class="btn commonWhiteBtn">View </button>
+                            </div>
+                            <div class="rentOrder disF">
+                              <div class=" disF commonBlueBtn">
+                                <p>W3344</p>
+                                <p>10:00pm 18-12</p>
+                              </div>
+                              <button class="btn commonWhiteBtn">	View </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="text-center ">
+                          <button class="btn commonBlueBtn">Save </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- general Settings tab content end-->
+                    <!-- supplier Settings tab content -->
+                    <div id="menu2" class="tab-pane fade">
+                      <div class="MemberSetting">
+                        <!-- single row -->
+                        <div class="MemberSettingSingle">
+                          <div class="width60N">
+                            <h2>Select A Vehilce </h2>
+                            <p>Please Add all the Makes you wish NOT to receive quote request for.</p>
+                          </div>
+                          
+                        </div>
+                        <!-- single row -->
+                        <div class="MemberSettingSingle">
+                          <div class="width60N">
+                            <p><span>NOTE:</span> You will NOT recieve quote for the  brand of vehicle you see in box below. </p>
+                          </div>
+                          <div class="width40N">
+                          <p><span>NOTE:</span>  You will NOT recieve quote for the Category of  Parts You See Blew </p>
+                          </div>
+                        </div>
+                        <!-- single row -->
+                        <div class="MemberSettingSingle">
+                          <div class="width60N">
+                            <div class="MaintanceSingle">
+                              <h4 class="maintanceHead">Makes</h4>
+                              <ul>
+                                <li>
+                                  <p>Toyota</p>
+                                  <h5 class="closeRound">X</h5>
+                                </li>
+                                <li>
+                                  <p>Mitsibishi</p>
+                                  <h5 class="closeRound">X</h5>
+                                </li>
+                                <li>
+                                  <p>Nissian</p>
+                                  <h5 class="closeRound">X</h5>
+                                </li>
+                                <li>
+                                  <p>Honda</p>
+                                  <h5 class="closeRound">X</h5>
+                                </li>
+                              </ul>
+                              <div class="text-center">
+                                <button class="btn commonBtnBlue widthUnset">Add</button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="width40N">
+                            <div class="MaintanceSingle">
+                              <h4 class="maintanceHead">Parts Categories</h4>
+                              <ul>
+                                <li>
+                                  <p>Engine</p>
+                                  <h5 class="closeRound">X</h5>
+                                </li>
+                                <li>
+                                  <p>Electricals</p>
+                                  <h5 class="closeRound">X</h5>
+                                </li>
+                                
+                              </ul>
+                              
+                            </div>
+                          </div>
+                          
+                        </div>
+                        
+                        
+                        
+                      </div>
+                    </div>
+                    
+                  </div>
+                  
+                  
+                  
+                </div>
+                
+                <div class="overlayDiv" id="addGroup" *ngIf="confirmationPopUp">
+                    <form [formGroup]="supplierGroupForm" class="newBtnPopup">
+                      <div class="form-group closeBtnDiv">
+                        <span href="#" class="closeBtn" (click)="ClosePopUp()"><img src="assets/images/cancel.png" alt=""></span>
+                      </div>
+                      <div class="form-group">
+                        <img src="assets/images/trash-can.png" alt="">
+                      </div>
+                      <div class="form-group TextDiv">
+                        <h4 class="popUpHead">Are you sure to ?</h4>
+                        <p class="popupPara">Do you really want to delete the account? You can not cancel this process.</p>
+                      </div>
+                      <div class="form-group cancelPopupBtn">
+                        <button class="btn commonBlueBtn lightBlueBtn" type="button" (click)="confirmationPopUp = false">NO</button>
+                        <button class="btn commonWhiteBtn" type="button" (click)="confirmRemoveSubSupplier()">YES</button>
+                      </div>
+                      
+                    </form>
+                  </div>
+
+
+                <!-- member account view admin right -->
+                <!-- <div class="AccountStatDiv">
+                  <div class="memAcchead">
+                    <div class="memStateHead disF">
+                      <h3>Users</h3>
+                    </div>
+                    <div class="srollDivDisF">
+                      <div class="disFN">
+                        <div class="singleBoxUser">
+                          <div class="singleBoxUserList">
+                            <div class="userDivIcon">
+                              <img src="images/userIcon.png" class="userIcon">
+                            </div>
+                            <div class="btn-group disF">
+                              <button type="button" class="btn bordR">View</button>
+                              <button type="button" class="btn">Edit</button>
+                            </div>
+                          </div>
+                          <div class="singleBoxUserText">
+                            <h4>John Smith</h4>
+                            <p>Admin</p>
+                          </div>
+                        </div>
+                        <div class="singleBoxUser">
+                          <div class="singleBoxUserList">
+                            <div class="userDivIcon">
+                              <img src="images/userIcon.png" class="userIcon">
+                            </div>
+                            <div class="btn-group disF">
+                              <button type="button" class="btn bordR">View</button>
+                              <button type="button" class="btn">Edit</button>
+                            </div>
+                          </div>
+                          <div class="singleBoxUserText">
+                            <h4>John Smith</h4>
+                            <p>Admin</p>
+                          </div>
+                        </div>
+                        <div class="singleBoxUser">
+                          <div class="singleBoxUserList">
+                            <div class="userDivIcon">
+                              <img src="images/userIcon.png" class="userIcon">
+                            </div>
+                            <div class="btn-group disF">
+                              <button type="button" class="btn bordR">View</button>
+                              <button type="button" class="btn">Edit</button>
+                            </div>
+                          </div>
+                          <div class="singleBoxUserText">
+                            <h4>John Smith</h4>
+                            <p>Admin</p>
+                          </div>
+                        </div>
+                        <div class="singleBoxUser">
+                          <div class="singleBoxUserList addUserList">
+                            <div class="userDivIcon">
+                              <img src="images/addIcon.png" class="userIcon">
+                            </div>
+                            
+                          </div>
+                          <div class="singleBoxUserText">
+                            <h4>John Smith</h4>
+                            <p>Admin</p>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="AccountStatDivInner">
+                    
+                    <div class="memStateHead disF">
+                      <h3>Account Stats</h3>
+                      <h5>View activity log</h5>
+                    </div>
+                    <div class="totOrderMain ">
+                      <div class="totOrder disF">
+                        <h4>Total Orders</h4>
+                        <p>$5400.56</p>
+                      </div>
+                      <div class=" disF">
+                        <h4>$5400.56</h4>
+                        <p>$102.55</p>
+                      </div>
+                    </div>
+                    <div class="disF">
+                      <button class="btn commonWhiteBtn btnNadd">Prepaid Transaction Receipt </button>
+                    </div>
+                    <div class="memStateHead memStateHeadRound disF">
+                      <h3>Recent Orders</h3>
+                      <h5>Most Recent</h5>
+                    </div>
+                    <div class="rentOrderMain">
+                      <div class="rentOrder disF">
+                        <div class=" disF commonBlueBtn">
+                          <p>W3344</p>
+                          <p>10:00pm 18-12</p>
+                        </div>
+                        <button class="btn commonWhiteBtn">View </button>
+                      </div>
+                      <div class="rentOrder disF">
+                        <div class=" disF commonBlueBtn">
+                          <p>W3344</p>
+                          <p>10:00pm 18-12</p>
+                        </div>
+                        <button class="btn commonWhiteBtn">View </button>
+                      </div>
+                      <div class="rentOrder disF">
+                        <div class=" disF commonBlueBtn">
+                          <p>W3344</p>
+                          <p>10:00pm 18-12</p>
+                        </div>
+                        <button class="btn commonWhiteBtn">	View </button>
+                      </div>
+                    </div>
+                  </div>
+                
+                </div> -->
+                <!-- member account view admin right -->
+                
+              </div>
+            
+            </div>
+            <!-- member account right section end -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- member account Profile end-->

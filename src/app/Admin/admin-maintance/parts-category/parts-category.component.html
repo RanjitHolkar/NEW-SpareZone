@@ -1,0 +1,197 @@
+<app-admin-nav></app-admin-nav>
+<div class="supplierDiv ">
+  <div class="supplierDivInner">
+    <div class="custumPop max800 partCatagoryMain">
+      <div class="custumPopHead noBord">
+        <h4 class="popHead">Maintance!</h4>
+        <p>Parts and Categories</p>
+      </div>
+      <div class="custumPopBody">
+        <div class="MaintancePop partcatagoryPop">
+          <div class="width50">
+            <div class="MaintanceSingle">
+              <h4 class="maintanceHead">Category</h4>
+              <ul>
+                <li>
+                  <p>Toyota</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Mitsibishi</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Nissian</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Honda</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Toyota</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Mitsibishi</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Nissian</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Honda</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+              </ul>
+              <div class="text-center">
+                <button class="btn commonBtnBlue widthUnset">Add</button>
+              </div>
+            </div>
+
+            <div class="MaintanceSingle">
+              <h4 class="maintanceHead">Parts</h4>
+              <ul>
+                <li>
+                  <p>Toyota</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Mitsibishi</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Nissian</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Honda</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Toyota</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Mitsibishi</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Nissian</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Honda</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+              </ul>
+              <div class="text-center">
+                <button class="btn commonBtnBlue widthUnset">Add</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="width50 paddLR10">
+            <h4 class="adMar">Assign Parts To Selection Box</h4>
+            <div class="MaintanceSingle CarImgBox">
+
+              <img src="assets/images/carImagecat.png" class="carImageNew">
+
+              <div class="UpperBoxDiv ">
+                <table>
+                  <tr>
+                    <td (click)="getBodyCell($event)" id="1" class="active"></td>
+                    <td (click)="getBodyCell()" id="2"></td>
+                    <td (click)="getBodyCell()" id="3"></td>
+                  </tr>
+                  <tr>
+                    <td (click)="getBodyCell()" id="4"></td>
+                    <td (click)="getBodyCell()" id="5"></td>
+                    <td (click)="getBodyCell()" id="6"></td>
+                  </tr>
+                  <tr>
+                    <td (click)="getBodyCell()" id="7"></td>
+                    <td (click)="getBodyCell()" id="8"></td>
+                    <td (click)="getBodyCell()" id="9"></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="MaintanceSingle">
+              <h4 class="maintanceHead">Parts</h4>
+              <ul>
+                <li>
+                  <p>Toyota</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Mitsibishi</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Nissian</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Honda</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Toyota</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Mitsibishi</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Nissian</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+                <li>
+                  <p>Honda</p>
+                  <h5 class="closeRound">X</h5>
+                </li>
+              </ul>
+              <div class="text-center">
+                <button class="btn commonBtnBlue widthUnset">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Popup -->
+<div id="catPartsPopup" class="overlayDiv">
+  <div  class="newBtnPopup min500 ">
+    <div class="form-group closeBtnDiv">
+      <h4 class="popHead">Mantance and </h4> <span href="#" class="closeBtn" (click)="ClosePopUp()"><img src="assets/images/cancel.png"
+          alt=""></span>
+    </div>
+    <div >
+      <div class="form-group">
+        <select class="commonInput">
+          <option value="null">Select Year</option>
+          <option value="">xdfg</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="text" class="commonInput" placeholder="Enter series">
+      </div>
+    </div>
+    <div>
+      <div class="form-group">
+        <input type="text" class="commonInput" placeholder="Enter ">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()">SAVE</button>
+    </div>
+  </div>
+</div>

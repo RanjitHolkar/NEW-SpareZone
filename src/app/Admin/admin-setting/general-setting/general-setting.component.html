@@ -1,0 +1,127 @@
+<!-- general Settings tab content start-->
+<div class="generalSettingMain">
+  <form [formGroup]="generalSettingForm">
+    <div class="width40">
+      <h4 class="blueHead mar0">Admin Profile</h4>
+      <h5 class="blueText text-left"> Fees&Commission </h5>
+      <div class="formgroup">
+        <label>Subscription Charges (Monthly)</label>
+        <input type="text" class="commonInput width50" formControlName="sub_charges">
+        <div *ngIf="isGSettingSubmitted">
+          <label class="error" *ngIf="gSettingF.sub_charges.errors?.required">Subscription charges is required</label>
+        </div>
+      </div>
+      <div class="formgroup">
+        <label>Order Commession </label>
+        <input type="text" class="commonInput width50" formControlName="ord_commession">
+        <div *ngIf="isGSettingSubmitted">
+          <label class="error" *ngIf="gSettingF.ord_commession.errors?.required">Order commission is required</label>
+        </div>
+      </div>
+  
+      <h5 class="blueText text-left">Invoice Settings and Commnets </h5>
+  
+      <div class="formgroup">
+        <label>Invoice Terms And Conditions </label>
+        <!-- <textarea type="text" class=""></textarea> -->
+        <div class="paraDiv">
+          <!-- <p> As per Aggrement, We Resever the right to check the vehilce, should there be any issue with car, and open
+            Inspection will void warranty</p> -->
+            <textarea formControlName="invoice_terms"></textarea>
+            <div *ngIf="isGSettingSubmitted">
+              <label class="error" *ngIf="gSettingF.invoice_terms.errors?.required">Invoice Terms And Conditions are required</label>
+            </div>
+        </div>
+      </div>
+      <div class="formgroup DisF marB10">
+        <div class="formgroup formgroup3 ">
+          <label>GST Rate</label>
+          <input type="text" class="commonInput" formControlName="gst_rate">
+          <div *ngIf="isGSettingSubmitted">
+            <label class="error" *ngIf="gSettingF.gst_rate.errors?.required">GST rate is required</label>
+          </div>
+        </div>
+        <div class="formgroup formgroup3 ">
+          <label>Re-Issue After Days </label>
+          <select class="commonInput" formControlName="reIssue_after">
+            <option>14</option>
+            <option>15</option>
+            <option>4</option>
+          </select>
+          <div *ngIf="isGSettingSubmitted">
+            <label class="error" *ngIf="gSettingF.reIssue_after.errors?.required">Re-Issue is required</label>
+          </div>
+        </div>
+      </div>
+      <div class="formgroup DisF marB10">
+        <div class="formgroup formgroup3 ">
+          <label>Due Days </label>
+          <select class="commonInput" formControlName="due_days">
+            <option>14</option>
+            <option>15</option>
+            <option>4</option>
+          </select>
+          <div *ngIf="isGSettingSubmitted">
+            <label class="error" *ngIf="gSettingF.due_date.errors?.required">Due date is required</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+  
+    <div class="width60">
+      <h5 class="blueText text-left">Website Terms and Conditions</h5>
+      <div class="termCond">
+        <div class="cond">
+          <label>Current Version</label>
+          <h5>Terms and Condition.pdf</h5>
+          <label>Last Update : 10-11-2019 11:35AM</label>
+        </div>
+        <div class="uploadDivBtn">
+          <input type="file" (change)="profileImagePreview($event)">
+          <button class="btn commonWhiteBtn">Upload</button>
+      </div>
+      </div>
+      <h5 class="blueText text-left">Acknowledgement Statement. </h5>
+  
+      <div class="formgroup mar0">
+        <!-- <textarea type="text" class=""></textarea> -->
+        <div class="paraDiv">
+          <!-- <p> I have Read and Understood all the terms and Conditions I will follow all the Terms set out by SpareZone.
+          </p> -->
+          <textarea formControlName="acknowleg_statement"></textarea>
+          <div *ngIf="isGSettingSubmitted">
+            <label class="error" *ngIf="gSettingF.acknowleg_statement.errors?.required">Acknowledgement statement is required</label>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <h5 class="blueText text-left marT30">Supplier Selection Limits </h5>
+  
+      <div class="formgroup DisF marT10 width50">
+        <div class="formgroup formgroup3 ">
+          <label>Min Selection</label>
+          <input type="text" class="commonInput" formControlName="supplier_min_limit">
+          <div *ngIf="isGSettingSubmitted">
+            <label class="error" *ngIf="gSettingF.supplier_min_limit.errors?.required">Min selection is required</label>
+          </div>
+        </div>
+        <div class="formgroup formgroup3 ">
+          <label>Max Selection</label>
+          <input type="text" class="commonInput" formControlName="supplier_max_limit">
+          <div *ngIf="isGSettingSubmitted">
+            <label class="error" *ngIf="gSettingF.supplier_max_limit.errors?.required">Max selection is required</label>
+          </div>
+        </div>
+  
+      </div>
+  
+    </div>
+    <div class="clearfix "></div>
+    <div class="text-center ">
+      <button type="button" class="btn commonWhiteBtn" (click)="updateGeneralSetting()">Save</button>
+      <button type="button" class="btn commonBlueBtn lightBlueBtn">Close</button>
+    </div>
+  </form>
+</div>

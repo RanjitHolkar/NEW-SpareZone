@@ -1,0 +1,29 @@
+<header class="header">
+  <div class="container">
+    <div class="row">
+      <div class="mnu">
+        <span class="hamburger hamburger--collapse">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </span>
+        <div class="respon navbar-main">
+          <div class="search-box">
+            <form>
+              <input type="text" placeholder="Track Here">
+              <button type="submit"><img src="assets/images/search-icon.png" alt="" /></button>
+            </form>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a href="member-listing.php">Members</a></li>
+            <li *ngIf="activestate == '/login' || activestate == '/signup-customer' || activestate ==''"><a routerLink="/signup-customer">Sign Up</a></li>
+            <li *ngIf="activestate == '/login' || activestate == '/signup-customer' || activestate =='/'"><a routerLink="/login">Login</a></li>
+            <li *ngIf="activestate != '/login' && activestate != '/signup-customer' && activestate !='/'"><a (click)="logout()" routerLink="/login">Logout</a></li>
+            <li><a  class="sidebar-btn">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="logo"><a href="index.php"><img src="assets/images/logo.png" alt="" /></a></div>
+</header>

@@ -1,0 +1,85 @@
+<!-- <div class="commonBGdiv">
+    <img src="assets/images/bg.png" class="bgImageCommon">
+</div> -->
+<div class="container-fluid paddLR50">
+    <div class="menuDiv">
+        <div class="menuLeft">
+            <img src="assets/images/smalllogo.png" class="menuLogo">
+            <div class="adminName">
+                <h4>Dashboard</h4>
+                <p>Admin</p>
+            </div>
+            <div class="menuDivBtn">
+                <button class="btn commonBtnBlue ">Suppliers</button>
+                <div class="btnOverText">
+                    <div class="disF">
+                        <p>Total Members :</p>
+                        <h5>320</h5>
+                    </div>
+                    <div class="disF">
+                        <p>New Members :</p>
+                        <h5>10</h5>
+                    </div>
+                    <div class="text-center">
+                        <a>View New Members	</a>
+                    </div>
+                </div>
+            </div>
+            <div class="menuDivBtn">
+                <button class="btn commonBtnBlue" routerLink="/member-listing" [ngClass]="{'Active':activestate == '/member-listing'}"> Members</button>
+                <div class="btnOverText">
+                    <div class="disF">
+                        <p>Total Members :</p>
+                        <h5>320</h5>
+                    </div>
+                    <div class="disF">
+                        <p>New Members :</p>
+                        <h5>10</h5>
+                    </div>
+                    <div class="text-center">
+                        <a>View New Members	</a>
+                    </div>
+                </div>
+            </div>
+            <div class="menuDivBtn">
+                <button class="btn commonBtnBlue"> Invoice</button>
+                <div class="btnOverText">
+                    <div class="disF">
+                        <p>Total Invoice :</p>
+                        <h5>320</h5>
+                    </div>
+                    <div class="disF">
+                        <p>Unpaid Invoice :</p>
+                        <h5>10</h5>
+                    </div>
+                    <div class="text-center">
+                        <a>New Unpaid Invoices	</a>
+                    </div>
+                </div>
+            </div>
+            <div class="menuDivBtn">
+                <button class="btn commonBtnBlue" routerLink="/admin-maintenance" [ngClass]="{'Active':activestate == '/admin-maintenance'}"> Maintaince</button>
+                <div class="btnOverText">
+                    <div class="disF">
+                        <p>makes :</p>
+                        <h5>320</h5>
+                    </div>
+                    <div class="disF">
+                        <p>Models :</p>
+                        <h5>10</h5>
+                    </div>
+                    <div class="text-center">
+                        <a>Add New</a>
+                    </div>
+                </div>
+            </div>
+            <div class="menuDivBtn">
+                <button class="btn commonBtnBlue smallBtn" routerLink="/admin-setting" [ngClass]="{'Active':activestate == '/admin-setting'}"><img src="assets/images/settingIcon.png" class="settingLogo"> </button>
+            </div>
+        </div>
+        <div class="menuright">
+            <!-- FROM ADMIN PROFILE  -->
+            <app-admin-profile></app-admin-profile>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+<app-user-nav></app-user-nav>
+  <!-- member account -->
+  <div class=" container">
+    <div class="supplierDiv memeberAccountmain supplierDivSignup supplierDivSignupSupplier ">
+      <div class="supplierDivInner ">
+        <div class="custumPop  profileDetailsBG ">
+          <div class="custumPopHead noBord ProfileDetailsHead flexHead">
+            <h4 class="popHead pullLeft">Preffered Suppliers</h4>
+            <div class="leftText">
+              <h5>Selected Supplier:
+                <span>{{preferredSuppliersCount}}</span>
+              </h5>
+              <a class="btn" (click)="DisplayPreferredSupplierPopUp()">View My List</a>
+            </div>
+          </div>
+          <div class="TabDivParent">
+            <div class="srollDiv">
+              <div class="srollDivInner">
+                <ul>
+                  <li [ngClass]="{'active': groupName === groupData.group_name }" (click)="dispalyGroupTab(groupData.group_name)"
+                    *ngFor="let groupData of suppliersGroupData">
+                    <div class="disF curPoi" (click)="getPreferredSuppliersList(groupData.supplier_setting_id,groupData.group_name)">
+                      <span class="blackroundN" [ngStyle]="{'background-color':groupData.group_indicator_color}"></span>{{groupData.group_name}}</div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="searchDiv">
+              <img src="assets/images/searchBlue.png" class="BlueIcon">
+              <input type="text" class="roundedInput" (keyup)="searchPrefSup($event.target.value)">
+            </div>
+          </div>
+          <div class="custumPopBody ProfileDetailsBody">
+            <span *ngIf="res == 0">No supplier records for this group</span>
+            <div class="popSupplierText popSupplierTextPrefered padd0">
+              <div class="row" infiniteScroll [attr.infiniteScrollDistance]="'2'" [attr.infiniteScrollThrottle]="'1000'"
+                (scrolled)="onScroll()">
+                <div class="col-sm-6 col-md-3" *ngFor="let preferedSupplierData of preferedSuppliersData; let i = index ">
+                  <div class="singleBoxPrefered">
+                    <div class="disFSB">
+                      <h4 class="grayBoxBtn">
+                        <img src="assets/images/SP_IMG.png" class="spIcon">
+                        <span>{{preferedSupplierData.member_no}}</span>
+                      </h4>
+                      <a>More Info</a>
+                    </div>
+                    <h4>{{preferedSupplierData.business_name}}</h4>
+                    <p>
+                      <img src="assets/images/locationBlue.png" class="LocationICon">{{preferedSupplierData.business_address}}</p>
+                    <div class="disFSB">
+                      <div class="groupIconStarr">
+                        <img src="assets/images/filledStar.png" class="starGrpIcon">
+                        <img src="assets/images/filledStar.png" class="starGrpIcon">
+                        <img src="assets/images/filledStar.png" class="starGrpIcon">
+                        <img src="assets/images/whiteStar.png" class="starGrpIcon">
+                      </div>
+                      <span>121/33</span>
+                    </div>
+                    <div class="disFSpace">
+                      <button class="btn commonBtnBlue lightBlueBtn commonLightBtn mar0" *ngIf="preferedSupplierData.prefered_id == null"
+                        (click)="addPreferredSupplier(preferedSupplierData.user_supplier_id,preferedSupplierData.added_by,i)">select</button>
+                      <button class="btn commonBtnWhite commonLightBtn mar0" *ngIf="preferedSupplierData.prefered_id != null">selected</button>
+                      <button class="btn commonBtnWhite redBtn commonLightBtn mar0" *ngIf="preferedSupplierData.prefered_id != null"
+                        (click)="deletePreferredSupplier(preferedSupplierData.prefered_id,preferedSupplierData.user_supplier_id,i)">remove</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- member account Profile end-->
+      </div>
+    </div>
+    <!--    main Page end-->
+    <!-- Email report -->
+    <div class="supplierDiv  memeberAccountmain supplierDivNew" id="PerferredListPopUp" *ngIf="isDisplayList">
+      <div class="supplierDivInner">
+        <div class="custumPop EmailreportMail">
+          <div class="custumPopHead noBord text-right">
+            <a class="curPoi"><img src="assets/images/cancel.png" alt="" class="closeBtn" (click)="ClosePopUp()"></a>
+          </div>
+          <div class="custumPopHead noBord">
+            <h4 class="popHead">My Preffered List </h4>
+          </div>
+          <div class="PrefferedPop">
+            <div class="formgroup">
+              <label>Supplier Group</label>
+              <select class="commonInput" (change)="searchPrefSupplier($event.target.value)">
+                <option *ngFor="let groupname of suppliersGroupData ; let i = index" value={{groupname.supplier_setting_id}}>{{groupname.group_name}}</option>
+              </select>
+             <!--  <span *ngIf="searchPrefStatus.status == 0">{{searchPrefStatus.message}}</span> -->
+            </div>
+            <div class="List DisSpace" *ngFor="let searchPrefSupData of searchPrefSupplierData; let i = index ">
+              <div class="ListText" *ngIf="searchPrefSupData.prefered_id != null">
+                <h5>{{searchPrefSupData.business_name}}</h5>
+                <p>{{searchPrefSupData.business_address}}</p>
+              </div>
+              <a (click)="deletePreferredSupplier(searchPrefSupData.prefered_id,searchPrefSupData.user_supplier_id,i)"
+                *ngIf="searchPrefSupData.prefered_id != null" class="curPoi">Remove</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- edit report -->

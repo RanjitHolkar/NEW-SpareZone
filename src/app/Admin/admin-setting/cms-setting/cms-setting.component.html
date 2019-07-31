@@ -1,0 +1,72 @@
+<div class="supplierSettingMain">
+  <form [formGroup]="cmsSettingForm">
+    <div class=" width35">
+      <div class="formgroup">
+        <label>Facebook Link</label>
+        <input type="text" class="commonInput" formControlName="facebook_link">
+        <div *ngIf="isCMSSettingSubmitted">
+          <label class="error" *ngIf="cmsSettingF.facebook_link.errors?.required">Facebook link is required</label>
+        </div>
+      </div>
+      <div class="formgroup">
+        <label>Instigram Link</label>
+        <input type="text" class="commonInput" formControlName="instagram_link">
+        <div *ngIf="isCMSSettingSubmitted">
+          <label class="error" *ngIf="cmsSettingF.instagram_link.errors?.required">Instagram link is required</label>
+        </div>
+      </div>
+      <div class="formgroup">
+        <label>Twitter Link</label>
+        <input type="text" class="commonInput" formControlName="twitter_link">
+        <div *ngIf="isCMSSettingSubmitted">
+          <label class="error" *ngIf="cmsSettingF.twitter_link.errors?.required">Twitter link is required</label>
+        </div>
+      </div>
+      <div class="formgroup">
+        <label>Other</label>
+        <input type="text" class="commonInput" formControlName="others">
+      </div>
+    </div>
+    <div class="width40 ">
+      <div class="disFSB">
+        <div class="width40N text-center">
+          <label>Defualt User Avatar</label>
+          <div class="imgBox">
+            <img [src]="userLogoURL">
+          </div>
+          <div class="uploadDivBtn width90">
+            <input type="file" (change)="profileUserImagePreview($event)">
+            <button class="btn commonWhiteBtn">Upload</button>
+          </div>
+        </div>
+        <div class="width60N text-center">
+          <label>Defualt Sup Logo</label>
+          <div class="imgBox">
+            <img [src]="supLogoURL">
+          </div>
+          <div class="uploadDivBtn width90">
+            <input type="file" (change)="profileSupplierImagePreview($event)">
+            <button class="btn commonWhiteBtn">Upload</button>
+          </div>
+        </div>
+      </div>
+      <div class="disFSB">
+        <div class="width60N text-center">
+          <label>Defualt Buyer Logo</label>
+          <div class="imgBox">
+            <img [src]="buyerLogoURL">
+          </div>
+          <div class="uploadDivBtn width90">
+            <input type="file" (change)="profileBuyerImagePreview($event)">
+            <button class="btn commonWhiteBtn">Upload</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="clearfix "></div>
+<div class="text-center ">
+  <button type="button" (click)="updateCMSSetting()" class="btn commonWhiteBtn">Save</button>
+  <button type="button" class="btn commonBlueBtn lightBlueBtn">Close</button>
+</div>

@@ -1,0 +1,177 @@
+<div class="wrapper">
+  <div class="commonBGdiv">
+    <img src="assets/images/bg.png" class="bgImageCommon">
+  </div>
+  <app-user-nav></app-user-nav>
+
+  <!-- member account -->
+  <div class=" container">
+    <div class="supplierDiv memeberAccountmain supplierDivSignup container ">
+      <div class="supplierDivInner marT130">
+        <div class="custumPop  profileDetailsBG ">
+          <div class="custumPopHead noBord ProfileDetailsHead">
+            <h4 class="popHead">SignUp - <span>As Supplier</span></h4>
+          </div>
+          <form [formGroup]="supplierSignUpFormSecond" (submit)="signUp()">
+            <div class="custumPopBody ProfileDetailsBody">
+              <div class="popSupplierText padd0">
+                <!-- member account Left section -->
+                <div class="width75N memAccRight">
+                  <div class="memRightBtnGroup signUpSupp">
+                    <div class="width80">
+                      <div class="formgroup">
+                        <label>Business Name</label>
+                        <input type="text" class="commonInput" formControlName="business_name">
+                        <div *ngIf="submit && s.business_name.errors" class="invalid-feedback">
+                          <div *ngIf="s.business_name.errors.required">Business Name is required</div>
+                        </div>
+                      </div>
+                      <div class="formgroup">
+                        <label>Contact Person</label>
+                        <input type="text" class="commonInput" formControlName="contact_person">
+                        <div *ngIf="submit && s.contact_person.errors" class="invalid-feedback">
+                          <div *ngIf="s.contact_person.errors.required">Contact Person is required</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fullwidth">
+                      <div class="formgroup DisF marB10">
+                        <div class="formgroup formgroupN1 ">
+                          <label>Phone Number</label>
+                          <input type="text" class="commonInput" formControlName="personal_contact">
+                          <span class="ORclass">Or</span>
+                        </div>
+                        <div class="formgroup formgroupN2 ">
+                          <label>Mobile Number </label>
+                          <input type="text" class="commonInput" formControlName="mobile_no">
+                        </div>
+                        <div *ngIf="submit && s.personal_contact.errors" class="invalid-feedback">
+                          <div *ngIf="s.personal_contact.errors.required">Mobile Number is required</div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="width80">
+                      <div class="formgroup">
+                        <label>Email Address</label>
+                        <input type="text" class="commonInput" formControlName="email_id">
+                        <div *ngIf="submit && s.email_id.errors" class="invalid-feedback">
+                          <div *ngIf="s.email_id.errors.required">Email Address is required</div>
+                          <div *ngIf="s.email_id.errors.email">Email must be a valid email address</div>
+
+                        </div>
+                      </div>
+                      <div class="formgroup">
+                        <label>ABN</label>
+                        <input type="text" class="commonInput" formControlName="business_abn">
+                        <div *ngIf="submit && s.business_abn.errors" class="invalid-feedback">
+                          <div *ngIf="s.business_abn.errors.required">ABN is required</div>
+                        </div>
+                      </div>
+                      <div class="formgroup">
+                        <label>Business Type</label>
+                        <select class="commonInput" formControlName="business_type">
+                          <option value=''>--Select Type--</option>
+                          <option [value]="type.business_type_id" *ngFor="let type of businessType">
+                            {{type.business_type_name}}</option>
+                        </select>
+                        <div *ngIf="submit && s.business_type.errors" class="invalid-feedback">
+                          <div *ngIf="s.business_type.errors.required">Business Type is required</div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="clearfix "></div>
+                          <div class="text-center marT30">
+                            <button class="btn commonWhiteBtn">Print</button>
+                            <button class="btn commonBlueBtn">Submit</button>
+                          </div>  -->
+                  </div>
+
+                </div>
+                <!-- member account Left section end -->
+                <!-- member account right section start -->
+                <div class="width40N memAccLeft">
+                  <div class="AccountStatDiv signUpSupp">
+                    <div class="AccountStatDivInner AccountStatDivInnerHt">
+                      <div class="memStateHeadSignUpRIght  ">
+                        <div class="formgroup">
+                          <label>Groups</label>
+                          <select class="commonInput" formControlName="group_id">
+                            <option value="" [selected]=true>--select group--</option>
+                            <option *ngFor="let supplierGroup of supplierGroup"
+                              [value]="supplierGroup.supplier_setting_id">{{supplierGroup.group_name}}</option>
+                          </select>
+                          <div *ngIf="submit && s.business_address.errors" class="invalid-feedback">
+                            <div *ngIf="s.business_address.errors.required">supplier Group is required</div>
+                          </div>
+                        </div>
+                        <div class="formgroup">
+                          <label>Address</label>
+                          <input type="text" class="commonInput" formControlName="business_address">
+                          <div *ngIf="submit && s.business_address.errors" class="invalid-feedback">
+                            <div *ngIf="s.business_address.errors.required">Address is required</div>
+                          </div>
+                        </div>
+
+                        <div class="formgroup DisF marB10">
+                          <div class="formgroup formgroupN2 ">
+                            <label>Suburb</label>
+                            <input type="text" class="commonInput" formControlName="suburbs">
+                            <div *ngIf="submit && s.suburbs.errors" class="invalid-feedback">
+                              <div *ngIf="s.suburbs.errors.required">Suburb is required</div>
+                            </div>
+                          </div>
+                          <div class="formgroup formgroupN1 ">
+                            <label>Post Code </label>
+                            <input type="text" class="commonInput" formControlName="postcode">
+                            <div *ngIf="submit && s.postcode.errors" class="invalid-feedback">
+                              <div *ngIf="s.postcode.errors.required">Post Code is required</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="formgroup DisF marB10">
+                          <div class="formgroup formgroupN1 ">
+                            <label>State</label>
+                            <input type="text" class="commonInput" formControlName="state">
+                            <div *ngIf="submit && s.postcode.errors" class="invalid-feedback">
+                              <div *ngIf="s.postcode.errors.required">State is required</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="formgroup signupTextN">
+                          <input type="checkbox" class="checkIcon" formControlName="termsCond">
+                          <!-- <img src="assets/images/checkBox.png" class="checkIcon"> -->
+                          <p>I acknowledge that I have read all the <a>terms and conditions</a> set out for the use of
+                            this website and Im bound by those conditions.</p>
+                          <div *ngIf="submit && s.termsCond.errors" class="invalid-feedback">
+                            <div *ngIf="s.termsCond.errors.required">Terms & Condition is required</div>
+                          </div>
+                        </div>
+                        <div class="text-center marT30">
+                          <button class="btn commonBlueBtn" type="submit">Register</button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- member account right section end -->
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      <!-- member account Profile end-->
+    </div>
+  </div>
+  <footer>
+    <div class="container">
+      <div class="row">
+
+      </div>
+    </div>
+  </footer>

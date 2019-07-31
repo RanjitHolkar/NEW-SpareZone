@@ -1,0 +1,130 @@
+<app-admin-nav></app-admin-nav>
+<div class="supplierDiv">
+  <div class="supplierDivInner">
+    <div class="custumPop max800">
+      <div class="custumPopHead noBord">
+        <h4 class="popHead">Maintance!</h4>
+      </div>
+      <div class="custumPopBody">
+        <div class="SrollDivSec">
+          <div class="MaintancePop MaintancePopEditVehicle" *ngIf="maintenanceData">
+            <div class="MaintanceSingle" *ngFor="let maintanData of maintenanceData.data1; let i = index">
+              <h4 class="maintanceHead">{{maintanData.name}}</h4>
+              <app-edit-vehicle-child [maintanData]="maintanData" (valueSelected)="dataFromVehicleChild($event)" (editData)="editDataFromChild($event)"></app-edit-vehicle-child>
+              <div class="text-center">
+                <button class="btn commonBtnBlue widthUnset"
+                  (click)="DisplayMaintenancePopup(maintanData.name)">Add</button>
+              </div>
+            </div>
+          </div>
+          <div class="MaintancePop MaintancePopEditVehicle" *ngIf="maintenanceData">
+            <div class="MaintanceSingle" *ngFor="let maintanData of maintenanceData.data2">
+              <h4 class="maintanceHead">{{maintanData.name}}</h4>
+              <app-edit-vehicle-child [maintanData]="maintanData" (valueSelected)="dataFromVehicleChild($event)" (editData)="editDataFromChild($event)" ></app-edit-vehicle-child>
+              <div class="text-center">
+                <button class="btn commonBtnBlue widthUnset"
+                  (click)="DisplayMaintenancePopup(maintanData.name)">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- class="overlayDiv" -->
+<div id="maintenancePopup" class="overlayDiv">
+  <form [formGroup]="maintenanceForm" class="newBtnPopup min500">
+    <div class="form-group closeBtnDiv">
+     <h4 class="popHead">maintenance and {{heading}}</h4> <span href="#" class="closeBtn" (click)="ClosePopUp()"><img src="assets/images/cancel.png" alt=""></span>
+    </div>
+
+    <div *ngIf="maintenanceSelectedType === 'Make'" class="padd2040">
+      <div class="form-group">
+        <select formControlName="body_type_id" class="commonInput">
+          <option value="null">Select Body Type</option>
+          <option *ngFor="let data of dropdownData" value="{{data.maintance_id}}">{{data.maintance_value}}</option>
+        </select>
+        <div *ngIf="isSubmitted">
+          <label class="error" *ngIf="groupF.body_type_id.errors?.required">Body type is required</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" formControlName="make_name" placeholder="Enter make name" class="commonInput">
+        <div *ngIf="isSubmitted">
+          <label class="error" *ngIf="groupF.make_name.errors?.required">Make name is required</label>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="maintenanceSelectedType === 'Model'" class="padd2040">
+      <div class="form-group">
+        <select formControlName="make_id"  class="commonInput">
+          <option value="null">Select Make</option>
+          <option *ngFor="let data of dropdownData" value="{{data.make_id}}">{{data.make_name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="text" formControlName="model_name" placeholder="Enter model name"  class="commonInput">
+      </div>
+    </div>
+
+    <div *ngIf="maintenanceSelectedType === 'Year'" class="padd2040">
+      <div class="form-group">
+        <select formControlName="model_id"  class="commonInput">
+          <option value="null">Select Model</option>
+          <option *ngFor="let data of dropdownData" value="{{data.model_id}}">{{data.model_name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="number" formControlName="year_name" placeholder="Enter year" maxlength="4" 
+        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"  class="commonInput">
+      </div>
+    </div>
+
+    <div *ngIf="maintenanceSelectedType === 'Series'" class="padd2040">
+      <div class="form-group">
+        <select formControlName="year_id"  class="commonInput">
+          <option value="null">Select Year</option>
+          <option *ngFor="let data of dropdownData" value="{{data.year_id}}">{{data.year_name}}</option>
+        </select>
+      </div>
+      <div class="form-group" >
+        <input type="text" formControlName="series" placeholder="Enter series"  class="commonInput">
+      </div>
+    </div>
+    <div
+      *ngIf="maintenanceSelectedType === 'Transmission Type' || maintenanceSelectedType === 'Fuel Type' || maintenanceSelectedType === 'Engine Type'"  class="padd2040">
+      <div class="form-group">
+        <input type="text" formControlName="maintance_value" placeholder="Enter {{maintenanceSelectedType}}"  class="commonInput">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()">SAVE</button>
+    </div>
+  </form>
+</div>
+
+
+                    <!-- For delete Year  -->
+<div class="overlayDiv" id="maintainDeletePopup">
+  <div class="newBtnPopup">
+    <div class="form-group closeBtnDiv">
+      <span href="#" class="closeBtn" (click)="closeDeletedConfrimPopUp()"><img src="assets/images/cancel.png" ></span>
+    </div>
+    <div class="form-group">
+      <img src="assets/images/trash-can.png" >
+    </div>
+    <div class="form-group TextDiv">
+      <h4 class="popUpHead">Are you sure to ?</h4>
+      <p class="popupPara">Do you really want to delete the account? You can not cancel this process.</p>
+    </div>
+    <div class="form-group cancelPopupBtn">
+      <button class="btn commonBlueBtn lightBlueBtn" type="button">NO</button>
+      <button class="btn commonWhiteBtn" type="button" (click)="removeFromDB()">YES</button>
+    </div>
+  </div>
+
+</div>
