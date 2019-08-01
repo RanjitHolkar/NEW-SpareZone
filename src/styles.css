@@ -2887,3 +2887,40 @@ input.uploadInput {
     padding: 10px 30px;
 }
 /* popup style:end */
+
+
+/*======================= new style changes 1/8/19 ========================*/
+.formDiv .popHead{
+    
+        font-size: 20px;
+        color: #119cee;
+        font-weight: bold;
+        margin: 0 0;
+        padding: 0px 0 15px;
+    
+}
+.formDiv .field {
+    height: 55px;
+}
+.formDiv form.jform .field input, .formDiv form.jform .field textarea {
+    padding: 0px 0px 5px;
+    height: 25px;
+}
+.formDiv label.commonLabel {
+    margin: 0;
+}
+ .paddT20{
+    padding-top: 20px;
+}
+.formDiv .btn-def {
+    margin: 0px 5px;
+}
+/* forgot pass */
+.paddTB20B30{
+        position: relative;
+        padding: 20px 30px;
+}
+.successfull .success_text {
+    font-size: 18px;
+    color: #000;
+}

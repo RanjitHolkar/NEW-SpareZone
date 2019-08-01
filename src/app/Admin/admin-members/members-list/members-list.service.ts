@@ -20,4 +20,14 @@ export class MembersListService {
       return res;
     }))
   }
+  getSupplierListing(info:any){
+    return this.httpClient.get<any>( this.BaseUrl + 'Supplier/getSupplierList/'+info).pipe(map(res=>{
+      return res;
+    }))
+  }
+  activeDeactiveSupplier(info:any){
+    return this.httpClient.put<any>(this.BaseUrl +'Supplier/supplierUpdate/',info).pipe(map(res=>{
+      return res;
+    }))
+  }
 }

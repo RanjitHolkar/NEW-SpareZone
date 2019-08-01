@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MembersListService } from './members-list.service';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-members-list',
@@ -9,7 +10,12 @@ import { MembersListService } from './members-list.service';
 export class MembersListComponent implements OnInit {
 public groupType:any;
 public states:any;
-  constructor(private membersListService:MembersListService) { }
+public limit =1;
+public memberListing:any;
+public confirmationPopUp = false;
+public supplier_data:any;
+public index:any;
+  constructor(private membersListService:MembersListService,private toaster:ToastrManager) { }
 
   ngOnInit() {
     this.membersListService.getGroups().subscribe(res=>{
@@ -17,6 +23,28 @@ public states:any;
     })
     this.membersListService.getStates().subscribe(res=>{
       this.states =res.states;
+    })
+    this.membersListService.getSupplierListing(this.limit).subscribe(res=>{
+      this.memberListing = res.states;
+    })
+
+  }
+  activeDeactiveSupplier(index,status,supplier_id){
+    this.index =index;
+    this.supplier_data ={supplier_id:supplier_id,supplier_status:status};
+    this.confirmationPopUp=true;
+  }
+  confirmActionSupplier(){
+    console.log(this.supplier_data);
+    this.membersListService.activeDeactiveSupplier(this.supplier_data).subscribe(res=>{
+      console.log( this.supplier_data['supplier_status']);
+      this.memberListing[this.index]['supplier_status'] = this.supplier_data['supplier_status'];
+      if(res.status == 1){
+        this.toaster.successToastr(res.message);
+      }else{
+        this.toaster.errorToastr(res.message);
+      }
+      this.confirmationPopUp=false;
     })
   }
 

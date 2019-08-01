@@ -35,11 +35,10 @@ public data:any;
         if(res =='success'){
           this.checkLogin();
         }else{
-          this.toastr.warningToastr('Please Active Your Account', 'Alert!');
+          this.toastr.errorToastr(res.message, 'Alert!');
         }
       },error=>{
-        this.toastr.errorToastr('Invalid credentials.', 'Oops!');
-        // this.loginForm.reset();
+          this.toastr.errorToastr(error, 'Oops!');
       })
       this.submit = false;
     }

@@ -7,53 +7,6 @@
 	<div class="commonMainDiv">
 		<!-- menu strat -->
 		<app-admin-nav></app-admin-nav>
-		<!-- <div class="container-fluid paddLR50">
-			<div class="menuDiv">
-				<div class="menuLeft">
-					<img src="assets/images/smalllogo.png" class="menuLogo">
-					<div class="adminName">
-						<h4>Dashboard</h4>
-						<p>Admin</p>
-					</div>
-					<div class="menuDivBtn">
-						<button class="btn commonBtnBlue Active"> Suppliers</button>
-						
-					</div>
-					<div class="menuDivBtn">
-						<button class="btn commonBtnBlue "> Members</button>
-						
-					</div>
-					<div class="menuDivBtn">
-						<button class="btn commonBtnBlue"> Invoice</button>
-						
-					</div>
-					<div class="menuDivBtn">
-						<button class="btn commonBtnBlue"> Maintaince</button>
-						
-					</div>
-					<div class="menuDivBtn">
-						<button class="btn commonBtnBlue smallBtn"><img src="assets/images/settingIcon.png" class="settingLogo"> </button>
-					</div>
-				</div>
-				<div class="menuright">
-					<div class="sideBox">
-						<div class="imageDiv">
-							<img src="assets/images/profile.jpg" class="userIcon">
-						</div>
-						<div class="sideBoxText">
-							<h4>anderu symond</h4>
-							<p>Account type : Personal</p>
-							<p>Location : XX-XX-XX</p>
-							<p>change Password</p>
-						</div>
-						<a>Edit</a>
-						<p class="roundBlue"><span class=""></span>Notifications</p>
-					</div>
-					
-				</div>
-			</div>
-		</div> -->
-		<!-- menu end -->
 		<!-- inovice listing -->
 		<div class="AdminPageMain">
 			<div class="AdminPageMainInner">
@@ -85,208 +38,57 @@
 						<table class="table table-bordered">
 							<thead>
 							  <tr>
-								<th>Invoice ID </th>
-								<th class="text-left">To</th>
+								<th> ID </th>
+								<th class="text-left">Members Name</th>
 								<th>State</th>
 								<th>Contact Number</th>
 								<th>Status</th>
-								<th>Issue Date</th>
+								<th>Reg Date</th>
 								<th>Action</th>
 							  </tr>
 							</thead>
 							<tbody>
-							  <tr>
-								<td>IN3043</td>
-								<td class="text-left"><span class="orangeRoundN"></span>JUST JAP AUTO DISMANTLERS</td>
-								<td>SA</td>
-								<td>08 8369 1899</td>
+							  <tr *ngFor="let memberListing of memberListing;let i=index">
+								<td>{{memberListing.member_no}}</td>
+								<td class="text-left"><span class="orangeRoundN" [ngStyle]="{'background-color':memberListing.group_indicator_color}"></span>{{memberListing.business_name}}</td>
+								<td>{{memberListing.state}}</td>
+								<td>{{memberListing.personal_contact}}</td>
 								<td>PAID</td>
-								<td>10-11-2018</td>
+								<td>{{memberListing.added_date_time|date}}</td>
 								<td>
 									<div class="disF">
-										<img src="assets/images/viewicon.png" class="commonIconTable">
+										<img src="assets/images/viewicon.png" class="commonIconTable" >
 										<img src="assets/images/editicon.png" class="commonIconTable">
-										<img src="assets/images/closexicon.png" class="commonIconTable">
+										<img src="assets/images/closexicon.png" class="commonIconTable" *ngIf="memberListing.supplier_status == 0" (click)="activeDeactiveSupplier(i,'1',memberListing.supplier_id)">
+										<img src="assets/images/check.png" class="commonIconTable" *ngIf="memberListing.supplier_status == 1" (click)="activeDeactiveSupplier(i,'0',memberListing.supplier_id)">
 									</div>
 								</td>
 							  </tr>
-							  
-							   <tr>
-								<td>IN3043</td>
-								<td class="text-left"><span class="redRoundN"></span>JUST JAP AUTO DISMANTLERS</td>
-								<td>SA</td>
-								<td>08 8369 1899</td>
-								<td class="textred">UNPAID</td>
-								<td>10-11-2018</td>
-								<td>
-									<div class="disF">
-										<img src="assets/images/viewicon.png" class="commonIconTable">
-										<img src="assets/images/editicon.png" class="commonIconTable">
-										<img src="assets/images/closexicon.png" class="commonIconTable">
-									</div>
-								</td>
-							  </tr>
-							  
-							   <tr>
-								<td>IN3043</td>
-								<td class="text-left"><span class="greenRoundN"></span>JUST JAP AUTO DISMANTLERS</td>
-								<td>SA</td>
-								<td>08 8369 1899</td>
-								<td>PAID</td>
-								<td>10-11-2018</td>
-								<td>
-									<div class="disF">
-										<img src="assets/images/viewicon.png" class="commonIconTable">
-										<img src="assets/images/editicon.png" class="commonIconTable">
-										<img src="assets/images/closexicon.png" class="commonIconTable">
-									</div>
-								</td>
-							  </tr>
-							   <tr>
-								<td>IN3043</td>
-								<td class="text-left"><span class="blackroundN"></span>JUST JAP AUTO DISMANTLERS</td>
-								<td>SA</td>
-								<td>08 8369 1899</td>
-								<td>PAID</td>
-								<td>10-11-2018</td>
-								<td>
-									<div class="disF">
-										<img src="assets/images/viewicon.png" class="commonIconTable">
-										<img src="assets/images/editicon.png" class="commonIconTable">
-										<img src="assets/images/closexicon.png" class="commonIconTable">
-									</div>
-								</td>
-							  </tr>
-							 <tr>
-								<td>IN3043</td>
-								<td class="text-left"><span class="orangeRoundN"></span>JUST JAP AUTO DISMANTLERS</td>
-								<td>SA</td>
-								<td>08 8369 1899</td>
-								<td>PAID</td>
-								<td>10-11-2018</td>
-								<td>
-									<div class="disF">
-										<img src="assets/images/viewicon.png" class="commonIconTable">
-										<img src="assets/images/editicon.png" class="commonIconTable">
-										<img src="assets/images/closexicon.png" class="commonIconTable">
-									</div>
-								</td>
-							  </tr>
-							  
-							   <tr>
-								<td>IN3043</td>
-								<td class="text-left"><span class="redRoundN"></span>JUST JAP AUTO DISMANTLERS</td>
-								<td>SA</td>
-								<td>08 8369 1899</td>
-								<td class="textred">UNPAID</td>
-								<td>10-11-2018</td>
-								<td>
-									<div class="disF">
-										<img src="assets/images/viewicon.png" class="commonIconTable">
-										<img src="assets/images/editicon.png" class="commonIconTable">
-										<img src="assets/images/closexicon.png" class="commonIconTable">
-									</div>
-								</td>
-							  </tr>
-							  
-							   <tr>
-								<td>IN3043</td>
-								<td class="text-left"><span class="greenRoundN"></span>JUST JAP AUTO DISMANTLERS</td>
-								<td>SA</td>
-								<td>08 8369 1899</td>
-								<td>PAID</td>
-								<td>10-11-2018</td>
-								<td>
-									<div class="disF">
-										<img src="assets/images/viewicon.png" class="commonIconTable">
-										<img src="assets/images/editicon.png" class="commonIconTable">
-										<img src="assets/images/closexicon.png" class="commonIconTable">
-									</div>
-								</td>
-							  </tr>
-							   <tr>
-								<td>IN3043</td>
-								<td class="text-left"><span class="blackroundN"></span>JUST JAP AUTO DISMANTLERS</td>
-								<td>SA</td>
-								<td>08 8369 1899</td>
-								<td>PAID</td>
-								<td>10-11-2018</td>
-								<td>
-									<div class="disF">
-										<img src="assets/images/viewicon.png" class="commonIconTable">
-										<img src="assets/images/editicon.png" class="commonIconTable">
-										<img src="assets/images/closexicon.png" class="commonIconTable">
-									</div>
-								</td>
-							  </tr>
-							  <tr>
-								<td>IN3043</td>
-								<td class="text-left"><span class="orangeRoundN"></span>JUST JAP AUTO DISMANTLERS</td>
-								<td>SA</td>
-								<td>08 8369 1899</td>
-								<td>PAID</td>
-								<td>10-11-2018</td>
-								<td>
-									<div class="disF">
-										<img src="assets/images/viewicon.png" class="commonIconTable">
-										<img src="assets/images/editicon.png" class="commonIconTable">
-										<img src="assets/images/closexicon.png" class="commonIconTable">
-									</div>
-								</td>
-							  </tr>
-							  
-							   <tr>
-								<td>IN3043</td>
-								<td class="text-left"><span class="redRoundN"></span>JUST JAP AUTO DISMANTLERS</td>
-								<td>SA</td>
-								<td>08 8369 1899</td>
-								<td class="textred">UNPAID</td>
-								<td>10-11-2018</td>
-								<td>
-									<div class="disF">
-										<img src="assets/images/viewicon.png" class="commonIconTable">
-										<img src="assets/images/editicon.png" class="commonIconTable">
-										<img src="assets/images/closexicon.png" class="commonIconTable">
-									</div>
-								</td>
-							  </tr>
-							  
-							   <tr>
-								<td>IN3043</td>
-								<td class="text-left"><span class="greenRoundN"></span>JUST JAP AUTO DISMANTLERS</td>
-								<td>SA</td>
-								<td>08 8369 1899</td>
-								<td>PAID</td>
-								<td>10-11-2018</td>
-								<td>
-									<div class="disF">
-										<img src="assets/images/viewicon.png" class="commonIconTable">
-										<img src="assets/images/editicon.png" class="commonIconTable">
-										<img src="assets/images/closexicon.png" class="commonIconTable">
-									</div>
-								</td>
-							  </tr>
-							   <tr>
-								<td>IN3043</td>
-								<td class="text-left"><span class="blackroundN"></span>JUST JAP AUTO DISMANTLERS</td>
-								<td>SA</td>
-								<td>08 8369 1899</td>
-								<td>PAID</td>
-								<td>10-11-2018</td>
-								<td>
-									<div class="disF">
-										<img src="assets/images/viewicon.png" class="commonIconTable">
-										<img src="assets/images/editicon.png" class="commonIconTable">
-										<img src="assets/images/closexicon.png" class="commonIconTable">
-									</div>
-								</td>
-							  </tr>
-							 
 							</tbody>
 						  </table>
 					</div>
 				</div>
 			</div>
 		</div>
+  </div>
+  
+  <div class="overlayDiv" id="addGroup" *ngIf="confirmationPopUp">
+	<form  class="newBtnPopup">
+	  <div class="form-group closeBtnDiv">
+		<span href="#" class="closeBtn" (click)="confirmationPopUp = false"><img src="assets/images/cancel.png" alt=""></span>
+	  </div>
+	  <div class="form-group">
+		<img src="assets/images/trash-can.png" alt="">
+	  </div>
+	  <div class="form-group TextDiv">
+		<h4 class="popUpHead">Are you sure to ?</h4>
+		<p class="popupPara">Do you really want to {{supplier_data['supplier_status'] == 0?'Active':'Deactive'}} the account? You can not cancel this process.</p>
+	  </div>
+	  <div class="form-group cancelPopupBtn">
+		<button class="btn commonBlueBtn lightBlueBtn" type="button" (click)="confirmationPopUp = false">NO</button>
+		<button class="btn commonWhiteBtn" type="button" (click)="confirmActionSupplier()">YES</button>
+	  </div>
+	  
+	</form>
   </div>
 	<!-- inovice listing  end-->

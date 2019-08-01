@@ -11,8 +11,8 @@
                    <!--==PERSONAL INFO START==-->
                    <div class="personal_i" *ngIf="SignInFormFirst.value.account_type == 1" >
                     <div class="boxs active">
-                       <div class="boxs-in">
-                        <h3>Sign Up Details</h3>
+                       <div class="boxs-in formDiv">
+                        <h3 class="popHead">Sign Up Details</h3>
                         <div class="frm">
                          <form class="jform" [formGroup]="SignInFormFirst" (submit)="signUpFirstFormSubmit()">
                           <h5>Account Type</h5>
@@ -21,6 +21,7 @@
                              <button id="business_1" class="btn-def-blu" type="button" (click)="accountType(2)">Business</button>
                           </div>
                           <div class="field">
+                              <label class="commonLabel">Email</label>
                              <input type="text" placeholder="Email" formControlName="email_id"/>
                              <div *ngIf="submitFirst && first.email_id.errors" class="invalid-feedback">
                                  <div *ngIf="first.email_id.errors.required" >Email is required</div>
@@ -28,6 +29,7 @@
                              </div>
                           </div>
                           <div class="field">
+                              <label class="commonLabel">Confirm Password</label>
                              <input type="password" placeholder="Confirm Password" formControlName="password" />
                              <div *ngIf="submitFirst && first.password.errors" class="invalid-feedback">
                                  <div *ngIf="first.password.errors.required">Password is required</div>
@@ -45,7 +47,7 @@
                        </div>
                     </div>
                     <div class="boxs box-2 active" [ngClass]="{ 'active': secondForm }">
-                       <div class="boxs-in">
+                       <div class="boxs-in ">
                         <div class="frm">
                          <form class="jform" [formGroup]="SignInFormSecond" (submit)="signUpSecondFormSubmit()">
                           <div class="field">
@@ -131,8 +133,8 @@
                    <!--==BUSINESS INFO START==-->
                    <div class="business_i" *ngIf="SignInFormFirst.value.account_type == 2">
                     <div class="boxs active">
-                       <div class="boxs-in">
-                        <h3>Sign Up Details</h3>
+                       <div class="boxs-in formDiv">
+                        <h3 class="popHead">Sign Up Details</h3>
                         <div class="frm">
                          <form class="jform" [formGroup]="SignInFormFirst" (submit)="signUpFirstFormSubmit()">
                           <h5>Account Type</h5>
@@ -141,6 +143,7 @@
                              <button class="btn-def" type="button" value="Business">Business</button>
                           </div>
                           <div class="field">
+                              <label class="commonLabel">Email</label>
                              <input type="text" formControlName="email_id" placeholder="Email"  />
                              <div *ngIf="submitFirst && first.email_id.errors" class="invalid-feedback">
                               <div *ngIf="first.email_id.errors.required">Email is required</div>
@@ -148,6 +151,7 @@
                           </div>
                           </div>
                           <div class="field">
+                              <label class="commonLabel">Confirm Password</label>
                              <input type="password" placeholder="Confirm Password" formControlName="password" />
                              <div *ngIf="submitFirst && first.password.errors" class="invalid-feedback">
                               <div *ngIf="first.password.errors.required">Password is required</div>
@@ -158,7 +162,7 @@
                              <button class="btn-def flr btnsld" type="submit" value="Find Part" >Sign Up!</button>									
                           </div>
                           <div class="sghere">
-                             <a routerLink="/signup-supplier" [ngClass]="{'disableda': secondFormBussiness}">Supplier? Sign Up here.</a>
+                             <a routerLink="/signup-supplier" [ngClass]="{'disableda': secondFormBussiness}" class="stxt">Supplier? Sign Up here.</a>
                           </div>
                          </form>
                         </div>

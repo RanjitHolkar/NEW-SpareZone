@@ -32,5 +32,46 @@ export class AdminMaintanceService {
     }))
   }
 
+  /* Get Categories */
+  getCategories(){
+    return this.http.get(environment.base_url + 'Admin/Categories/getCategoryList').pipe(map((result:any)=>{
+      return result;
+    }))
+  }
+  /* Save Categories */
+  saveCategory(categoryData){
+    return this.http.post(environment.base_url + 'Admin/Categories/saveCategoriesData',categoryData).pipe(map((result:any)=>{
+      return result;
+    }))
+  }
+
+  /* Update Ctaegories */
+  updateCategory(updateData){
+    return this.http.put(environment.base_url+'Admin/Categories/updateCategoriesData',updateData).pipe(map((result:any)=>{
+      return result;
+    }))
+  }
+
+  /* Update Part */
+  updatePart(updateData){
+    return this.http.put(environment.base_url+'Admin/Parts/updatePartsData',updateData).pipe(map((result:any)=>{
+      return result;
+    }))
+  }
+
+  /* Save Categories */
+  saveParts(partData){
+    return this.http.post(environment.base_url + 'Admin/Parts/saveParts',partData).pipe(map((result:any)=>{
+      return result;
+    }))
+  }
+
+   /* Get parts by category ID */
+   getPartByCategoryID(categoryID){
+    return this.http.get(environment.base_url + 'Admin/Parts/getPartsByCategory/'+categoryID).pipe(map((result:any)=>{
+      return result;
+    }))
+  }
+  
 
 }

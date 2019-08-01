@@ -1,10 +1,10 @@
-<div class="sideBox">
+<div class="sideBox" *ngFor="let user of userDetails">
   <div class="imageDiv">
     <img src="assets/images/profile.jpg" class="userIcon">
   </div>
   <div class="sideBoxText">
-    <h4>anderu symond</h4>
-    <p>Account type : Personal</p>
+    <h4>{{user.business_name}}</h4>
+    <p>Account type : {{user.business_name}}</p>
     <p>Location : XX-XX-XX</p>
     <p>change Password</p>
   </div>

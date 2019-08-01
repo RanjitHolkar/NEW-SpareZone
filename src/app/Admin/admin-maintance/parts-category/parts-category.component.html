@@ -12,82 +12,26 @@
             <div class="MaintanceSingle">
               <h4 class="maintanceHead">Category</h4>
               <ul>
-                <li>
-                  <p>Toyota</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Mitsibishi</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Nissian</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Honda</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Toyota</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Mitsibishi</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Nissian</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Honda</p>
-                  <h5 class="closeRound">X</h5>
+                <li *ngFor="let catData of categoryData;let i=index">
+                  <p (click)="getPartPerCategory(catData)">{{catData.category_name}}</p>
+                  <h5 class="closeRound" (click)="openDeletePopUp(catData,i)">X</h5>
                 </li>
               </ul>
               <div class="text-center">
-                <button class="btn commonBtnBlue widthUnset">Add</button>
+                <button class="btn commonBtnBlue widthUnset" (click)="displayCartPartPopup('Add Category',1)">Add</button>
               </div>
             </div>
 
             <div class="MaintanceSingle">
               <h4 class="maintanceHead">Parts</h4>
               <ul>
-                <li>
-                  <p>Toyota</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Mitsibishi</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Nissian</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Honda</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Toyota</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Mitsibishi</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Nissian</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Honda</p>
-                  <h5 class="closeRound">X</h5>
+                <li *ngFor="let part of partData; let i=index">
+                  <p>{{part.part_name}}</p>
+                  <h5 class="closeRound" (click)="openDeletePopUp(part,i)">X</h5>
                 </li>
               </ul>
               <div class="text-center">
-                <button class="btn commonBtnBlue widthUnset">Add</button>
+                <button class="btn commonBtnBlue widthUnset" (click)="displayCartPartPopup('Add Part',2)">Add</button>
               </div>
             </div>
           </div>
@@ -122,10 +66,6 @@
             <div class="MaintanceSingle">
               <h4 class="maintanceHead">Parts</h4>
               <ul>
-                <li>
-                  <p>Toyota</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
                 <li>
                   <p>Mitsibishi</p>
                   <h5 class="closeRound">X</h5>
@@ -166,32 +106,60 @@
   </div>
 </div>
 
-<!-- Add Popup -->
+<!-- Add Popup : START -->
 <div id="catPartsPopup" class="overlayDiv">
-  <div  class="newBtnPopup min500 ">
+  <div class="newBtnPopup min500 ">
     <div class="form-group closeBtnDiv">
-      <h4 class="popHead">Mantance and </h4> <span href="#" class="closeBtn" (click)="ClosePopUp()"><img src="assets/images/cancel.png"
-          alt=""></span>
+      <h4 class="popHead" *ngIf="popUpTitle">{{popUpTitle}} </h4>
+      <span href="#" class="closeBtn" (click)="closeCartPartPopup()"><img src="assets/images/cancel.png" alt=""></span>
     </div>
-    <div >
-      <div class="form-group">
-        <select class="commonInput">
-          <option value="null">Select Year</option>
-          <option value="">xdfg</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <input type="text" class="commonInput" placeholder="Enter series">
-      </div>
+    <div *ngIf="catPartFormStatus">
+      <form [formGroup]="catPartForm">
+        <div *ngIf="catPartFormStatus ==1">
+          <div class="form-group">
+            <input type="text" class="commonInput" formControlName="category_name" placeholder="{{popUpTitle}}">
+            <div *ngIf="isSubmitted">
+              <label class="error" *ngIf="catPartF.category_name.errors?.required">Category name is required</label>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="catPartFormStatus ==2">
+          <div>
+            <label>Category Name : {{selectedCategoryName}}</label>
+          </div>
+          <div class="form-group">
+            <input type="text" class="commonInput" formControlName="part_name" placeholder="{{popUpTitle}}">
+            <div *ngIf="isSubmitted">
+              <label class="error" *ngIf="catPartF.part_name.errors?.required">Part name is required</label>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
-    <div>
-      <div class="form-group">
-        <input type="text" class="commonInput" placeholder="Enter ">
-      </div>
-    </div>
-
     <div class="form-group">
-      <button class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()">SAVE</button>
+      <button class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="savePartCategory()">SAVE</button>
     </div>
   </div>
 </div>
+<!-- Add Popup : END -->
+
+<!-- For delete : START -->
+<div class="overlayDiv" id="catPartDeletePopup">
+  <div class="newBtnPopup">
+    <div class="form-group closeBtnDiv">
+      <span href="#" class="closeBtn" (click)="closeDeletedConfrimPopUp()"><img src="assets/images/cancel.png"></span>
+    </div>
+    <div class="form-group">
+      <img src="assets/images/trash-can.png">
+    </div>
+    <div class="form-group TextDiv">
+      <h4 class="popUpHead">Are you sure to ?</h4>
+      <p class="popupPara">Do you really want to delete the account? You can not cancel this process.</p>
+    </div>
+    <div class="form-group cancelPopupBtn">
+      <button class="btn commonBlueBtn lightBlueBtn" type="button" (click)="closeDeletedConfrimPopUp()">NO</button>
+      <button class="btn commonWhiteBtn" type="button" (click)="deleteCatPart()">YES</button>
+    </div>
+  </div>
+</div>
+<!-- For delete : END -->
