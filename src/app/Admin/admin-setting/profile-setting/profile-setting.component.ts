@@ -3,6 +3,7 @@ import { Form, FormBuilder, FormArray, FormControl, FormGroup, Validators } from
 import {AdminSettingService} from '../admin-setting.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import {environment} from '../../../../environments/environment';
+declare var $;
 @Component({
   selector: 'app-profile-setting',
   templateUrl: './profile-setting.component.html',
@@ -20,8 +21,10 @@ export class ProfileSettingComponent implements OnInit {
   }
   /* get admin profile details */
   getAdminProfileDetails(){
+    $('.overlayDivLoader').show();
     this.AdminService.getUserPrfole().subscribe((response:any)=>{
-      console.log(response);
+      $('.overlayDivLoader').hide();
+    console.log(response);
       this.userProfileDetails=response.res;
       this.setValues();
        if(this.userProfileDetails.res){
@@ -106,6 +109,7 @@ export class ProfileSettingComponent implements OnInit {
   updateProfileSetting(){
     this.isProfileSubmitted = true;
     if(this.profileForm.valid){
+      $('.overlayDivLoader').show();
       this.isProfileSubmitted = false;
       const formData = new FormData();
       formData.append('business_name',this.profileForm.value.business_name);
@@ -126,6 +130,7 @@ export class ProfileSettingComponent implements OnInit {
       formData.append('state',this.profileForm.value.state);
       formData.append('postcode',this.profileForm.value.postcode);
       this.AdminService.updateAdminProfile(formData).subscribe((response:any) => {
+      $('.overlayDivLoader').hide();
         if(response.Msg == 'This Filed Is Not Empty')
           this.toastr.errorToastr('Some fields are missing', 'Oops!');
         else if(response.res == 'error')

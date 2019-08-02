@@ -3,7 +3,7 @@ import { Form,FormBuilder,FormArray,FormControl,FormGroup,Validators} from '@ang
 import { SignupSupplierService } from './signup-supplier.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import {Router} from '@angular/router';
-
+declare var $;
 @Component({
   selector: 'app-signup-supplier',
   templateUrl: './signup-supplier.component.html',
@@ -23,7 +23,9 @@ public supplierGroup:any;
     private router:Router) { }
 
   ngOnInit() {
+    $('.overlayDivLoader').show();
     this._signupSupplierService.getBusinessType().subscribe(res=>{
+    $('.overlayDivLoader').hide();
       this.businessType = res['businessTypeData'];
       console.log('bussiness Type',this.businessType);
     })
@@ -63,6 +65,7 @@ public supplierGroup:any;
   signUp(){
     this.submit = true;
       if(this.supplierSignUpFormSecond.valid){
+      $('.overlayDivLoader').show();
         let formData = new FormData();
         formData.append('business_name',this.supplierSignUpFormSecond.value.business_name);
         formData.append('personal_contact',this.supplierSignUpFormSecond.value.personal_contact);
@@ -77,7 +80,7 @@ public supplierGroup:any;
         formData.append('password','123456');
         formData.append('user_role','4');
         this._signupSupplierService.signUp(formData).subscribe(res=>{
-          console.log(res);
+        $('.overlayDivLoader').hide();
           if(res == 'success'){
           this.toastr.successToastr('Registration SuccessFully');
           this.router.navigate(['/supplier-dash']);

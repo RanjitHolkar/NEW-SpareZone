@@ -3,7 +3,6 @@ import { Form, FormBuilder, FormArray, FormControl, FormGroup, Validators } from
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { environment } from '../../../../environments/environment';
 import { AdminMaintanceService } from '../admin-maintance.service';
-
 declare var $: any;
 @Component({
   selector: 'app-edit-vehicle',
@@ -44,10 +43,12 @@ export class EditVehicleComponent implements OnInit {
   }
   /* get vehcile database data */
   getVehicleDatabase() {
+      $('.overlayDivLoader').show();
     this.maintenanceService.getVehicleDatabase().subscribe((response: any) => {
       this.maintenanceData = response;
       console.log('from getVehicaleDataBase')
       console.log(this.maintenanceData);
+      $('.overlayDivLoader').hide();
 
     })
   }
@@ -66,11 +67,9 @@ export class EditVehicleComponent implements OnInit {
   DisplayMaintenancePopup(maintenanceKey) {
     this.heading = maintenanceKey;
     this.dropdownData = '';
-
     $('#maintenancePopup').show();
     this.maintenanceSelectedType = maintenanceKey;
     if (maintenanceKey == 'Make') {
-
       this.maintenanceForm = this.formBuilder.group({
         body_type_id: ['', Validators.required],
         make_name: ['', Validators.required]
@@ -120,6 +119,7 @@ export class EditVehicleComponent implements OnInit {
     if (this.maintenanceForm.invalid) return false;
     this.isSubmitted = false;
     if (this.maintenanceForm.valid) {
+      $('.overlayDivLoader').show();
       this.maintenanceService.saveNewVehicleDetails(this.API_URL, this.maintenanceForm.value).subscribe(data => {
         console.log(data);
         if (data.status) {
@@ -146,12 +146,11 @@ export class EditVehicleComponent implements OnInit {
           else if (this.maintenanceSelectedType === 'Engine Type') {
             this.maintenanceData.data2[3].engine_type.push(data);
           }
+          $('.overlayDivLoader').hide();
         }
         if (!data.status)
           this.toastr.errorToastr(data.message, 'Oops!')
-        console.log(data);
-
-        $('#maintenancePopup').hide();
+          $('#maintenancePopup').hide();
       }, error => {
         console.log(error);
         this.toastr.errorToastr('Something went wrong !', 'Oops!')
@@ -177,25 +176,30 @@ export class EditVehicleComponent implements OnInit {
   }
   // Here we pass url and post data 
   commonCall(url: any, parameters) {
-
+    $('.overlayDivLoader').show();    
     this.maintenanceService.UpdateData(url, parameters)
       .subscribe((data) => {
         console.log(data)
         this.toastr.successToastr(data.message, "Succsess!")
         this.closeDeletedConfrimPopUp()
       }, error => console.log('From error = ' + error));
+      $('.overlayDivLoader').hide();  
+
   }
 
   commonCallForMaintance(url: any, parameters) {
+    $('.overlayDivLoader').show();  
     this.maintenanceService.MaintanceData(url, parameters)
       .subscribe((data) => {
-        console.log(data);
+        $('.overlayDivLoader').hide(); 
         this.toastr.successToastr(data.info, "Success!");
         this.closeDeletedConfrimPopUp();
       }, error => {
-        console.log(error);
+        $('.overlayDivLoader').hide(); 
         this.toastr.errorToastr("Something went wrong..", "Oops!");
       })
+      
+
   }
 
 

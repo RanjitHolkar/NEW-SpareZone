@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  base_url:'http://portfolio.theaxontech.com/CI/sparezone/'
+  base_url:'http://54.218.66.217/sparezone/'
 };
 
 

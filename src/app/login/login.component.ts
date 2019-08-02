@@ -3,6 +3,7 @@ import { Form,FormBuilder,FormArray,FormControl,FormGroup,Validators} from '@ang
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { Router } from '@angular/router';
+declare var $;
 
 @Component({
   selector: 'app-login',
@@ -31,6 +32,7 @@ public data:any;
   login(){
     this.submit = true;
     if(this.loginForm.valid){
+      $('.overlayDivLoader').show();
       this._authenticationService.login(this.loginForm.value).subscribe(res=>{
         if(res =='success'){
           this.checkLogin();
@@ -41,6 +43,7 @@ public data:any;
           this.toastr.errorToastr(error, 'Oops!');
       })
       this.submit = false;
+      $('.overlayDivLoader').hide();
     }
   }
 
@@ -58,9 +61,9 @@ public data:any;
       if(this.data.userRole == 'Admin')
         this.router.navigate(['/admin-activity']);
       if(this.data.userRole == 'Business Customer')
-        this.router.navigate(['/customer-dash']);
+        this.router.navigate(['/business-customer-dash']);
       if(this.data.userRole == 'Personal Customer')
-        this.router.navigate(['/customer-dash']);
+        this.router.navigate(['/personal-customer-dash']);
         // this.router.navigate(['/customer-business-dash']);
      // this.router.navigate(['/admin-setting']);
     }else{

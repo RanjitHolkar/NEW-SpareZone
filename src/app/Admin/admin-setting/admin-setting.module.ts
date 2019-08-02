@@ -9,24 +9,23 @@ import { CmsSettingComponent } from './cms-setting/cms-setting.component';
 import { NavSettingComponent } from './nav-setting/nav-setting.component';
 import { NotificationComponent } from '../notification/notification.component';
 import { AdminNavModule } from '../admin-nav/admin-nav.module';
-// import {AdminNavComponent} from '../admin-nav/admin-nav.component';
+import { BackgroundImageModule } from '../../background-image/background-image.module';
 @NgModule({
   declarations: [
-    ProfileSettingComponent,
-    GeneralSettingComponent,
-    SupplierSettingComponent, 
     CmsSettingComponent, 
     NavSettingComponent,
-    // AdminProfileComponent,
     NotificationComponent,
-    // AdminNavComponent
+    ProfileSettingComponent,
+    GeneralSettingComponent,
+    SupplierSettingComponent
   ],
   imports: [
     CommonModule,
-    AdminSettingRoutingModule,
     FormsModule,
+    AdminNavModule,
     ReactiveFormsModule,
-    AdminNavModule
+    BackgroundImageModule,
+    AdminSettingRoutingModule
   ]
 })
 export class AdminSettingModule { }

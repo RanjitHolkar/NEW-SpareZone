@@ -3,7 +3,7 @@ import { CustomerEditService } from './customer-edit.service';
 import { Form, FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
-
+declare var $;
 @Component({
   selector: 'app-customer-edit',
   templateUrl: './customer-edit.component.html',
@@ -23,8 +23,9 @@ export class CustomerEditComponent implements OnInit {
   constructor(private _customerEditService: CustomerEditService, private fb: FormBuilder, private toastr: ToastrManager) { }
 
   ngOnInit() {
+    $(".overlayDivLoader").show();
     this.getUserDetails();
-    // this.getBusinessType();
+    this.getBusinessType();
     this.businessForm = this.fb.group({
       business_name: ['', Validators],
       contact_person: ['', Validators.required],
@@ -52,17 +53,19 @@ export class CustomerEditComponent implements OnInit {
 
   //This Function For Get User Details
   getUserDetails() {
+    $(".overlayDivLoader").show();
     this._customerEditService.getUserDetails().subscribe(res => {
       this.customerDetails.push(res['res']);
       this.accountType = res['res']['account_type'];
-      console.log(this.accountType);
-      console.log(this.customerDetails);
+      $(".overlayDivLoader").hide();
     })
   }
   //This Function For Get Business Type
   getBusinessType() {
+      $(".overlayDivLoader").show();
     this._customerEditService.getBusinessType().subscribe(res => {
       this.businessType = res['businessTypeData'];
+      $(".overlayDivLoader").hide();
     })
   }
   //This Function For get Upload Files
@@ -80,6 +83,7 @@ export class CustomerEditComponent implements OnInit {
   updateDetails() {
     this.submit = true;
     if (this.businessForm.valid) {
+      $(".overlayDivLoader").show();
       let formData = new FormData();
       if (this.images != undefined) {
         formData.append('profile_logo', this.images);
@@ -97,7 +101,7 @@ export class CustomerEditComponent implements OnInit {
         this.toastr.successToastr('Update Details Successfully');
         this.images = undefined;
         this.submit = false;
-        console.log(res);
+        $(".overlayDivLoader").hide();
       })
     }
   }
@@ -105,6 +109,7 @@ export class CustomerEditComponent implements OnInit {
   updatePersonalDetails() {
     this.submited = true;
     if (this.personalForm.valid) {
+      $(".overlayDivLoader").show();
       let formData = new FormData();
       if (this.images != undefined) {
         formData.append('profile_logo', this.images);
@@ -122,7 +127,7 @@ export class CustomerEditComponent implements OnInit {
         this.toastr.successToastr('Update Details Successfully');
         this.images = undefined;
         this.submited = false;
-        console.log(res);
+        $(".overlayDivLoader").hide();
       });
     }
   }

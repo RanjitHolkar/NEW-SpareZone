@@ -3,6 +3,7 @@ import { Form, FormBuilder, FormArray, FormControl, FormGroup, Validators } from
 import { AdminSettingService } from '../admin-setting.service';
 import {environment} from '../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
+declare var $;
 @Component({
   selector: 'app-cms-setting',
   templateUrl: './cms-setting.component.html',
@@ -23,6 +24,7 @@ export class CmsSettingComponent implements OnInit {
   }
   /* SET CMS value */
   setCMSValue(){
+    $('.overlayDivLoader').show(); 
     this.cmsSettingForm.controls['setting_id'].setValue(this.CMSSettingData.setting_id);
     this.cmsSettingForm.controls['facebook_link'].setValue(this.CMSSettingData.facebook_link);
     this.cmsSettingForm.controls['instagram_link'].setValue(this.CMSSettingData.instagram_link);
@@ -34,14 +36,19 @@ export class CmsSettingComponent implements OnInit {
       this.supLogoURL=environment.base_url+this.CMSSettingData.sup_logo;
     if(this.CMSSettingData.buyar_logo)
       this.buyerLogoURL=environment.base_url+this.CMSSettingData.buyar_logo;
+    $('.overlayDivLoader').hide(); 
+
   }
   /* Get CMS setting data */
   getCMSSettingData() {
+    $('.overlayDivLoader').show(); 
     this.AdminService.getCMSSetting().subscribe((response:any)=>{
       if(response.CMSSetting){
         this.CMSSettingData = response.CMSSetting;
-      this.setCMSValue();
-      }      
+        this.setCMSValue();
+      }
+    $('.overlayDivLoader').hide(); 
+
     })
   }
 
@@ -99,6 +106,7 @@ export class CmsSettingComponent implements OnInit {
     this.isCMSSettingSubmitted = true;
     console.log(this.cmsSettingForm.valid);
     if(this.cmsSettingForm.valid){
+      $('.overlayDivLoader').show(); 
       this.isCMSSettingSubmitted = false;
       const formData = new FormData();
       formData.append('setting_id',this.cmsSettingForm.value.setting_id);
@@ -113,7 +121,7 @@ export class CmsSettingComponent implements OnInit {
       if(!!this.buyerLogoURL)
         formData.append('buyar_logo',this.buyerLogoFile);
       this.AdminService.updateCMSSetting(formData).subscribe((response:any) => {
-        console.log(response);
+      $('.overlayDivLoader').hide(); 
         if(!response.status)
           this.toastr.errorToastr(response.message, 'Oops!');
         else if(response.status)

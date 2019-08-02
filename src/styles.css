@@ -9,6 +9,28 @@
     font-style: normal;
 
 }
+/* @font-face {
+    font-family: 'proximaNovaAlt';
+    src: url('assets/fonts/FontsFree-Net-ProximaNovaAltRegular.ttf') format('ttf'),
+         url('assets/fonts/FontsFree-Net-ProximaNovaAltRegular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+
+} */
+@font-face {
+    font-family: 'ProximaNovaA-Regular';
+    src: url('assets/fonts/ProximaNovaA-Regular.eot') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'ProximaNovaA-Regular';
+    src:url('assets/fonts/ProximaNovaA-Regular.ttf')  format('truetype'), url('assets/fonts/ProximaNovaA-Regular.svg#ProximaNovaA-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 *{
 	font-family: 'proxima';
 }
@@ -139,14 +161,14 @@
     color: #48a5ea;
 }
 .commonBlueBtn, .lightBlueBtn {
-    color: #fff;
-    background-color: #119cee;
-    border: 2px solid #119cee;
-    border-radius: 25px;
-    line-height: 1;
+    color: #fff !important;
+    background-color: #119cee !important;
+    border: 2px solid #119cee !important;
+    border-radius: 25px !important;
+    line-height: 1 !important;
     box-shadow: 1px 1px 5px #a7a7a7;
-    margin: 0 5px;
-    padding: 7px 20px;
+    margin: 0 5px !important;
+    padding: 7px 20px !important;
     font-size: 13px;
 	height: 31px;
 }
@@ -194,7 +216,8 @@
 .sideBox a {
     text-decoration: underline;
     color: #999;
-	    font-size: 13px;
+    font-size: 13px;
+    margin: 0 5px;
 }
 
 .sideBox p {
@@ -361,7 +384,9 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-	margin: 0 50px;
+    margin: 0 30px;
+    border-left: .5px solid #dddddd5c;
+    border-right: .5px solid #dddddd45;
 }
 .profileTabSectionInner .nav-tabs>li {
     margin-bottom: 0px;
@@ -374,9 +399,13 @@
     line-height: 1;
     border: 1px solid transparent;
     border-radius: 0px 0px 0 0;
-    font-size: 18px;
+    font-size: 17px;
+    padding: 6px 0;
     color: #119cee;
-    box-shadow: 0px 5px 10px #dddddd9e;
+    /* box-shadow: 0px 5px 10px #dddddd9e; */
+    border-left: .5px solid #dddddd5c;
+    border-right: .5px solid #dddddd45;
+    font-family: 'ProximaNovaA-Regular';
 }
 .profileTabSectionInner .nav-tabs>li.active>a, .profileTabSectionInner .nav-tabs>li.active>a:focus, .profileTabSectionInner .nav-tabs>li.active>a:hover {
     color: #555;
@@ -388,12 +417,13 @@
     color: #fff;
 }
 .profileLeftSec {
-    width: 200px;
+    width: 150px;
     float: left;
 }
 .profilerightSec {
-    width: calc(100% - 200px);
+    width: calc(100% - 170px);
     float: right;
+    padding: 0 20px 0px 0;
 }
 .profileTabSectionInner .tab-content {
     width: 100%;
@@ -784,7 +814,7 @@
 }
 .popHead {
     color: #119cee;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     margin: 0;
 }
@@ -950,7 +980,7 @@ tr.oddBg {
     margin: 60px 0;
 }
 .custumPop .popHead {
-	padding: 10px 10px 0;
+	padding: 5px 10px 0;
 }
 /* edit supplier popup css */
 .popSupplierText {
@@ -1110,6 +1140,9 @@ p.popupPara {
 .custumPop.max800 {
     max-width: 800px;
 }
+.custumPop.max850 {
+    max-width: 850px;
+}
 .custumPop.max1000{
 	max-width: 1000px;
 }
@@ -1135,11 +1168,12 @@ p.popupPara {
     min-width: 220px;
     line-height: unset;
     margin-right: 15px;
+    color: #0e97e7;
 }
  .SlideDivMain h4 {
     font-size: 17px;
     color: #119cee;
-    padding: 0 10px;
+    padding: 0 0px;
     font-weight: bold;
 }
 
@@ -1169,9 +1203,10 @@ p.popupPara {
     background-color: #ea485b;
     color: #fff;
     border: 1px solid #ea485b;
+    font-size: 12px;
 }
 .singleSlideDiv p {
-    margin: 0 0 10px;
+    margin: 0 0 5px;
     width: 100%;
     float: left;
 }
@@ -1180,7 +1215,7 @@ p.popupPara {
     text-decoration: underline;
     display: block;
     font-size: 14px;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 .singleSlideDiv a span {
     color: #000;
@@ -1239,9 +1274,9 @@ p.popupPara {
 	text-align:center;
 }
 .invoicetable td {
-    color: #000;
+    color: #333;
     line-height: 1 !important;
-    font-size: 12px;
+    font-size: 13px;
     text-align: center;
 }
 .invoicetable .disF {
@@ -2842,7 +2877,8 @@ input.uploadInput {
 .upload_picture img{
     position: unset;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
 }
 .curPoi{
     cursor: pointer;
@@ -2902,9 +2938,10 @@ input.uploadInput {
 .formDiv .field {
     height: 55px;
 }
-.formDiv form.jform .field input, .formDiv form.jform .field textarea {
+.formDiv form.jform .field input, .formDiv form.jform .field textarea, .formDiv form.jform select {
     padding: 0px 0px 5px;
     height: 25px;
+    line-height: 1;
 }
 .formDiv label.commonLabel {
     margin: 0;
@@ -2923,4 +2960,41 @@ input.uploadInput {
 .successfull .success_text {
     font-size: 18px;
     color: #000;
+}
+.uploadDivMAin input[type="file"] {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin: 0 auto;
+    z-index: 9;
+    opacity: 0;
+}
+.uploadDivMAin.field {
+    margin: 0 auto;
+}   
+.uploadDivMAin label.upload_picture {
+    width: 140px;
+    height: 140px;
+    position: relative;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+}
+.disUnset {
+    display: unset;
+}
+.SlideDivMain {
+    padding: 0 90px 0 15px;
+}
+.min80 {
+    min-width: 80px;
+}
+.supplierSettingMain .width40 {
+    width: 47%;
+}
+.custumPop.max800.listinvoicePop
+.custumPop.max800.listinvoicePop .greenRoundN, .custumPop.max800.listinvoicePop .orangeRoundN, .custumPop.max800.listinvoicePop .blackroundN, .redRoundN {
+    width: 10px;
+    height: 10px;
+    margin: 0px 10px;
+    min-width: 10px;
 }

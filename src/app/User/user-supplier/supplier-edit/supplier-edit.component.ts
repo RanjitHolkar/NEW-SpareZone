@@ -3,7 +3,7 @@ import { SupplierEditService } from './supplier-edit.service';
 import { Form,FormBuilder,FormArray,FormControl,FormGroup,Validators} from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
-
+declare var $;
 
 @Component({
   selector: 'app-supplier-edit',
@@ -33,6 +33,7 @@ public confirmationPopUp = false;
     private toastr:ToastrManager) { }
 
   ngOnInit() {
+    $('.overlayDivLoader').show();
     this.acctionButton = 'Save';
     this.viewDetails = true;
     this.submited = false;
@@ -75,30 +76,37 @@ public confirmationPopUp = false;
   }
   // This Function For Get Supplier Details
   getSupplierDetails(){
+    $('.overlayDivLoader').show();
     this.userDetails =[];
     this._supplierEditService.getUserDetails().subscribe(res=>{
       this.userDetails.push(res['res']);
+    $('.overlayDivLoader').hide();
       console.log(this.userDetails);
     })
   }
   // This Function For Get Business Type
   getBusinessType(){
+    $('.overlayDivLoader').show();
     this._supplierEditService.getBusinessType().subscribe(res=>{
       this.businessType = res['businessTypeData'];
       console.log(this.businessType);
+    $('.overlayDivLoader').hide();
     }) 
   }
   // This Function For Get Sub Supplier Details
   getSubSupplierDetails(){
+    $('.overlayDivLoader').show();
     this._supplierEditService.getSubSupplier().subscribe(res=>{
       this.subSupplierDetails = res;
-      console.log(res);
+    $('.overlayDivLoader').hide();   
     }) 
   }
   //This Function For Get Supplier Groups
   getgroupType(){
+    $('.overlayDivLoader').show();
     this._supplierEditService.getgroupType().subscribe(res=>{
       this.supplierGroup = res['supplierGroups'];
+    $('.overlayDivLoader').hide();
       console.log(res);
     }) 
   }
@@ -108,6 +116,7 @@ public confirmationPopUp = false;
   updateDetails(){
     this.submit = true;
     if(this.editForm.valid){
+    $('.overlayDivLoader').show();
       let formData = new FormData();
         if(this.images !=undefined){
         formData.append('profile_logo',this.images);
@@ -123,6 +132,7 @@ public confirmationPopUp = false;
         formData.append('is_capricon',this.editForm.value.is_capricon);
         formData.append('group_id',this.editForm.value.group_id);
         this._supplierEditService.updateDetails(formData).subscribe(res=>{
+        $('.overlayDivLoader').hide();
         this.toastr.successToastr('Update Details Successfully');
         this.images = undefined;
         this.getSupplierDetails();
@@ -146,8 +156,10 @@ public confirmationPopUp = false;
   addEditSubSupplier(){
     this.submited = true;
     if(this.addSubSupplier.valid){
+      $('.overlayDivLoader').show();
       if(this.acctionButton == 'Save'){
         this._supplierEditService.addSubSupplier(this.addSubSupplier.value).subscribe(res=>{
+      $('.overlayDivLoader').hide();
           if(res.status == 1){
             this.addSubSupplier.patchValue({'sub_supplier_id':res.userId});
             this.toastr.successToastr(res.message);
@@ -159,9 +171,11 @@ public confirmationPopUp = false;
           }
         })
       }else{
+        $('.overlayDivLoader').show();
         let data = this.addSubSupplier.value;
         data['sub_supplier_id'] = this.subSupplierId;
         this._supplierEditService.updateSubSupplier(data).subscribe(res=>{
+        $('.overlayDivLoader').hide();
           if(res.status == 1){
             this.toastr.successToastr(res.message);
             this.subSupplierDetails[this.editIndex]= data;
@@ -204,7 +218,9 @@ public confirmationPopUp = false;
   }
   /* This Function For confirm Remove Sub Supplier Details*/
   confirmRemoveSubSupplier(){
+    $('.overlayDivLoader').show();
     this._supplierEditService.deleteSubSupplier({'sub_supplier_id':this.subSupplierId}).subscribe(res=>{
+    $('.overlayDivLoader').hide();
       if(res == 1){
         this.subSupplierDetails.splice(this.editIndex, 1);
         this.toastr.successToastr('Delete Sub Supplier Successfully');

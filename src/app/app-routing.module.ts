@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
-    path:'',loadChildren: './login/login.module#LoginModule',pathMatch:'full' 
+    path:'',loadChildren: './home/home.module#HomeModule',pathMatch:'full' 
   },
   {
-    path:'login',loadChildren: './login/login.module#LoginModule' 
+    path:'login',loadChildren: './login/login.module#LoginModule',
   },
   {
     path:'admin-activity',loadChildren: './Admin/admin-activity/admin-activity.module#AdminActivityModule' 
@@ -40,14 +40,14 @@ const routes: Routes = [
   {
     path:'customer-edit',loadChildren:'./User/user-customer/customer-edit/customer-edit.module#CustomerEditModule'
   },
-  // {
-  //   path:'customer-dash',loadChildren:'./User/user-customer/business-customer-dash/business-customer-dash.module#BusinessCustomerDashModule'
-  // },
   {
-    path:'customer-dash',loadChildren:'./User/user-customer/customer-dash/customer-dash.module#CustomerDashModule'
+    path:'personal-customer-dash',loadChildren:'./User/user-customer/personal-customer-dash/customer-dash.module#CustomerDashModule'
   },
   {
-    path:'**',loadChildren: './login/login.module#LoginModule',pathMatch:'full' 
+    path:'business-customer-dash',loadChildren:'./User/user-customer/business-customer-dash/business-customer-dash.module#BusinessCustomerDashModule'
+  },
+  {
+    path:'**',loadChildren: './home/home.module#HomeModule',pathMatch:'full' 
   }
 ];
 

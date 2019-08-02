@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { AdminMaintanceService } from '../admin-maintance.service';
+import { find } from 'rxjs/operators';
 declare var $: any;
 @Component({
   selector: 'app-parts-category',
@@ -11,20 +12,26 @@ declare var $: any;
 export class PartsCategoryComponent implements OnInit {
   popUpTitle: string;
   catPartForm: FormGroup;
+  assignedPartForm: FormGroup;
   catPartFormStatus: number;
   selectedCategoryID: number;
   selectedCategoryName: string;
   categoryData = [];
   deleteData : any;
   deleteDataIndex : number;
+  editDataIndex : string;
   partData = [];
   isSubmitted = false;
+  saveUpdateButton : number;
+  assignedParts : any;
+  selectedBodyCellID: number;
   constructor(private formBuilder: FormBuilder, private toastr: ToastrManager, private adminmaintainservice: AdminMaintanceService) { }
 
   ngOnInit() {
     $('.overlayDivLoader').show();
     $("#catPartsPopup").hide();
     $("#catPartDeletePopup").hide();
+    $("#assignedPartsPopUp").hide();
     this.getCategories();
   }
 
@@ -33,7 +40,8 @@ export class PartsCategoryComponent implements OnInit {
     this.adminmaintainservice.getCategories().subscribe((result: any) => {
       this.categoryData = result.result;
       $('.overlayDivLoader').hide();
-      this.getPartPerCategory(this.categoryData[0]);
+      if(this.categoryData.length > 0)
+        this.getPartPerCategory(this.categoryData[0]);
     })
   }
   /* Display Parts as per Category */
@@ -52,11 +60,12 @@ export class PartsCategoryComponent implements OnInit {
   }
 
   /* Display popUp */
-  displayCartPartPopup(title, formStatus) {
+  displayCartPartPopup(title, formStatus,buttonStatus) {
+    this.saveUpdateButton = buttonStatus;
     this.isSubmitted = false;
-    this.popUpTitle = title;
-    if (formStatus === 1) {
-      this.createCatPartForm(formStatus);
+    this.popUpTitle = title;     
+    if (formStatus === 1) {      
+      this.createCatPartForm(formStatus);     
       $("#catPartsPopup").show();
     }
     else if (formStatus === 2 && this.selectedCategoryID) {
@@ -70,6 +79,9 @@ export class PartsCategoryComponent implements OnInit {
   /* Close popUp */
   closeCartPartPopup() {
     $("#catPartsPopup").hide();
+    if(this.editDataIndex)
+      this.catPartForm.reset;
+    this.editDataIndex = '';
   }
 
   /* Create form
@@ -99,10 +111,7 @@ export class PartsCategoryComponent implements OnInit {
   get catPartF() {
     return this.catPartForm.controls
   }
-  getBodyCell(_this) {
-    console.log(_this);
-  }
-
+ 
   /* Save Part & Ctaegories */
   savePartCategory() {
     this.isSubmitted = true;
@@ -153,6 +162,7 @@ export class PartsCategoryComponent implements OnInit {
   openDeletePopUp(deleteData,index){
     this.deleteData = deleteData;
     this.deleteDataIndex = index;
+    console.log(index);
     $("#catPartDeletePopup").show();
   }
 
@@ -171,7 +181,7 @@ export class PartsCategoryComponent implements OnInit {
      this.adminmaintainservice.updateCategory({'is_delete':1,'category_id':this.deleteData.category_id}).subscribe((res:any)=>{
       if(res.status){
         this.toastr.successToastr(res.message,'Success');
-        this.categoryData.splice(this.deleteDataIndex);
+        this.categoryData.splice(this.deleteDataIndex,1);
         $("#catPartDeletePopup").hide();
       }
       else if(res.status == 0)
@@ -188,7 +198,7 @@ export class PartsCategoryComponent implements OnInit {
         if(res.status){
           this.toastr.successToastr(res.message,'Success');
           $("#catPartDeletePopup").hide();
-          this.partData.splice(this.deleteDataIndex);
+          this.partData.splice(this.deleteDataIndex,1);
         }
         else if(res.status == 0)
           this.toastr.errorToastr(res.message,'Oops!!');
@@ -203,5 +213,102 @@ export class PartsCategoryComponent implements OnInit {
     //if(this.deleteData)
   }
   /* Delete operations : END */
+
+  /* Edit Parts and Categories: START */
+
+  //Edit Category
+  openEditPopUp(editData,index,formStatus,buttonStatus){
+    this.editDataIndex = index;
+    if(formStatus == 1){
+      this.displayCartPartPopup('Edit Category', formStatus,buttonStatus)
+      this.catPartForm.controls['category_name'].setValue(editData.category_name);
+      this.catPartForm.addControl('category_id', new FormControl(editData.category_id, Validators.required));
+    }
+    else if(formStatus == 2){
+      this.displayCartPartPopup('Edit Part', formStatus,buttonStatus)
+      this.catPartForm.controls['part_name'].setValue(editData.part_name);
+      this.catPartForm.controls['category_id'].setValue(editData.category_id);
+      this.catPartForm.addControl('part_id', new FormControl('4', Validators.required));
+    }
+    
+  }
+
+  //Update category & Parts
+  updateCatParts(){
+    var formData = this.catPartForm.value;
+    this.isSubmitted = true;
+    if (this.catPartForm.invalid)
+      return false;
+    this.isSubmitted = false;
+    $('.overlayDivLoader').show();
+    if(formData.category_id && !formData.part_id){
+      this.adminmaintainservice.updateCategory(formData).subscribe((result:any)=>{
+        console.log(result);
+        if(result.status){
+          this.categoryData[this.editDataIndex].category_name = formData.category_name;
+          this.toastr.successToastr(result.message,'Success');
+          this.editDataIndex = '';
+          $("#catPartsPopup").hide();
+          this.catPartForm.reset();
+        }else{
+          this.toastr.errorToastr(result.message,'Oops!!');
+        }        
+        $('.overlayDivLoader').hide();
+      },error=>{
+        this.toastr.errorToastr(error,'Oops!!');
+        $('.overlayDivLoader').hide();
+      })
+    }else if(formData.category_id && formData.part_id){
+      this.adminmaintainservice.updatePart(formData).subscribe((result:any)=>{
+        console.log(result);
+        if(result.status){
+          this.partData[this.editDataIndex].part_name = formData.part_name;
+          this.toastr.successToastr(result.message,'Success');
+          this.editDataIndex = '';
+          $("#catPartsPopup").hide();
+          this.catPartForm.reset();
+        }else{
+          this.toastr.errorToastr(result.message,'Oops!!');
+        }        
+        $('.overlayDivLoader').hide();
+      },error=>{
+        this.toastr.errorToastr(error,'Oops!!');
+        $('.overlayDivLoader').hide();
+      })
+    }
+    
+  }
+  /* Edit Parts and Categories: END */
+
+  /* Assigned Parts: START */
+  getBodyCell(_this) {
+    this.createAssignedPartForm();
+    this.selectedBodyCellID = _this;    
+    $('.overlayDivLoader').show();
+    $('#bodyCell').find('.active').removeClass('active');
+    $('#'+_this).addClass('active');
+    this.adminmaintainservice.getAssignedParts(_this).subscribe((result:any)=>{
+      console.log(result);
+      $('.overlayDivLoader').hide();
+    })
+   }
+
+  //SAve assigned parts
+  openAssignedPopUp(){
+    $("#assignedPartsPopUp").show();
+  }
+
+  closeAssignedPopUp(){
+    $("#assignedPartsPopUp").hide();
+  }
+
+  //create new form for assigned parts
+  createAssignedPartForm(){
+    this.assignedPartForm = this.formBuilder.group({
+      part_id:['',Validators.required],
+      car_body_cell_id: [this.selectedBodyCellID,Validators.required]
+    })
+  }
+  /* Assigned Parts: END */
   
 }

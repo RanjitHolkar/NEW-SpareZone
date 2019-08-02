@@ -1,32 +1,4 @@
 <app-user-nav></app-user-nav>
-<!-- <header class="header">
-	<div class="container">
-		<div class="row">
-			<div class="mnu">
-				<span class="hamburger hamburger--collapse">
-					<span class="hamburger-box">
-						<span class="hamburger-inner"></span>
-					</span>
-				</span>
-				<div class="respon navbar-main">
-					<div class="search-box">
-						<form>
-							<input type="text" placeholder="Track Here">
-							<button type="submit"><img src="assets/images/search-icon.png" alt="" /></button>
-						</form>
-					</div>
-					<ul class="nav navbar-nav">
-						<li><a href="member-listing.php">Members</a></li>
-						<li><a href="signup.php">Sign Up</a></li>
-						<li><a href="login.php">Login</a></li>
-						<li><a href="javascript:;" class="sidebar-btn">Contact</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="logo"><a href="index.php"><img src="assets/images/logo.png" alt="" /></a></div>
-</header> -->
 <div class="commonBgDiv"><img src="assets/images/banner.jpg" alt="" /></div>
 <div class="banner-wrap" *ngIf="accountType == 2">
 	<div class="banner" style="background-image:url(assets/images/banner.jpg);">
@@ -102,26 +74,6 @@
 														<div *ngIf="f.business_address.errors.required">Business Address is required</div>
 													</div>
 												</div>
-
-												<!-- <div class="col-md-8 field">
-											<div class="row pr-15">	
-												<input type="text"  >
-												<fieldset class="active">Business Contact Number</fieldset>
-												<div *ngIf="submit && f.contact_person.errors" class="invalid-feedback">
-													<div *ngIf="f.contact_person.errors.required">Contact Person is required</div>
-													</div>
-											</div>
-										</div> -->
-												<!-- <div class="col-md-4 field">
-													<div class="row">
-														<input type="text" 
-															[(ngModel)]="customerDetails.business_name">
-														<fieldset class="active">Post Code</fieldset>
-														<div *ngIf="submit && f.contact_person.errors" class="invalid-feedback">
-													<div *ngIf="f.contact_person.errors.required">Contact Person is required</div>
-													</div>
-													</div>
-												</div> -->
 												<div class="col-md-4 field">
 													<div class="row">
 														<input type="text" 
@@ -155,7 +107,6 @@
 												</div>
 												<div class="field col-md-12">
 													<div class="row">
-														<!-- <img src="assets/images/arrow.png" alt=""> -->
 														<input type="text" [(ngModel)]="customerDetails.email_id" formControlName="email_id" readonly>
 														<fieldset class="active">Email</fieldset>
 														<div *ngIf="submit && f.email_id.errors" class="invalid-feedback">
@@ -178,11 +129,8 @@
 												</div>
 
 												<div class="text-center button_email_report">
-													<!-- <button class="btn-def btnsld white e_d" data-dismiss="modal"
-														type="button" value="Find Part"
-														data-tab="NextStep">Print</button> -->
-													<button class="btn-def btnsld e_d" type="submit" value="Find Part"
-														data-tab="NextStep">Submit</button>
+													<button class="btn-def btnsld white e_d" type="button" routerLink="/business-customer-dash">Back</button>
+													<button class="btn-def btnsld e_d" type="submit" >Submit</button>
 												</div>
 											</div>
 										</form>
@@ -308,8 +256,8 @@
 													</div>
 													
 													<div class="text-center button_email_report fullwidth">
-														<!-- <button class="btn-def btnsld white e_d" data-dismiss="modal" type="submit" value="Find Part" data-tab="NextStep">Print</button>									 -->
-														<button class="btn-def " type="submit" value="Find Part" data-tab="NextStep">Submit</button>									
+														<button class="btn-def btnsld white e_d" type="button">Back</button>									
+														<button class="btn-def " type="submit" >Submit</button>									
 													</div>
 												</div>	
 											</form>	

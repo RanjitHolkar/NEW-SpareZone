@@ -13,25 +13,33 @@
               <h4 class="maintanceHead">Category</h4>
               <ul>
                 <li *ngFor="let catData of categoryData;let i=index">
-                  <p (click)="getPartPerCategory(catData)">{{catData.category_name}}</p>
-                  <h5 class="closeRound" (click)="openDeletePopUp(catData,i)">X</h5>
+                  <p class="curPoi" title="Display Parts" (click)="getPartPerCategory(catData)">{{catData.category_name}}</p>
+                  <i class="fa fa-edit curPoi" title="Edit Category" (click)="openEditPopUp(catData,i,1,2)"></i>
+                  <h5 class="closeRound curPoi" title="Delete Category" (click)="openDeletePopUp(catData,i)">X</h5>
                 </li>
               </ul>
               <div class="text-center">
-                <button class="btn commonBtnBlue widthUnset" (click)="displayCartPartPopup('Add Category',1)">Add</button>
+                <p *ngIf="categoryData.length == 0"> Categories not available</p>
+              </div>
+              <div class="text-center">
+                <button class="btn commonBtnBlue widthUnset" (click)="displayCartPartPopup('Add Category',1,1)">Add</button>
               </div>
             </div>
 
             <div class="MaintanceSingle">
               <h4 class="maintanceHead">Parts</h4>
               <ul>
-                <li *ngFor="let part of partData; let i=index">
+                <li *ngFor="let part of partData; let j=index">
                   <p>{{part.part_name}}</p>
-                  <h5 class="closeRound" (click)="openDeletePopUp(part,i)">X</h5>
+                  <i class="fa fa-edit curPoi" title="Edit Part" (click)="openEditPopUp(part,j,2,2)"></i>
+                  <h5 class="closeRound curPoi" title="Delete Part" (click)="openDeletePopUp(part,j)">X</h5>
                 </li>
               </ul>
               <div class="text-center">
-                <button class="btn commonBtnBlue widthUnset" (click)="displayCartPartPopup('Add Part',2)">Add</button>
+                <p *ngIf="partData.length == 0"> Parts not available</p>
+              </div>
+              <div class="text-center">
+                <button class="btn commonBtnBlue widthUnset" (click)="displayCartPartPopup('Add Part',2,1)">Add</button>
               </div>
             </div>
           </div>
@@ -43,21 +51,21 @@
               <img src="assets/images/carImagecat.png" class="carImageNew">
 
               <div class="UpperBoxDiv ">
-                <table>
+                <table id="bodyCell">
                   <tr>
-                    <td (click)="getBodyCell($event)" id="1" class="active"></td>
-                    <td (click)="getBodyCell()" id="2"></td>
-                    <td (click)="getBodyCell()" id="3"></td>
+                    <td class="curPoi active" (click)="getBodyCell(1)" id="1"></td>
+                    <td class="curPoi" (click)="getBodyCell(2)" id="2"></td>
+                    <td class="curPoi" (click)="getBodyCell(3)" id="3"></td>
                   </tr>
                   <tr>
-                    <td (click)="getBodyCell()" id="4"></td>
-                    <td (click)="getBodyCell()" id="5"></td>
-                    <td (click)="getBodyCell()" id="6"></td>
+                    <td class="curPoi" (click)="getBodyCell(4)" id="4"></td>
+                    <td class="curPoi" (click)="getBodyCell(5)" id="5"></td>
+                    <td class="curPoi" (click)="getBodyCell(6)" id="6"></td>
                   </tr>
                   <tr>
-                    <td (click)="getBodyCell()" id="7"></td>
-                    <td (click)="getBodyCell()" id="8"></td>
-                    <td (click)="getBodyCell()" id="9"></td>
+                    <td class="curPoi" (click)="getBodyCell(7)" id="7"></td>
+                    <td class="curPoi" (click)="getBodyCell(8)" id="8"></td>
+                    <td class="curPoi" (click)="getBodyCell(9)" id="9"></td>
                   </tr>
                 </table>
               </div>
@@ -96,7 +104,7 @@
                 </li>
               </ul>
               <div class="text-center">
-                <button class="btn commonBtnBlue widthUnset">Add</button>
+                <button class="btn commonBtnBlue widthUnset" (click)="openAssignedPopUp()">Add</button>
               </div>
             </div>
           </div>
@@ -134,14 +142,48 @@
             </div>
           </div>
         </div>
+        <pre>{{catPartForm.value | json}}</pre>
       </form>
+      <div class="form-group">
+          <button *ngIf="saveUpdateButton ==1 " class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="savePartCategory()">SAVE</button>
+          <button *ngIf="saveUpdateButton ==2" class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="updateCatParts()">UPDATE</button>
+        </div>
     </div>
-    <div class="form-group">
-      <button class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="savePartCategory()">SAVE</button>
-    </div>
+   
   </div>
 </div>
 <!-- Add Popup : END -->
+
+<!--Assigned Parts POPUP : START -->
+<div id="assignedPartsPopUp" class="overlayDiv">
+    <div class="newBtnPopup min500 ">
+      <div class="form-group closeBtnDiv">
+        <h4 class="popHead">Assign Part</h4>
+        <span href="#" class="closeBtn" (click)="closeAssignedPopUp()"><img src="assets/images/cancel.png" alt=""></span>
+      </div>
+      <div *ngIf="selectedBodyCellID">
+        <form [formGroup]="assignedPartForm">
+            <div class="form-group">
+              <select>
+                <option *ngFor="let cData of categoryData" value="{{cData.category_id}}">{{cData.category_name}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <!-- <input type="text" class="commonInput" formControlName="category_name" placeholder=""> -->
+              <!-- <div *ngIf="isSubmitted">
+                <label class="error" *ngIf="catPartF.category_name.errors?.required">Category name is required</label>
+              </div> -->
+            </div>
+          <pre>{{assignedPartForm.value | json}}</pre>
+        </form>
+        <div class="form-group">
+            <button  class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveAssignedParts()">SAVE</button>
+          </div>
+      </div>
+     
+    </div>
+  </div>
+  <!--Assigned Parts POPUP : END -->
 
 <!-- For delete : START -->
 <div class="overlayDiv" id="catPartDeletePopup">

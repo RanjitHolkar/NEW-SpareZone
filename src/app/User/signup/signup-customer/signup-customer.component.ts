@@ -1,39 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { Form,FormBuilder,FormArray,FormControl,FormGroup,Validators} from '@angular/forms';
 import { SignupCustomerService } from './signup-customer.service';
-import { Router} from '@angular/router';
-
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { Router } from '@angular/router';
+declare var $;
 @Component({
   selector: 'app-signup-customer',
   templateUrl: './signup-customer.component.html',
   styleUrls: ['./signup-customer.component.css']
 })
 export class SignupCustomerComponent implements OnInit {
-  public signUpFormSecondBussiness:FormGroup; 
-  public signUpFormThirdBussiness:FormGroup; 
+  public businessForm:FormGroup; 
   public SignInFormFirst:FormGroup;
   public SignInFormSecond:FormGroup;
   public submitFirst = false;
   public submitSecond = false;
   public secondForm = false;
-  public secondFormBussiness = false;
   public thirdForm = false;
   public SignInFormThird = false;
-  public firstFormBusines = false;
+  public businesFormSubmit = false;
   public images :any;
   public fileError = false;
-  public thirdFormBussiness = false;
   public account_type = 1;
-  public secondFormBusines = false;
   public memberId:any;
   public customerSucess = false;
-  public bussinessSucess = false;
   public businessType:any;
   public imagesUrl:any;
-    constructor(private formBuilder:FormBuilder,private SignupCustomerService :SignupCustomerService,private router: Router) { }
+    constructor(private formBuilder:FormBuilder,
+      private SignupCustomerService :SignupCustomerService,
+      private router: Router,
+      private toastr:ToastrManager) { }
     ngOnInit() {
+      $('.overlayDivLoader').show();
       this.SignupCustomerService.getBusinessType().subscribe(res=>{
         this.businessType = res['businessTypeData'];
+      $('.overlayDivLoader').hide();
       })
       this.SignInFormFirst = this.formBuilder.group({
         account_type :[this.account_type],
@@ -48,17 +49,18 @@ export class SignupCustomerComponent implements OnInit {
         personal_contact : ['',Validators.required]
       })
       // FormBuilder In Signup second form in bussiness
-      this.signUpFormSecondBussiness = this.formBuilder.group({
+      this.businessForm = this.formBuilder.group({
         business_name :['',Validators.required],
+        contact_person :['',Validators.required],
         personal_contact :['',Validators.required],
-        business_contact :['',Validators.required],
+        email_id :['',Validators.required],
+        password :['',Validators.required],
         business_address :['',Validators.required],
-        contact_person :['',Validators.required]
-      })
-      this.signUpFormThirdBussiness = this.formBuilder.group({
+        business_contact :['',Validators.required],
         business_abn :['',Validators.required],
         business_type :['',Validators.required],
-        profile_logo :['',Validators.required]
+        profile_logo :['',Validators.required],
+        termsCond :['',Validators.required]
       })
     }
     
@@ -67,12 +69,7 @@ export class SignupCustomerComponent implements OnInit {
       this.submitFirst = true;
         if(this.SignInFormFirst.valid){
           this.SignInFormFirst.disable();
-          if(this.SignInFormFirst.value.account_type == 2){
-            this.secondFormBussiness = true;
-          }else{
-            this.secondForm = true;
-          }
-          
+          this.secondForm = true; 
         }
         return false;
     }
@@ -124,45 +121,41 @@ export class SignupCustomerComponent implements OnInit {
     }
 
     // All Functions is Business customer Sign Up
-    get bFirst(){return this.signUpFormSecondBussiness.controls}
-    get bSecond(){return this.signUpFormThirdBussiness.controls}
-    signUpFirstFormBusinesSubmit(){
-      console.log(this.signUpFormSecondBussiness.value.business_name);
-      this.firstFormBusines = true;
-      if(this.signUpFormSecondBussiness.valid){
-        this.signUpFormSecondBussiness.disable();
-        this.thirdFormBussiness = true;
-      }
-    }
    
+    get businessForms(){return this.businessForm.controls}
     singUpBusines(){
-      this.secondFormBusines = true;
-        if(this.signUpFormThirdBussiness.valid){
+      this.businesFormSubmit = true;
+        if(this.businessForm.valid){
+          $('.overlayDivLoader').show();
           let formData = new FormData();
-          formData.append('account_type',this.SignInFormFirst.value.account_type);
-          formData.append('email_id',this.SignInFormFirst.value.email_id);
-          formData.append('password',this.SignInFormFirst.value.password);
-          formData.append('business_name',this.signUpFormSecondBussiness.value.business_name);
-          formData.append('business_address',this.signUpFormSecondBussiness.value.business_address);
-          formData.append('personal_contact',this.signUpFormSecondBussiness.value.personal_contact);
-          formData.append('business_contact',this.signUpFormSecondBussiness.value.business_contact);
-          formData.append('contact_person',this.signUpFormSecondBussiness.value.contact_person);
-          formData.append('business_abn',this.signUpFormThirdBussiness.value.business_abn);
-          formData.append('business_type',this.signUpFormThirdBussiness.value.business_type);
+          formData.append('account_type',this.businessForm.value.account_type);
+          formData.append('email_id',this.businessForm.value.email_id);
+          formData.append('password',this.businessForm.value.password);
+          formData.append('business_name',this.businessForm.value.business_name);
+          formData.append('business_address',this.businessForm.value.business_address);
+          formData.append('personal_contact',this.businessForm.value.personal_contact);
+          formData.append('business_contact',this.businessForm.value.business_contact);
+          formData.append('contact_person',this.businessForm.value.contact_person);
+          formData.append('business_abn',this.businessForm.value.business_abn);
+          formData.append('business_type',this.businessForm.value.business_type);
           formData.append('profile_logo',this.images);
           formData.append('user_role','9');
-          this.signUpmain(formData);
-        }
-        
+          this.SignupCustomerService.signupCustomer(formData).subscribe(res=>{
+            $('.overlayDivLoader').hide();
+            this.toastr.successToastr(res.msg);
+            this.router.navigate(['/login']);
+          })    
+          
+        }  
     }
     signUpmain(alldata){
-      // $('#overlayDivLoader').css('display','block');
-      // console.log(alldata);
+       $('.overlayDivLoader').show();
       this.SignupCustomerService.signupCustomer(alldata).subscribe(res=>{
         if(res.memberId){
-          this.customerSucess = this.SignInFormFirst.value.account_type;
+          this.customerSucess = true;
           this.memberId = res.memberId;
-          console.log(this.memberId);
+          $('.overlayDivLoader').hide();
+          console.log(res);
         }
       })    
     }

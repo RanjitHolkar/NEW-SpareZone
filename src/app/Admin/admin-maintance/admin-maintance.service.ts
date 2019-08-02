@@ -72,6 +72,13 @@ export class AdminMaintanceService {
       return result;
     }))
   }
+
+  /* Get Assigned Parts */
+  getAssignedParts(bodyTypeID){
+    return this.http.get(environment.base_url+'Admin/AssignedParts/getPartsByBodyID/'+bodyTypeID).pipe(map((result:any)=>{
+      return result;
+    }))
+  }
   
 
 }

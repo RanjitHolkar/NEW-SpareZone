@@ -22,7 +22,9 @@ export class SupplierSettingComponent implements OnInit {
   }
   /* get list of all groups */
   getAllGroups() {
+    $('.overlayDivLoader').show();
     this.AdminService.getAllGroups().subscribe((response: any) => {
+    $('.overlayDivLoader').hide();
       console.log(response);
       this.supplierGroups = response.supplierGroups;
     })
@@ -55,7 +57,9 @@ export class SupplierSettingComponent implements OnInit {
     this.isGroupSumitted = true;
     if (this.supplierGroupForm.valid) {
       this.isGroupSumitted = false;
+      $('.overlayDivLoader').show();
       this.AdminService.saveSupplierGroup(this.supplierGroupForm.value).subscribe((response: any) => {
+      $('.overlayDivLoader').hide();
         if (!response.status)
           this.toastr.errorToastr(response.message, 'Oops!');
         else if (!!response.status){

@@ -2,11 +2,11 @@
   <div class="width40">
     <h4 class="blueHead mar0">Admin Profile</h4>
     <h5 class="blueText text-left"> Create New Supplier Group</h5>
-    <button type="button" class="btn commonWhiteBtn newBtnMar" (click)="displayPopUp()">New</button>
+    <button type="button" class="btn commonWhiteBtn newBtnMar min80" (click)="displayPopUp()">New</button>
     <div class="btnDiv">
       <div class="disFSB mart5" *ngFor="let supgroup of supplierGroups">
         <button class="btn commonBlueBtn min200 lightBlueBtn">{{supgroup.group_name}}</button>
-        <button class="btn commonWhiteBtn">Edit</button>
+        <button class="btn commonWhiteBtn min80">Edit</button>
       </div>
       <div class="disFSB">
         <button class="btn commonBlueBtn min200 lightBlueBtn">Used</button>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MembersListService } from './members-list.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
-
+declare var $;
 @Component({
   selector: 'app-members-list',
   templateUrl: './members-list.component.html',
@@ -18,6 +18,7 @@ public index:any;
   constructor(private membersListService:MembersListService,private toaster:ToastrManager) { }
 
   ngOnInit() {
+    $('.overlayDivLoader').show(); 
     this.membersListService.getGroups().subscribe(res=>{
       this.groupType = res.supplierGroups;
     })
@@ -27,7 +28,7 @@ public index:any;
     this.membersListService.getSupplierListing(this.limit).subscribe(res=>{
       this.memberListing = res.states;
     })
-
+    $('.overlayDivLoader').hide(); 
   }
   activeDeactiveSupplier(index,status,supplier_id){
     this.index =index;
@@ -35,7 +36,7 @@ public index:any;
     this.confirmationPopUp=true;
   }
   confirmActionSupplier(){
-    console.log(this.supplier_data);
+    $('.overlayDivLoader').show(); 
     this.membersListService.activeDeactiveSupplier(this.supplier_data).subscribe(res=>{
       console.log( this.supplier_data['supplier_status']);
       this.memberListing[this.index]['supplier_status'] = this.supplier_data['supplier_status'];
@@ -44,6 +45,7 @@ public index:any;
       }else{
         this.toaster.errorToastr(res.message);
       }
+    $('.overlayDivLoader').hide(); 
       this.confirmationPopUp=false;
     })
   }

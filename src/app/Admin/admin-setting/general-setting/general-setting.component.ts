@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminSettingService } from '../admin-setting.service';
-import { ToastrManager } from 'ng6-toastr-notifications'
+import { ToastrManager } from 'ng6-toastr-notifications';
+declare var $;
 @Component({
   selector: 'app-general-setting',
   templateUrl: './general-setting.component.html',
@@ -23,7 +24,9 @@ export class GeneralSettingComponent implements OnInit {
 
   /* Get general setting data */
   getGeneralSettingData() {
+    $('.overlayDivLoader').show(); 
     this.AdminService.getGeneralSetting().subscribe((response: any) => {
+    $('.overlayDivLoader').hide(); 
       this.generalSettingData = response.generalSetting;
       console.log(response);
       this.setGeneralValues();
@@ -85,6 +88,7 @@ export class GeneralSettingComponent implements OnInit {
   updateGeneralSetting() {
     this.isGSettingSubmitted = true;
     if (this.generalSettingForm.valid) {
+      $('.overlayDivLoader').show(); 
       this.isGSettingSubmitted = false;
       const formData = new FormData();
       formData.append('setting_id', this.generalSettingForm.value.setting_id);
@@ -97,6 +101,7 @@ export class GeneralSettingComponent implements OnInit {
       formData.append('acknowleg_statement', this.generalSettingForm.value.acknowleg_statement);
       formData.append('supplier_min_limit', this.generalSettingForm.value.supplier_min_limit);
       formData.append('supplier_max_limit', this.generalSettingForm.value.supplier_max_limit);
+      $('.overlayDivLoader').hide(); 
       if(!!this.terms_file)
         formData.append('terms_file', this.terms_file);
       this.AdminService.updateGeneralSetting(formData).subscribe((response: any) => {
@@ -106,7 +111,7 @@ export class GeneralSettingComponent implements OnInit {
         else if(response.status)
           this.toastr.successToastr(response.message, 'Success!');
       }, error => {
-        console.log(error)
+        $('.overlayDivLoader').hide();
         this.toastr.errorToastr(error, 'Oops!');
       })
     } else {
