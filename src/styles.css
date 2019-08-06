@@ -589,7 +589,19 @@
     margin-top: 25px;
 }
 .supplierPI {
-    margin: 10px 0;
+    /* margin: 10px 0; */
+    max-height: 415px;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+.supplierPI h5{
+    text-align: left;
+    font-size: 15px;
+    font-weight: 600;
+    color: #4a4a4a;
+}
+.supplierPI .newSuppGroup{
+    margin-bottom: 15px;
 }
 .supplierPI .disFSB {
     margin: 5px 0;
@@ -815,7 +827,7 @@
 .popHead {
     color: #119cee;
     font-size: 22px;
-    font-weight: bold;
+    /* font-weight: bold; */
     margin: 0;
 }
 .poHeader p{
@@ -1090,28 +1102,32 @@ p.popupPara {
 .maintanceHead {
     background-color: #119cee;
     color: #fff;
-    padding: 5px 15px;
+    padding: 5px 10px;
     font-size: 13px;
     box-shadow: 0 0 10px #999;
     border: 1px solid #fff;
     margin: 5px 0;
 }
 .MaintanceSingle ul {
-    padding: 0 15px 0 0;
+    padding: 0 15px 0 4px;
     text-decoration: none;
     list-style: none;
     margin: 5px 0 30px;
     /* max-height: 150px; */
     max-height: 220px;
     overflow-y: auto;
-    min-height: 150px;
+    min-height: 220px;
 }
 .MaintanceSingle li {
 	display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 6px 10px 0;
+    /* padding: 6px 10px 0; */
     border-bottom: 1px solid #ddd;
+}
+.MaintanceSingle li i{
+    color: #119cee;
+    font-size: 17px;
 }
 .MaintanceSingle p {
     margin: 0;
@@ -1133,7 +1149,7 @@ p.popupPara {
 }
 .widthUnset {
     min-width: unset;
-    padding: 0 25px;
+    padding: 0 20px;
     height: 25px;
     font-size: 12px;
 }
@@ -1147,7 +1163,7 @@ p.popupPara {
 	max-width: 1000px;
 }
 .noBord{
-	border:none;
+	border:none !important;
 }
 .MaintanceSingle li:hover {
     background-color: #e6e6e6;
@@ -1706,6 +1722,9 @@ p.popupPara {
     position: relative;
     justify-content: space-between;
 }
+.custumPop.max800.max850.partCatagoryMain{
+    max-width: 850px;
+}
 .partcatagoryPop .maintanceHead {
     font-size: 11px;
     box-shadow: 0 0 10px #9996;
@@ -1733,16 +1752,24 @@ p.popupPara {
 .partcatagoryPop .MaintanceSingle p {
     margin: 0;
     color: #000;
-    font-size: 11px;
+    font-size: 12px;
+    min-width: 95px;
+    font-family: 'ProximaNovaA-Regular';
+}
+.notAvailable p{
+    position: absolute;
+    width: 100%;
+    top: 40px;
 }
 .partcatagoryPop .MaintanceSingle li {
-    padding: 0px 10px 0;
+    /* padding: 0px 10px 0; */
 }
 .partCatagoryMain .custumPopHead p {
     margin: 0 0 10px;
     color: #666;
     padding: 0px 10px;
     font-size: 15px;
+    font-family: 'ProximaNovaA-Regular';
 }
 .carImage {
 	margin: 5px 0;
@@ -2594,9 +2621,9 @@ max-width: 135px;
 .supplierDiv.memeberAccountmain.supplierDivNew {
     align-items: flex-start;
 }
-.PrefferedPop {
+/* .PrefferedPop {
     min-height: 460px;
-}
+} */
 /*============================== preffered supplier start =========================*/
 .custumPopHead.noBord.ProfileDetailsHead.flexHead {
 	display: flex;
@@ -2607,17 +2634,20 @@ max-width: 135px;
 .leftText{
     display: flex;
     align-items: center;
+    font-family: 'ProximaNovaA-Regular';
 }
 .leftText h5 {
     font-size: 14px;
     color: #666;
     margin: 0 10px;
+    font-family: 'ProximaNovaA-Regular';
 }
 .leftText a {
     color: #119cee;
     text-decoration: underline;
     font-size: 18px;
     font-weight: bold;
+    font-family: 'ProximaNovaA-Regular';
 }
 .custumPop .flexHead .popHead {
     padding: 10px 10px 10px;
@@ -2743,14 +2773,14 @@ max-width: 135px;
     width: 400px;
     padding: 20px 20px;
 }
-.supplierDivNew .EmailreportMail h4 {
+/* .supplierDivNew .EmailreportMail h4 {
     text-align: left;
     color: #119cee;
     margin: 0 0 5px;
     font-size: 20px;
     border-bottom: 1px solid #ddd;
     padding: 10px 0 10px !important;
-}
+} */
 .List.DisSpace {
     display: flex;
     align-items: center;
@@ -2771,7 +2801,7 @@ max-width: 135px;
 }
 .List p {
     margin: 0;
-    font-size: 14px;
+    font-size: 13px;
     color: #000;
 }
 .PrefferedPop  .formgroup {
@@ -2786,7 +2816,8 @@ max-width: 135px;
     align-items: flex-start;
 }
 .PrefferedPop {
-    min-height: 460px;
+    min-height: 480px;
+    padding-top: 10px;
 }
 /*============================== preffered supplier end =========================*/
 
@@ -2808,7 +2839,7 @@ input.uploadInput {
     z-index: 99;
 }
 .spIcon {
-    margin: 0 5px;
+    margin: 0 5px 5px;
 }
 .starGrpIcon {
     width: 18px;
@@ -2844,7 +2875,7 @@ input.uploadInput {
     box-shadow: 0px 1px 6px 0px #8e8e8ee8;
     text-align: center;
     border-radius: 10px;
-    padding: 10px 0px 20px;
+    padding: 20px 30px;
     display: block;
     position: absolute;
     z-index: 99;
@@ -2855,7 +2886,7 @@ input.uploadInput {
 }
 .closeBtnDiv {
     text-align: right;
-    padding-right: 15px;
+    /* padding-right: 15px; */
     margin-bottom: 10px;
 }
 .closeBtn img{
@@ -2920,7 +2951,6 @@ input.uploadInput {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 30px;
 }
 /* popup style:end */
 
@@ -2938,8 +2968,12 @@ input.uploadInput {
 .formDiv .field {
     height: 55px;
 }
+.lookingDiv {
+    max-height: 210px;
+    overflow-y: auto;
+}
 .formDiv form.jform .field input, .formDiv form.jform .field textarea, .formDiv form.jform select {
-    padding: 0px 0px 5px;
+    padding: 0px 25px 5px 0;
     height: 25px;
     line-height: 1;
 }
@@ -2997,4 +3031,141 @@ input.uploadInput {
     height: 10px;
     margin: 0px 10px;
     min-width: 10px;
+}
+.btn-def.min80 {
+    min-width: 80px;
+}
+.edit_Profile_Form form.jform select, form.jform .field input, form.jform .field textarea{
+height: 30px;
+line-height: 1;
+}
+.edit_Profile_Form form.jform .field fieldset.active{
+    top: -15px;
+}
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+/*Scrolling cars CSS Starts */
+.boxs.b_shadow{
+    margin: 0;
+}
+.mov {
+    display: flex;
+}
+.movr {
+    padding: 0 10px;
+}
+.boxs-in h3{
+    margin: 0 0 20px;
+    padding-bottom: 15px;
+}
+.step3Head{
+    font-size: 17px;
+    margin-bottom: 5px !important;
+    padding-bottom: 10px;
+}
+.step2Head{
+    font-size: 20px;
+}
+.boxs-in h4 span{
+    color: #929292;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'ProximaNovaA-Regular';
+}
+ .marB10{
+    margin-bottom: 10px;
+ } 
+ .marLRM20{
+     margin: 0px -20px;
+ }
+ .scrollingCars {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    width: 100%;
+    padding-bottom: 8px;
+}
+.movr.selected{
+    border: 2px solid #48a5ea;
+    border-radius: 5px;
+    padding-bottom: 5px;
+}
+/*Scrolling cars CSS Ends */
+select.commonInput{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    -IE-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    background: url('/assets/images/drop.png');
+    background-repeat: no-repeat;
+    background-position: right;
+}
+.marXY{
+    margin: 30px 0 50px;
+}
+.marXY{
+    text-align: left;
+}
+.marXY label.categoryLabel{
+    font-size: 15px;
+    color: #3a3a3a;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.partCategoryBtn{
+    position: absolute;
+    bottom: -25px;
+    width: 100%;
+}
+.closeBtnDiv.justUnset{
+    justify-content: flex-end;
+}
+.closeBtnDiv.sideHead {
+    padding: 0 10px 0 0px;
+}
+.supplierDiv.memeberAccountmain.supplierDivSignup.marT160{
+    margin-top: 160px !important;
+
+  }
+  .supplierDivSignup.supplierDiv.memeberAccountmain .custumPop.minH600{
+    min-height: 600px !important;
+  }
+  .commonSectionSide {
+    width: 100%;
+    float: left;
+}
+.roundedInput.searchBox{
+width: 150px;
+padding: 0 15px;
+box-sizing: border-box;
+}
+.borB{
+    border-bottom: 1px solid #ddd
+}
+.supplierDivNew .EmailreportMail.PrefferedMain h4 {
+    border-bottom: 0px solid #ddd; 
+    padding:0 !important;
+}
+.supplierDivNew .custumPop.EmailreportMail.PrefferedMain {
+    padding: 30px 50px 30px 30px;
+    position: relative;
+}
+.closeBtn.PrefferedClose{
+    position: absolute;
+    right: 25px;
+    top: 15px;
+}
+.marB5{
+    margin-bottom: 5px;
+}
+.popupLabel{
+    font-family: 'ProximaNovaA-Regular';
+}
+.font23{
+    font-size: 23px !important;
 }

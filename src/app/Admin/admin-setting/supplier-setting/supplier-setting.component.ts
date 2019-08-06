@@ -13,6 +13,8 @@ export class SupplierSettingComponent implements OnInit {
   supplierGroups: any;
   supplierGroupForm: FormGroup;
   isGroupSumitted = false;
+  formTitle : string;
+  editIndex = '';
   constructor(private formBuilder: FormBuilder, private AdminService: AdminSettingService, private toastr: ToastrManager) { }
 
   ngOnInit() {
@@ -42,13 +44,16 @@ export class SupplierSettingComponent implements OnInit {
   }
 
   /* Dislpay Pop Up */
-  displayPopUp(){
+  displayPopUp(title){
+    this.formTitle = title;
     this.supplierGroupForm.reset();
     $("#addGroup").show();
   }
 
   /* Dislpay Pop Up */
   ClosePopUp(){
+    this.supplierGroupForm.reset();
+    this.editIndex = '';
     $("#addGroup").hide();
   }
   
@@ -69,10 +74,50 @@ export class SupplierSettingComponent implements OnInit {
           data['supplier_setting_id'] = response.groupID;
           this.supplierGroups.push(data);
         }
-          
       }, error => {
         console.log(error);
       })
     }
   }
+
+  /* Open Edit groups popUp */
+  OpenEditpopUp(editData,index,title){
+    
+    console.log(editData);
+    console.log(index);
+    this.editIndex = index;
+    this.displayPopUp(title);
+    //this.supplierGroupForm.addControl('supplier_setting_id', new FormControl(editData.supplier_setting_id, Validators.required));
+    this.supplierGroupForm.controls['group_name'].setValue(editData.group_name);
+    this.supplierGroupForm.controls['group_indicator_color'].setValue(editData.group_indicator_color);
+  }
+
+  /* Update group */
+  updateSupplierGroup(){
+    this.isGroupSumitted = true;
+    if(this.supplierGroupForm.invalid){
+      return false;
+    }
+    this.isGroupSumitted = false;
+    $('.overlayDivLoader').show();
+    let updateData = this.supplierGroupForm.value;
+    updateData['supplier_setting_id'] = this.supplierGroups[this.editIndex].supplier_setting_id;
+    
+    this.AdminService.updateSupplierGroup(updateData).subscribe((result:any)=>{
+      console.log(result);
+      if(result.status){
+        this.toastr.successToastr(result.message,'Success');
+        $('.overlayDivLoader').hide();
+        this.supplierGroups[this.editIndex] = updateData;
+        this.ClosePopUp();
+      }else{
+        this.toastr.errorToastr(result.message,'Oops!!');
+      }
+    },error=>{
+      this.toastr.errorToastr(error,'ERROR!!');
+      $('.overlayDivLoader').hide();
+      this.ClosePopUp();
+    })
+  }
+
 }

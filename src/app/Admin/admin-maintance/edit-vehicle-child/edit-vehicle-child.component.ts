@@ -13,40 +13,41 @@ export class EditVehicleChildComponent implements OnInit {
 // From child component to parent component
    @Output() valueSelected = new EventEmitter();
    @Output() editData = new EventEmitter();
-
-
-  
   // From parent component
   @Input() maintanData: any;
+  @Input() updateEdit:any;
+  dataFromChild:any;
+  @Output() updateEditDataFromChild:any;
   constructor(private service: AdminMaintanceService) { }
   ngOnInit() {
     this.maintanData = this.maintanData[this.maintanData.name];
+    
   }
-  // ClosePopUp() {
-  //   $("#myModal").modal("hide");
 
-  // }
-  OpenPopUp(data){
-  console.log(data)
-  $('#myupdate').modal('show');
-  }
+
  
-
    /* Display Delete popup */
-   displayDeleteConfrimPopUp(data:any){
+   displayDeleteConfrimPopUp(data:any,index){
     $('#maintainDeletePopup').show();
+    data['index'] = index;
      this.valueSelected.emit(data);
   }
 
   /* Close Delete popup */
   closeDeletedConfrimPopUp(){
     $('#maintainDeletePopup').hide();
-    // console.log()
-    // console.log(this.valueSelected)
+  }
+  
+  displayUpdatePopUp(update:any,index){
+    update['index'] = index;
+    this.editData.emit(update);
+    $('#UpdatePopup').show();
   }
 
-  editPopup(data){
-    this.editData = data;
-   
+  CloseUpdatePopup(){
+    $('#UpdatePopup').hide();
+  
   }
+
+ 
 }

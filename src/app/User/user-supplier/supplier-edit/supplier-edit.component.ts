@@ -80,8 +80,8 @@ public confirmationPopUp = false;
     this.userDetails =[];
     this._supplierEditService.getUserDetails().subscribe(res=>{
       this.userDetails.push(res['res']);
-    $('.overlayDivLoader').hide();
-      console.log(this.userDetails);
+      $('.overlayDivLoader').hide();
+      console.log('ZX',this.userDetails);
     })
   }
   // This Function For Get Business Type

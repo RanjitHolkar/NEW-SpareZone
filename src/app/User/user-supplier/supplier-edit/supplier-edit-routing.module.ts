@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SupplierEditComponent } from './supplier-edit.component';
+import { RoleGuardService } from '../.../../../../_guards/RoleGuardService';
 const routes: Routes = [
-  {path:'',component:SupplierEditComponent}
+  {path:'',component:SupplierEditComponent,canActivate:[RoleGuardService],data:{expectedRole:'Supplier'}}
 ];
 
 @NgModule({

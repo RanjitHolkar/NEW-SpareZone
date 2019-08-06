@@ -2,51 +2,38 @@
   <div class="width40">
     <h4 class="blueHead mar0">Admin Profile</h4>
     <h5 class="blueText text-left"> Create New Supplier Group</h5>
-    <button type="button" class="btn commonWhiteBtn newBtnMar min80" (click)="displayPopUp()">New</button>
+    <button type="button" class="btn commonWhiteBtn newBtnMar min80" (click)="displayPopUp('Add New Supplier Group')">New</button>
     <div class="btnDiv">
-      <div class="disFSB mart5" *ngFor="let supgroup of supplierGroups">
+      <div class="disFSB mart5" *ngFor="let supgroup of supplierGroups; let i = index">
         <button class="btn commonBlueBtn min200 lightBlueBtn">{{supgroup.group_name}}</button>
-        <button class="btn commonWhiteBtn min80">Edit</button>
+        <button class="btn commonWhiteBtn min80" (click)="OpenEditpopUp(supgroup,i,'Edit Supplier Group')">Edit</button>
       </div>
-      <div class="disFSB">
+     <!--  <div class="disFSB">
         <button class="btn commonBlueBtn min200 lightBlueBtn">Used</button>
         <button class="btn commonWhiteBtn">Edit</button>
       </div>
       <div class="disFSB">
         <button class="btn commonBlueBtn min200 lightBlueBtn">Parallel A/M</button>
         <button class="btn commonWhiteBtn">Edit</button>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="width35 marT25">
     <h5 class="blueText text-left">Supplier Profile Icons</h5>
-    <div class="supplierPI">
-      <label>Genuine Supplier</label>
-      <div class="disFSB">
-        <h4 class="grayBoxBtn">SP <span>M1023</span></h4>
-        <div class="uploadDivBtn">
-          <button class="btn commonBlueBtn lightBlueBtn">Upload</button>
-          <input type="file">
-        </div>
+    <div class="supplierPI supplierIconDiv">
 
-      </div>
-      <label>Mini Color Indicator</label>
-      <div class="disFSB">
-        <p class="grayBtnRound"></p>
-        <a> select color</a>
-      </div>
-      <label>Used Suppliers</label>
-      <div class="disFSB">
-        <h4 class="greenBoxBtn">SP <span>M1023</span></h4>
-        <div class="uploadDivBtn">
-          <button class="btn commonBlueBtn lightBlueBtn">Upload</button>
-          <input type="file">
-        </div>
-      </div>
-      <label>Mini Color Indicator</label>
-      <div class="disFSB">
-        <p class="greenBtnRound"></p>
-        <a> select color</a>
+      <div *ngFor="let supgroup of supplierGroups" class="newSuppGroup">
+          <h5>{{supgroup.group_name}} Supplier</h5>
+          <div class="disFSB">
+            <h4 class="grayBoxBtn" [style.background-color]="supgroup.group_indicator_color">
+              <img src="assets/images/SP_IMG.png" class="spIcon">
+              <span>123</span>
+            </h4>
+          </div>
+          <label>Mini Color Indicator</label>
+          <div class="disFSB">
+            <p class="grayBtnRound" [style.background-color]="supgroup.group_indicator_color"></p>
+          </div>  
       </div>
     </div>
   </div>
@@ -73,27 +60,65 @@
   </div>
 </div>
 
-<div class="overlayDiv" id="addGroup">
-  <form [formGroup]="supplierGroupForm" class="newBtnPopup">
-    <div class="form-group closeBtnDiv">
-      <span href="#" class="closeBtn" (click)="ClosePopUp()"><img src="assets/images/cancel.png" alt=""></span>
+<!-- <div class="overlayDiv" id="addGroup">
+    <div class="newBtnPopup min500 ">
+        <div class="form-group closeBtnDiv">
+            <h4 class="popHead">Assign Part</h4>
+            <span href="#" class="closeBtn" (click)="ClosePopUp()"><img src="assets/images/cancel.png" alt=""></span>
+          </div>
+          <form [formGroup]="supplierGroupForm" class="newBtnPopup">
+              
+              <div class="form-group">
+                <label for="">Group Name</label>
+                <input type="text" formControlName="group_name" class="popupInput ">
+                <div *ngIf="isGroupSumitted">
+                  <label class="error" *ngIf="groupF.group_name.errors?.required">Group name is required</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="">Color</label>
+                <input type="color" formControlName="group_indicator_color">
+                <div *ngIf="isGroupSumitted">
+                  <label class="error" *ngIf="groupF.group_indicator_color.errors?.required">Color is required</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <button class="btn commonBlueBtn lightBlueBtn" type="button" (click)="saveGroup()">SAVE</button>
+              </div>
+            </form>
     </div>
-    <div class="form-group">
-      <label for="">Group Name</label>
-      <input type="text" formControlName="group_name" class="popupInput ">
-      <div *ngIf="isGroupSumitted">
-        <label class="error" *ngIf="groupF.group_name.errors?.required">Group name is required</label>
+  
+</div> -->
+
+
+<div id="addGroup" class="overlayDiv">
+    <div class="newBtnPopup min500 ">
+      <div class="form-group closeBtnDiv">
+        <h4 class="popHead">{{formTitle}}</h4>
+        <span href="#" class="closeBtn" (click)="ClosePopUp()"><img src="assets/images/cancel.png" alt=""></span>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="">Color</label>
-      <input type="color" formControlName="group_indicator_color">
-      <div *ngIf="isGroupSumitted">
-        <label class="error" *ngIf="groupF.group_indicator_color.errors?.required">Color is required</label>
+      <div>
+        <form [formGroup]="supplierGroupForm" class="marXY">
+           <div class="form-group marB25">
+            <label for="">Group Name</label>
+            <input type="text" formControlName="group_name" class="popupInput commonInput">
+            <div *ngIf="isGroupSumitted">
+              <label class="error" *ngIf="groupF.group_name.errors?.required">Group name is required</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="">Color</label>
+            <input type="color" formControlName="group_indicator_color">
+            <div *ngIf="isGroupSumitted">
+              <label class="error" *ngIf="groupF.group_indicator_color.errors?.required">Color is required</label>
+            </div>
+          </div>
+        </form>
+        <div class="form-group">
+          <button *ngIf="!supplierGroupForm.value.group_name" class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()">SAVE</button>
+          <button *ngIf="!!supplierGroupForm.value.group_name" class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="updateSupplierGroup()">UPDATE</button>
+        </div>
       </div>
+  
     </div>
-    <div class="form-group">
-      <button class="btn commonBlueBtn lightBlueBtn" type="button" (click)="saveGroup()">SAVE</button>
-    </div>
-  </form>
-</div>
+  </div>

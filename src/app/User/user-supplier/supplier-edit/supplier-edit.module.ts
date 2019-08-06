@@ -4,7 +4,7 @@ import { SupplierEditRoutingModule } from './supplier-edit-routing.module';
 import { SupplierEditComponent } from './supplier-edit.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { UserNavModule } from '../../user-nav/user-nav.module';
-
+import {BackgroundImageModule} from '../../../background-image/background-image.module';
 @NgModule({
   declarations: [SupplierEditComponent],
   imports: [
@@ -12,7 +12,8 @@ import { UserNavModule } from '../../user-nav/user-nav.module';
     SupplierEditRoutingModule,
     FormsModule,
     UserNavModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BackgroundImageModule
   ]
 })
 export class SupplierEditModule { }

@@ -1,7 +1,7 @@
 <app-admin-nav></app-admin-nav>
 <div class="supplierDiv ">
   <div class="supplierDivInner">
-    <div class="custumPop max800 partCatagoryMain">
+    <div class="custumPop max800 max850 partCatagoryMain">
       <div class="custumPopHead noBord">
         <h4 class="popHead">Maintance!</h4>
         <p>Parts and Categories</p>
@@ -15,13 +15,13 @@
                 <li *ngFor="let catData of categoryData;let i=index">
                   <p class="curPoi" title="Display Parts" (click)="getPartPerCategory(catData)">{{catData.category_name}}</p>
                   <i class="fa fa-edit curPoi" title="Edit Category" (click)="openEditPopUp(catData,i,1,2)"></i>
-                  <h5 class="closeRound curPoi" title="Delete Category" (click)="openDeletePopUp(catData,i)">X</h5>
+                  <h5 class="closeRound curPoi" title="Delete Category" (click)="openDeletePopUp(catData,i,'Category')">X</h5>
                 </li>
               </ul>
               <div class="text-center">
                 <p *ngIf="categoryData.length == 0"> Categories not available</p>
               </div>
-              <div class="text-center">
+              <div class="text-center partCategoryBtn">
                 <button class="btn commonBtnBlue widthUnset" (click)="displayCartPartPopup('Add Category',1,1)">Add</button>
               </div>
             </div>
@@ -32,13 +32,13 @@
                 <li *ngFor="let part of partData; let j=index">
                   <p>{{part.part_name}}</p>
                   <i class="fa fa-edit curPoi" title="Edit Part" (click)="openEditPopUp(part,j,2,2)"></i>
-                  <h5 class="closeRound curPoi" title="Delete Part" (click)="openDeletePopUp(part,j)">X</h5>
+                  <h5 class="closeRound curPoi" title="Delete Part" (click)="openDeletePopUp(part,j,'Part')">X</h5>
                 </li>
               </ul>
-              <div class="text-center">
+              <div class="text-center notAvailable">
                 <p *ngIf="partData.length == 0"> Parts not available</p>
               </div>
-              <div class="text-center">
+              <div class="text-center partCategoryBtn">
                 <button class="btn commonBtnBlue widthUnset" (click)="displayCartPartPopup('Add Part',2,1)">Add</button>
               </div>
             </div>
@@ -73,37 +73,17 @@
 
             <div class="MaintanceSingle">
               <h4 class="maintanceHead">Parts</h4>
-              <ul>
-                <li>
-                  <p>Mitsibishi</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Nissian</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Honda</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Toyota</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Mitsibishi</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Nissian</p>
-                  <h5 class="closeRound">X</h5>
-                </li>
-                <li>
-                  <p>Honda</p>
-                  <h5 class="closeRound">X</h5>
+              <ul *ngIf="assignedParts">
+                <li *ngFor="let assparts of assignedParts;let k=index">
+                  <p>{{assparts.part_name}}</p>
+                  <i class="fa fa-edit curPoi" title="Edit Assigned Part" (click)="openAssignUpdateFormPopUp(assparts)"></i>
+                  <h5 class="closeRound curPoi" title="Delete Assigned Part" (click)="openDeletePopUp(assparts,k,'Assigned Part')">X</h5>                 
                 </li>
               </ul>
-              <div class="text-center">
+              <div *ngIf="!assignedParts" class="notAvailable">
+                <p>Assigned parts are not available</p>
+              </div>
+              <div class="text-center partCategoryBtn">
                 <button class="btn commonBtnBlue widthUnset" (click)="openAssignedPopUp()">Add</button>
               </div>
             </div>
@@ -119,76 +99,99 @@
   <div class="newBtnPopup min500 ">
     <div class="form-group closeBtnDiv">
       <h4 class="popHead" *ngIf="popUpTitle">{{popUpTitle}} </h4>
-      <span href="#" class="closeBtn" (click)="closeCartPartPopup()"><img src="assets/images/cancel.png" alt=""></span>
+      <span href="#" class="closeBtn curPoi" (click)="closeCartPartPopup()"><img src="assets/images/cancel.png" alt=""></span>
     </div>
     <div *ngIf="catPartFormStatus">
       <form [formGroup]="catPartForm">
         <div *ngIf="catPartFormStatus ==1">
-          <div class="form-group">
+          <div class="form-group marXY text-left">
+              <label for="">Add Category</label>
             <input type="text" class="commonInput" formControlName="category_name" placeholder="{{popUpTitle}}">
             <div *ngIf="isSubmitted">
               <label class="error" *ngIf="catPartF.category_name.errors?.required">Category name is required</label>
             </div>
           </div>
         </div>
-        <div *ngIf="catPartFormStatus ==2">
-          <div>
-            <label>Category Name : {{selectedCategoryName}}</label>
-          </div>
-          <div class="form-group">
-            <input type="text" class="commonInput" formControlName="part_name" placeholder="{{popUpTitle}}">
-            <div *ngIf="isSubmitted">
-              <label class="error" *ngIf="catPartF.part_name.errors?.required">Part name is required</label>
+        <div class="marXY text-left">
+          <div *ngIf="catPartFormStatus ==2">
+            <div>
+              <label class="categoryLabel">Category Name : {{selectedCategoryName}}</label>
+            </div>
+            <div class="form-group">
+              <input type="text" class="commonInput" formControlName="part_name" placeholder="{{popUpTitle}}">
+              <div *ngIf="isSubmitted">
+                <label class="error" *ngIf="catPartF.part_name.errors?.required">Part name is required</label>
+              </div>
             </div>
           </div>
         </div>
-        <pre>{{catPartForm.value | json}}</pre>
+        
       </form>
       <div class="form-group">
-          <button *ngIf="saveUpdateButton ==1 " class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="savePartCategory()">SAVE</button>
-          <button *ngIf="saveUpdateButton ==2" class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="updateCatParts()">UPDATE</button>
-        </div>
+        <button *ngIf="saveUpdateButton ==1 " class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="savePartCategory()">SAVE</button>
+        <button *ngIf="saveUpdateButton ==2" class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="updateCatParts()">UPDATE</button>
+      </div>
     </div>
-   
+
   </div>
 </div>
 <!-- Add Popup : END -->
 
 <!--Assigned Parts POPUP : START -->
 <div id="assignedPartsPopUp" class="overlayDiv">
-    <div class="newBtnPopup min500 ">
-      <div class="form-group closeBtnDiv">
-        <h4 class="popHead">Assign Part</h4>
-        <span href="#" class="closeBtn" (click)="closeAssignedPopUp()"><img src="assets/images/cancel.png" alt=""></span>
-      </div>
-      <div *ngIf="selectedBodyCellID">
-        <form [formGroup]="assignedPartForm">
-            <div class="form-group">
-              <select>
-                <option *ngFor="let cData of categoryData" value="{{cData.category_id}}">{{cData.category_name}}</option>
-              </select>
+  <div class="newBtnPopup min500 ">
+    <div class="form-group closeBtnDiv">
+      <h4 class="popHead">Assign Part</h4>
+      <span href="#" class="closeBtn curPoi" (click)="closeAssignedPopUp()"><img src="assets/images/cancel.png" alt=""></span>
+    </div>
+    
+    <div *ngIf="selectedBodyCellID">
+      <form [formGroup]="assignedPartForm">
+        <div class="marXY">
+          <div class="form-group text-left">
+            <label for="">Select Category Name</label>
+            <select formControlName="category_id" (change)="getNewAssignPartPerCategory()" class="commonInput">
+              <option value="null" disabled selected>Select Category</option>
+              <option *ngFor="let cData of categoryData" value="{{cData.category_id}}">{{cData.category_name}}</option>
+            </select>
+            <div *ngIf="isSubmitted">
+              <label class="error" *ngIf="catPartAssignF.category_id.errors?.required">Select the category</label>
             </div>
-            <div class="form-group">
-              <!-- <input type="text" class="commonInput" formControlName="category_name" placeholder=""> -->
-              <!-- <div *ngIf="isSubmitted">
+          </div>
+          <div class="form-group text-left" *ngIf="assignedPartForm.value.category_id">
+            <label for="">Select Part</label>
+            <select formControlName="part_id" class="commonInput">
+              <option value="null" *ngIf="newAssignParts.length>0" selected>Select Part</option>
+              <option *ngFor="let newAssigneParts of newAssignParts" value="{{newAssigneParts.part_id}}">{{newAssigneParts.part_name}}</option>
+              <option value="null" *ngIf="!newAssignParts.length==0" selected>Parts are not available</option>
+            </select>
+            <div *ngIf="isSubmitted">
+              <label class="error" *ngIf="catPartAssignF.part_id.errors?.required">Select the part</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <!-- <input type="text" class="commonInput" formControlName="category_name" placeholder=""> -->
+          <!-- <div *ngIf="isSubmitted">
                 <label class="error" *ngIf="catPartF.category_name.errors?.required">Category name is required</label>
               </div> -->
-            </div>
-          <pre>{{assignedPartForm.value | json}}</pre>
-        </form>
-        <div class="form-group">
-            <button  class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveAssignedParts()">SAVE</button>
-          </div>
+        </div>
+      </form>
+      <div class="form-group">
+        <button  *ngIf="!assignedPartForm.value.assigned_part_id" class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveAssignedParts()">SAVE</button>
+        <button  *ngIf="!!assignedPartForm.value.assigned_part_id" class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="updateAssignedPart()">UPDATE</button>
       </div>
-     
     </div>
+
   </div>
-  <!--Assigned Parts POPUP : END -->
+</div>
+<!--Assigned Parts POPUP : END -->
 
 <!-- For delete : START -->
-<div class="overlayDiv" id="catPartDeletePopup">
+<div class="overlayDiv" id="catPartDeletePopup" *ngIf="deleteTitle">
   <div class="newBtnPopup">
-    <div class="form-group closeBtnDiv">
+    <div class="form-group closeBtnDiv justUnset">
       <span href="#" class="closeBtn" (click)="closeDeletedConfrimPopUp()"><img src="assets/images/cancel.png"></span>
     </div>
     <div class="form-group">
@@ -196,7 +199,7 @@
     </div>
     <div class="form-group TextDiv">
       <h4 class="popUpHead">Are you sure to ?</h4>
-      <p class="popupPara">Do you really want to delete the account? You can not cancel this process.</p>
+      <p class="popupPara">Do you really want to delete the {{deleteTitle}}? You can not cancel this process.</p>
     </div>
     <div class="form-group cancelPopupBtn">
       <button class="btn commonBlueBtn lightBlueBtn" type="button" (click)="closeDeletedConfrimPopUp()">NO</button>

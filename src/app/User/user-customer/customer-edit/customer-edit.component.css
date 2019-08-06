@@ -1,0 +1,23 @@
+.blueNewHead {
+    color: #119cee;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin: 0px 0 10px;
+    padding: 0 0 10px;
+}
+.marB20{
+    margin: 0px 0 20px;
+}
+.rightFormDiv{
+    padding-top: 10px;
+}
+.rightFormDiv form.jform .field{
+    font-family: 'ProximaNovaA-Regular';
+}
+.b_typee label{
+    margin-bottom: 0;
+}
+.ed_left1 {
+    padding-right: 7px;
+}

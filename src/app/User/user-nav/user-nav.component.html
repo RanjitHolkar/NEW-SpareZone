@@ -16,9 +16,9 @@
           </div>
           <ul class="nav navbar-nav">
             <li><a href="member-listing.php">Members</a></li>
-            <li *ngIf="activestate == '/login' || activestate == '/signup-customer' || activestate ==''"><a routerLink="/signup-customer">Sign Up</a></li>
-            <li *ngIf="activestate == '/login' || activestate == '/signup-customer' || activestate =='/'"><a routerLink="/login">Login</a></li>
-            <li *ngIf="activestate != '/login' && activestate != '/signup-customer' && activestate !='/'"><a (click)="logout()" routerLink="/login">Logout</a></li>
+            <li *ngIf="activestate == '/login' || activestate == '/signup-customer' || activestate =='/' || activestate =='/home'" ><a routerLink="/signup-customer">Sign Up</a></li>
+            <li *ngIf="activestate == '/login' || activestate == '/signup-customer' || activestate =='/' || activestate =='/home'"><a routerLink="/login">Login</a></li>
+            <li *ngIf="activestate != '/login' && activestate != '/signup-customer' && activestate !='/' && activestate !='/home'"><a (click)="logout()" routerLink="/login">Logout</a></li>
             <li><a  class="sidebar-btn">Contact</a></li>
           </ul>
         </div>

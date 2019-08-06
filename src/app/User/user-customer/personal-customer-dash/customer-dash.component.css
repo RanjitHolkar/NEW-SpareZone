@@ -1,18 +1,18 @@
 .boxs .marDiv{
     width: 100%;
     margin: 15px 0px 20px !important;
-    font-family: 'proxima Nova Alt';
+    font-family: 'ProximaNovaA-Regular';
 }
 form.jform .selectDiv select {
-    font-family: 'proxima Nova Alt';
+    font-family: 'ProximaNovaA-Regular';
 }
-.boxs-in h3{
+/* .boxs-in h3{
     color: #119cee;
     font-weight: 600;
     font-size: 22px;;
     margin: 0 0 25px;
     padding-bottom: 20px;
-}
+} */
 .formDiv form.jform .field label {
     top: -4px;
     padding: 0px;
@@ -27,4 +27,7 @@ form.jform .selectDiv select {
 .formDiv form.jform select, form.jform .field input, form.jform .field textarea{
         height: 25px;
         line-height: 1;
+}
+.customerDashBoxes .box-2, .customerDashBoxes .box-3, .customerDashBoxes .box-4, .customerDashBoxes .box-5 {
+    top: 305px
 }

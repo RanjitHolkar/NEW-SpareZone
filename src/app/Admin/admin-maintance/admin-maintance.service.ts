@@ -79,6 +79,27 @@ export class AdminMaintanceService {
       return result;
     }))
   }
+
+  /* Save assigned Parts */
+  saveAssignedParts(partData){
+    return this.http.post(environment.base_url+'Admin/AssignedParts/saveAssignedPartsData',partData).pipe(map((result:any)=>{
+      return result;
+    }))
+  }
+
+   /* Update Assigned Parts */
+   updateAssignedPart(updateData){
+    return this.http.put(environment.base_url+'Admin/AssignedParts/updateAssignedPart',updateData).pipe(map((result:any)=>{
+      return result;
+    }))
+  }
   
+  UpdateMaintanceData(url, parameter){
+    return this.http.post(url, parameter).pipe(map((res:any)=> { return res}) );
+  };
+
+  UpdateMaintananceDataPUT(url,parameter){
+    return this.http.put(url, parameter).pipe(map((res:any)=> {return res}));
+  }
 
 }

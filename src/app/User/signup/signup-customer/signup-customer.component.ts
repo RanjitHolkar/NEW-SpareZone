@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Form,FormBuilder,FormArray,FormControl,FormGroup,Validators} from '@angular/forms';
 import { SignupCustomerService } from './signup-customer.service';
+import { HomeService } from '../../../home/home.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { Router } from '@angular/router';
 declare var $;
@@ -26,9 +27,12 @@ export class SignupCustomerComponent implements OnInit {
   public customerSucess = false;
   public businessType:any;
   public imagesUrl:any;
+  public userSearchData:any;
+  public userData:any;
     constructor(private formBuilder:FormBuilder,
       private SignupCustomerService :SignupCustomerService,
       private router: Router,
+      private _homeService:HomeService,
       private toastr:ToastrManager) { }
     ngOnInit() {
       $('.overlayDivLoader').show();
@@ -141,7 +145,18 @@ export class SignupCustomerComponent implements OnInit {
           formData.append('profile_logo',this.images);
           formData.append('user_role','9');
           this.SignupCustomerService.signupCustomer(formData).subscribe(res=>{
+            this.userSearchData = JSON.parse(localStorage.getItem('userSearchData'));
+            if(this.userSearchData){
+              this.userData = JSON.parse(localStorage.getItem('currentUser'));
+              this.userSearchData['user_status'] = this.userData.user_table_status;
+              this.userSearchData['user_id'] = this.userData.login_user_id;
+              this._homeService.saveSearchData(this.userSearchData).subscribe(res=>{
+                console.log(res);
+                localStorage.removeItem('userData');
+              })
+            }
             $('.overlayDivLoader').hide();
+
             this.toastr.successToastr(res.msg);
             this.router.navigate(['/login']);
           })    
@@ -153,6 +168,16 @@ export class SignupCustomerComponent implements OnInit {
       this.SignupCustomerService.signupCustomer(alldata).subscribe(res=>{
         if(res.memberId){
           this.customerSucess = true;
+          this.userSearchData = JSON.parse(localStorage.getItem('userSearchData'));
+          if(this.userSearchData){
+            this.userData = JSON.parse(localStorage.getItem('currentUser'));
+            this.userSearchData['user_status'] = this.userData.user_table_status;
+            this.userSearchData['user_id'] = this.userData.login_user_id;
+            this._homeService.saveSearchData(this.userSearchData).subscribe(res=>{
+              console.log(res);
+              localStorage.removeItem('userData');
+            })
+          }
           this.memberId = res.memberId;
           $('.overlayDivLoader').hide();
           console.log(res);

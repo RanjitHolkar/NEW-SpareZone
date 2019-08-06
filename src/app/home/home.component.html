@@ -1,13 +1,15 @@
-<div class="banner-wrap">	
-	<div class="banner" style="background-image:url(assets/images/banner.jpg);">
-	<div class="banner-in">
-		<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="wrap-box">
-					
-					<!--== personal-info start ==-->
-						<!-- <div class="boxs box_personal_p">
+<app-user-nav></app-user-nav>
+<app-background-image></app-background-image>
+<div class="banner-wrap">
+	<div class="banner" >
+		<div class="banner-in">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="wrap-box">
+
+							<!--== personal-info start ==-->
+							<!-- <div class="boxs box_personal_p">
 							<h5>Andrew Miggisrate</h5>		
 							<p>My Profile</p>
 							<form class="jform" action="javascript:;">
@@ -22,235 +24,274 @@
 								</div>
 							</form>
 						</div>						 -->
-					<!--== personal-info end ==-->
+							<!--== personal-info end ==-->
 
 
-					<div class="boxs b_shadow top active">
-						<div class="boxs-in">
-							<h3 class="popHead"> Search Here <a href="javascript:;" class="flr"><img src="assets/images/sico.png" alt="" /></a></h3>						
-							<div class="frm formDiv">
-								<form class="jform" action="javascript:;">
-									<div class="field select_drop">
-										<label class="commonLabel">Make</label>
-										<select name="cars">
-											<option vale="">Select</option>
-											<option vale="1">Toyota</option>
-											<option vale="2">Toyota</option>
-											<option vale="3">Toyota</option>
-										</select>
-										<!-- <fieldset class="active">Make</fieldset> -->
-									</div>							
-									<div class="field">
-										<label class="commonLabel">Model</label>
-										<img src="assets/images/arrow.png" alt="" />
-										<input type="text" name=""  />
-										<!-- <fieldset>Model</fieldset> -->
-									</div>
-									<div class="field">
-										<label class="commonLabel">Year</label>
-										<input type="text" name=""  />
-										<!-- <fieldset>Year</fieldset> -->
-									</div>									
-									<div class="rdo">
-										<input type="radio" name="model" id="New"  value="New"><label for="New" class="tro"><span>New</span></label>
-										<input type="radio" name="model" id="Used" value="Used"><label for="Used"><span>Used</span></label>
-										<img src="assets/images/question.png" class="fr" alt="" />
-									</div>						
-									<div class="sub">
-										<button class="btn-no" type="reset" value="">Reset All</button>
-										<button class="btn-def flr btnsld" type="submit" value="Find Part" data-tab="NextStep">Find Part</button>									
-									</div>				
-								</form>
-							</div>					
-						</div>					
-					</div>
-					<!-- <div class="boxs b_shadow box-2 active" id="NextStep">
-						<div class="boxs-in">					
-							<div class="frm">
-								<form class="jform" action="javascript:;">
-									<div class="field">
-										<select name="texas">
-											<option vale="">Texas, USA</option>
-											<option vale="1">Texas, USA</option>
-											<option vale="2">Texas, USA</option>
-											<option vale="3">Texas, USA</option>
-										</select>
-										<fieldset class="active">Location</fieldset>
-									</div>							
-									<div class="field">
-										<img src="assets/images/plus.png" class="pluss" alt="" />
-										<input type="text" name=""  />
-										<fieldset>Looking For</fieldset>
-									</div>
-									<div class="field">
-										<img src="assets/images/del.png" class="del" alt="" />
-										<img src="assets/images/edit.png" class="editt" alt="" />
-										<input type="text" name=""  />
-										<fieldset>Bonnet</fieldset>
-									</div>															
-									<div class="sub">
-										<button class="btn-no" type="reset" value="">Reset All</button>
-										<button class="btn-def flr btnsld" type="submit" value="Next Step" data-tab="Done">Next Step</button>									
-									</div>				
-								</form>
-							</div>					
-						</div>
-					</div> -->
-					<div class="boxs b_shadow box-2 active" id="NextStep">
-						<div class="boxs-in formDiv">
-							<h4 class="popHead step2Head marB10">I’m Looking For... <br/><span>Selete or enter Parts Name</span></h4>	
-											
-							<div class="frm">
-								<form class="jform" action="javascript:;">
-									<!-- <div class="field">
-										<select name="texas">
-											<option vale="">Texas, USA</option>
-											<option vale="1">Texas, USA</option>
-											<option vale="2">Texas, USA</option>
-											<option vale="3">Texas, USA</option>
-										</select>
-										<fieldset class="active">Location</fieldset>
-									</div>							 -->
-									<!-- <div class="field">
-										<img src="assets/images/plus.png" class="pluss" alt="" />
-										<input type="text" name=""  />
-										<fieldset>Looking For</fieldset>
-									</div> -->
-									<div class="field">
-										<img src="assets/images/add.png" class="del" alt="" />
-										<input type="text" name=""  placeholder="Exhaust" />
-										<!-- <fieldset>Exhaust</fieldset> -->
-									</div>	
-									<div class="field">
-										<img src="assets/images/del.png" class="del" alt="" />
-										<img src="assets/images/edit.png" class="editt" alt="" />
-										<input type="text" name="" placeholder="Bonnet" />
-										<!-- <fieldset>Bonnet</fieldset> -->
-									</div>															
-									<div class="sub">
-										<button class="btn-no" type="reset" value="">Reset All</button>
-										<button class="btn-def flr btnsld" type="submit" value="Next Step" data-tab="Done">Next Step</button>									
-									</div>				
-								</form>
-							</div>					
-						</div>
-					</div>
-					<div class="boxs b_shadow box-3 active" id="Done">
-						<div class="boxs-in formDiv">
-							<h3 class="popHead step3Head">A little more about your car</h3>						
-							<div class="frm">
-								<form class="jform" action="javascript:;">
-									<div class="field">
-										<label class="commonLabel active">Engine</label> 
-										<select name="Engine">
-											<option vale="">4 Cylinders</option>
-											<option vale="1">4 Cylinders</option>
-											<option vale="2">4 Cylinders</option>
-											<option vale="3">4 Cylinders</option>
-										</select>
-										<!-- <fieldset class="active">Engine</fieldset> -->
-									</div>							
-									<div class="field">
-										<label class="commonLabel active">Transmission</label> 
-										<select name="Engine">
-											<option vale="">Manual</option>
-											<option vale="1">Manual</option>
-											<option vale="2">Manual</option>
-											<option vale="3">Manual</option>
-										</select>
-										<!-- <fieldset class="active">Transmission</fieldset> -->
-									</div>	
-									<div class="field-slide">
-										<label class="commonLabel active">Body Type</label> 
-										<div class="mov">
-											<div class="movr">
-												<div class="movr-in">
-													<div><img src="assets/images/car1.png" alt="" /></div>
+							<div class="boxs b_shadow top " [ngClass]="{active:firstForm}">
+								<div class="boxs-in">
+									<h3 class="popHead"> Search Here <a href="javascript:;" class="flr"><img
+												src="assets/images/sico.png" alt="" /></a></h3>
+									<div class="frm formDiv">
+										<form class="jform" [formGroup]="FirstForm" (submit)="submitFirstForm()">
+											<div class="field select_drop">
+												<label class="commonLabel">Make</label>
+												<select name="cars" formControlName="car_make_id"
+													(change)="getModel($event)">
+													<option value="" [selected]=true>Select</option>
+													<option [value]="makesDetails.make_id"
+														*ngFor="let makesDetails of makesDetails">
+														{{makesDetails.make_name}}</option>
+												</select>
+												<div *ngIf="submit && f.car_make_id.errors" class="invalid-feedback">
+													<div *ngIf="f.car_make_id.errors.required">Make is required</div>
 												</div>
 											</div>
-											<div class="movr">
-												<div class="movr-in">
-													<div><img src="assets/images/car2.png" alt="" /></div>
+											<div class="field">
+												<label class="commonLabel">Model</label>
+												<img src="assets/images/arrow.png" alt="" />
+												<select name="cars" formControlName="car_model_id">
+													<option value="" [selected]=true>--Select Model--</option>
+													<option [value]="model.model_id" *ngFor="let model of modelDetails">
+														{{model.model_name}}</option>
+												</select>
+												<div *ngIf="submit && f.car_model_id.errors" class="invalid-feedback">
+													<div *ngIf="f.car_model_id.errors.required">Model is required</div>
 												</div>
 											</div>
-											<div class="movr">
-												<div class="movr-in">
-													<div><img src="assets/images/car3.png" alt="" /></div>
+											<div class="field">
+												<label class="commonLabel">Year</label>
+												<select name="cars" formControlName="car_year_id">
+													<option value="" [selected]=true>--Select Years--</option>
+													<option [value]="years.year_id" *ngFor="let years of yearDetails">
+														{{years.year_name}}</option>
+												</select>
+												<div *ngIf="submit && f.car_year_id.errors" class="invalid-feedback">
+													<div *ngIf="f.car_year_id.errors.required">Year is required</div>
 												</div>
 											</div>
-											<div class="movr">
-												<div class="movr-in">
-													<div><img src="assets/images/car1.png" alt="" /></div>
+											<!-- <div class="rdo">
+												<input type="radio" id="New" value="0" formControlName="type"><label
+													for="New" class="tro"><span>New</span></label>
+												<input type="radio" id="Used" value="1" formControlName="type"><label
+													for="Used"><span>Used</span></label>
+												<img src="assets/images/question.png" class="fr" alt="" />
+												<div *ngIf="submit && f.type.errors" class="invalid-feedback">
+													<div *ngIf="f.type.errors.required">Type is required</div>
 												</div>
+											</div> -->
+											<div class="sub">
+												<button class="btn-no" type="button" (click)="FirstForm.reset()"
+													[disabled]="secondForm">Reset All</button>
+												<button class="btn-def flr btnsld" type="submit"
+													[disabled]="secondForm">Find Part</button>
 											</div>
-										</div>
-											<!-- <fieldset class="active">Body Type</fieldset>									 -->
-									</div>
-									<div class="field">
-										<label class="commonLabel">Note</label> 
-										<input type="text" name=""  placeholder="Note Goes Here"/>
-										<!-- <fieldset>Note</fieldset> -->
-									</div>														
-									<div class="sub">
-										<button class="btn-no" type="reset" value="">Reset All</button>
-										<button class="btn-def flr btnsld" type="submit" value="Done" data-tab="Close">Done</button>									
-									</div>				
-								</form>
-							</div>					
-						</div>			
-					</div>
-					<div class="boxs b_shadow box-4 " id="Close">
-						<div class="boxs-in">
-							<h4 class="popHead step3Head marB10">SUCCESS</h4>				
-							<div class="frm">
-								<form class="jform" action="javascript:;">						
-									<img src="assets/images/right.png" class="rigt" alt="" />
-									<p class="sps">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-									<span class="bl-text">Members Listing relating to your search</span>
-									<div class="row marLRM20">
-									<div class="wid33">
-										<div class="dvr">
-											<div class="dvr-in">
-												<img src="assets/images/pro1.png" alt="" />
-											</div>
-										</div>
-										<span class="bl-titl">Title Here</span>									
-										<p>Lorem ipsum dolor sit amet</p>																
-									</div>
-									<div class="wid33">
-										<div class="dvr">
-											<div class="dvr-in">
-												<img src="assets/images/pro2.png" alt="" />
-											</div>
-										</div>
-										<span class="bl-titl">Title Here</span>									
-										<p>Lorem ipsum dolor sit amet</p>																
-									</div>
-									<div class="wid33">
-										<div class="dvr">
-											<div class="dvr-in">
-												<img src="assets/images/pro3.png" alt="" />
-											</div>
-										</div>
-										<span class="bl-titl">Title Here</span>									
-										<p>Lorem ipsum dolor sit amet</p>																
+										</form>
 									</div>
 								</div>
-									<div class="sub">
-										<button class="btn-no" type="reset" value="">Search Again</button>
-										<button class="btn-def flr btnsld" type="submit" value="Close"  data-tab="Close">Close</button>									
-									</div>				
-								</form>
-							</div>					
-						</div>			
+							</div>
+							<div class="boxs b_shadow box-2" id="NextStep" [ngClass]="{active:secondForm}">
+								<div class="boxs-in formDiv">
+									<h4 class="popHead step2Head marB10">I’m Looking For... <br /><span>Selete or enter
+											Parts Name</span></h4>
+									<div class="frm lookingDivParent">
+										<form class="jform" [formGroup]="SecondForm" (submit)="SubmitsecondForm()">
+											<div formArrayName="looking_for_part" class="lookingDiv">
+												<div class="field"
+													*ngFor="let exh of SecondForm.controls.looking_for_part.controls;let i=index"
+													[formGroupName]="i">
+													<img src="assets/images/add.png" class="del" alt=""
+														(click)="addExahost()"
+														*ngIf="SecondForm.controls.looking_for_part.controls.length - 1 == i " />
+													<img src="assets/images/del.png" class="del" alt=""
+														(click)="removeExahost(i)"
+														*ngIf="SecondForm.controls.looking_for_part.controls.length - 1 != i" />
+													<input type="text" placeholder="Exhaust"
+														formControlName="exhaust" />
+													<div *ngIf="submit && s.looking_for_part.controls[i].controls.exhaust.errors"
+														class="invalid-feedback">
+														<div
+															*ngIf="s.looking_for_part.controls[i].controls.exhaust.errors.required">
+															Exhaust is required</div>
+													</div>
+												</div>
+											</div>
+											<!-- <div class="field">
+												<input type="text" name="" placeholder="Bonnet"
+													formControlName="bonnet" />
+												<div *ngIf="submit && s.bonnet.errors" class="invalid-feedback">
+													<div *ngIf="s.bonnet.errors.required">Bonnet is required</div>
+												</div>
+											</div> -->
+											<div class="sub">
+												<button class="btn-no" type="button" (click)="SecondForm.reset()"
+													[disabled]="thirdForm">Reset All</button>
+												<button class="btn-def flr btnsld" type="submit"
+													[disabled]="thirdForm">Next Step</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div class="boxs b_shadow box-3 " id="Done" [ngClass]="{active:thirdForm}">
+								<div class="boxs-in formDiv">
+									<h3 class="popHead step3Head">A little more about your car</h3>
+									<div class="frm">
+										<form class="jform" [formGroup]="ThirdForm" (submit)="SubmitThirdForm()">
+											<div class="field">
+												<label class="commonLabel active">Engine</label>
+												<select formControlName="car_engine_type_id">
+													<option value="" [selected]=true>--Select Engine Type--</option>
+													<option *ngFor="let engineType of engineType"
+														[value]="engineType.maintance_id">{{engineType.maintance_value}}
+													</option>
+												</select>
+												<div *ngIf="submit && t.car_engine_type_id.errors" class="invalid-feedback">
+													<div *ngIf="t.car_engine_type_id.errors.required">Engine Type is required</div>
+												</div>
+											</div>
+											<div class="field">
+												<label class="commonLabel active">Transmission</label>
+												<select formControlName="car_transmission_type_id">
+													<option value="">--select Transmission Type--</option>
+													<option *ngFor="let transmissionType of transmissionType"
+														[value]="transmissionType.maintance_id">
+														{{transmissionType.maintance_value}}</option>
+												</select>
+												<div *ngIf="submit && t.car_transmission_type_id.errors" class="invalid-feedback">
+													<div *ngIf="t.car_transmission_type_id.errors.required">Transmission Type is
+														required</div>
+												</div>
+											</div>
+											<div class="field-slide">
+												<label class="commonLabel active">Body Type</label>
+												<div class="scrollingCars">
+													<div class="mov">
+														<div class="movr" *ngFor="let bodyType of bodyType"
+															(click)="clickEvent(bodyType.maintance_id)"
+															[ngClass]="{'selected': t.car_body_type_id.value == bodyType.maintance_id}">
+															<div class="movr-in">
+																<div><img [src]="bodyType.maintenance_image" alt="" />
+																</div>
+															</div>
+														</div>
+														<input type="hidden" formControlName="car_body_type_id">
+													</div>
+													<div *ngIf="submit && t.car_body_type_id.errors"
+														class="invalid-feedback">
+														<div *ngIf="t.car_body_type_id.errors.required">Body Type is
+															required</div>
+													</div>
+												</div>
+											</div>
+											<div class="field">
+												<label class="commonLabel">Note</label>
+												<input type="text" placeholder="Note Goes Here"
+													formControlName="note" />
+												<div *ngIf="submit && t.note.errors" class="invalid-feedback">
+													<div *ngIf="t.note.errors.required">Note is required</div>
+												</div>
+											</div>
+											<div class="sub">
+												<button class="btn-no" type="button" (click)="ThirdForm.reset()"
+													[disabled]="successForm">Reset All</button>
+												<button class="btn-def flr btnsld" type="submit" value="Done"
+													[disabled]="successForm">Done</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div class="boxs b_shadow box-4 " id="Close" [ngClass]="{active:successForm}">
+								<div class="boxs-in">
+									<h4 class="popHead step3Head marB10">SUCCESS</h4>
+									<div class="frm">
+										<form class="jform" (submit)="SubmitsuccessForm()">
+											<img src="assets/images/right.png" class="rigt" alt="" />
+											<p class="sps">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+											<span class="bl-text">Members Listing relating to your search</span>
+											<div class="row marLRM20">
+												<div class="wid33">
+													<div class="dvr">
+														<div class="dvr-in">
+															<img src="assets/images/pro1.png" alt="" />
+														</div>
+													</div>
+													<span class="bl-titl">Title Here</span>
+													<p>Lorem ipsum dolor sit amet</p>
+												</div>
+												<div class="wid33">
+													<div class="dvr">
+														<div class="dvr-in">
+															<img src="assets/images/pro2.png" alt="" />
+														</div>
+													</div>
+													<span class="bl-titl">Title Here</span>
+													<p>Lorem ipsum dolor sit amet</p>
+												</div>
+												<div class="wid33">
+													<div class="dvr">
+														<div class="dvr-in">
+															<img src="assets/images/pro3.png" alt="" />
+														</div>
+													</div>
+													<span class="bl-titl">Title Here</span>
+													<p>Lorem ipsum dolor sit amet</p>
+												</div>
+											</div>
+											<div class="sub">
+												<button class="btn-no" type="button" (click)="searchAgain()"
+													[disabled]="LoginForm">Search Again</button>
+												<button class="btn-def flr btnsld" type="submit" value="Close"
+													[disabled]="LoginForm">Login</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div class="boxs b_shadow box-5 " [ngClass]="{active:LoginForm}">
+								<div class="boxs-in formDiv">
+									<h3 class="popHead">Login Details</h3>
+									<div class="frm logn paddT20">
+										<form class="jform" [formGroup]="loginForm" (submit)="login()">
+											<div class="field">
+												<label class="commonLabel">Username</label>
+												<input type="text" formControlName="email_id" placeholder="Username" />
+												<div *ngIf="submit && l.email_id.errors" class="invalid-feedback">
+													Username is required
+												</div>
+											</div>
+											<div class="field">
+												<label class="commonLabel">Password</label>
+												<input type="password" formControlName="password"
+													placeholder="Password" />
+												<div *ngIf="submit && l.password.errors" class="invalid-feedback">
+													Password is required
+												</div>
+											</div>
+											<div class="btnl">
+												<button class="btn-def" type="submit">Login</button>
+											</div>
+											<div class="lxt">
+												<span class="stxt">Skip this Step<br />
+													Keep track of your searches and quotes</span>
+											</div>
+											<div class="pers">
+												<button class="btn-def" type="button" routerLink="/signup-customer">Sign
+													Up</button>
+												<button class="btn-def" style="margin-right: 0px;" type="button"
+													value="Quest">Quest</button>
+											</div>
+											<div class="dhacc">
+												<a href="javascript:;" class="stxt">Dont have an account?</a>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					
-
 				</div>
-			</div>		
-			</div>		
-		</div>
+			</div>
 		</div>
 	</div>
 </div>
-

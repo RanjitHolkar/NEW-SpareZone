@@ -7,7 +7,7 @@ img.carImageNew {
     margin: 0 auto;
     top: 50%;
     transform: translate(-50%,-50%);
-    left: 50%;
+    left: 55%;
 }
 .UpperBoxDiv td{
     border: 1px solid #119cee;
@@ -18,14 +18,15 @@ img.carImageNew {
 .MaintanceSingle.CarImgBox {
     position: relative;
     text-align: center;
-    height: 85%;
-    margin-top: 5px;
+    height: 90%;
+    margin-top: 7px;
 }
 .UpperBoxDiv {
     position: relative;
     height: 100%;
     width: 90%;
-    margin: 0 auto;
+    /* margin: 0 auto; */
+    margin-left: 10%;
 }
 .UpperBoxDiv table{
     background-color: transparent;

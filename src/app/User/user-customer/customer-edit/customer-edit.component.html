@@ -8,10 +8,10 @@
 					<div class="col-md-offset-2 col-md-8 col-xs-12">
 						<div class="wrap-box listing ordr nvr edit_pro">
 							<div class="">
-								<div class="boxs-in">
+								<div class="boxs-in edit_Profile_Form">
 									<div class="frm" *ngFor="let customerDetails of customerDetails;let i=index">
 										<form class="jform" [formGroup]="businessForm" (submit)="updateDetails()">
-											<h3>Edit Profile</h3>
+											<h3 class="blueNewHead marB20">Edit Profile</h3>
 											<div class="col-md-5 ed_left">
 												<div class="ed_left1">
 													<div class="upload_img">
@@ -41,11 +41,12 @@
 													</div>
 									</div>	 -->
 											</div>
-											<div class="col-md-7 ">
+											<div class="col-md-7 rightFormDiv">
 												<div class="field">
 													<input type="text" 
-														[(ngModel)]="customerDetails.business_name" formControlName="business_name">
-													<fieldset class="active">Business Name</fieldset>
+													[(ngModel)]="customerDetails.business_name" formControlName="business_name">
+													
+													<fieldset class="labelHead active">Business Name</fieldset>
 													<div *ngIf="submit && f.business_name.errors" class="invalid-feedback">
 														<div *ngIf="f.business_name.errors.required">Business Name is required</div>
 													</div>
@@ -53,7 +54,7 @@
 												<div class="field">
 													<input type="text" 
 														[(ngModel)]="customerDetails.contact_person" formControlName="contact_person">
-													<fieldset class="active">Contact Person</fieldset>
+													<fieldset class="labelHead active">Contact Person</fieldset>
 													<div *ngIf="submit && f.contact_person.errors" class="invalid-feedback">
 														<div *ngIf="f.contact_person.errors.required">Contact Person is required</div>
 													</div>
@@ -61,7 +62,7 @@
 												<div class="field">
 													<input type="text" 
 														[(ngModel)]="customerDetails.personal_contact" formControlName="personal_contact" readonly>
-													<fieldset class="active">Personal Contact </fieldset>
+													<fieldset class="labelHead active">Personal Contact </fieldset>
 													<div *ngIf="submit && f.personal_contact.errors" class="invalid-feedback">
 														<div *ngIf="f.personal_contact.errors.required">Personal Contact is required</div>
 													</div>
@@ -69,7 +70,7 @@
 												<div class="field">
 													<input type="text" 
 														[(ngModel)]="customerDetails.business_address" formControlName="business_address">
-													<fieldset class="active">Business Address</fieldset>
+													<fieldset class="labelHead active">Business Address</fieldset>
 													<div *ngIf="submit && f.business_address.errors" class="invalid-feedback">
 														<div *ngIf="f.business_address.errors.required">Business Address is required</div>
 													</div>
@@ -78,7 +79,7 @@
 													<div class="row">
 														<input type="text" 
 															[(ngModel)]="customerDetails.state" formControlName="state">
-														<fieldset class="active">State</fieldset>
+														<fieldset class="labelHead active">State</fieldset>
 														<div *ngIf="submit && f.state.errors" class="invalid-feedback">
 													<div *ngIf="f.state.errors.required">State is required</div>
 													</div>
@@ -88,7 +89,7 @@
 													<div class="row pl-15">
 														<input type="text" 
 															[(ngModel)]="customerDetails.business_abn" formControlName="business_abn">
-														<fieldset class="active">Business ABN</fieldset>
+														<fieldset class=" labelHead active">Business ABN</fieldset>
 														<div *ngIf="submit && f.business_abn.errors" class="invalid-feedback">
 													<div *ngIf="f.business_abn.errors.required">Business ABN is required</div>
 													</div>
@@ -99,7 +100,7 @@
 													<div class="row">
 														<input type="text" 
 															[(ngModel)]="customerDetails.business_contact" formControlName="business_contact">
-														<fieldset class="active">Business Contact Number</fieldset>
+														<fieldset class="labelHead active">Business Contact Number</fieldset>
 														<div *ngIf="submit && f.business_contact.errors" class="invalid-feedback">
 													<div *ngIf="f.business_contact.errors.required">Business Contact Number is required</div>
 													</div>
@@ -108,7 +109,7 @@
 												<div class="field col-md-12">
 													<div class="row">
 														<input type="text" [(ngModel)]="customerDetails.email_id" formControlName="email_id" readonly>
-														<fieldset class="active">Email</fieldset>
+														<fieldset class="labelHead active">Email</fieldset>
 														<div *ngIf="submit && f.email_id.errors" class="invalid-feedback">
 															<div *ngIf="f.email_id.errors.required"> Email is required</div>
 														</div>

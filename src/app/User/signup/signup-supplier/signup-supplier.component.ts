@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Form,FormBuilder,FormArray,FormControl,FormGroup,Validators} from '@angular/forms';
 import { SignupSupplierService } from './signup-supplier.service';
+import { HomeService } from '../../../home/home.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import {Router} from '@angular/router';
 declare var $;
@@ -16,11 +17,14 @@ public submit = false;
 public images :any;
 public businessType:any;
 public supplierGroup:any;
+public userSearchData:any;
+public userData:any;
   constructor(
     private formBuilder:FormBuilder,
     private _signupSupplierService:SignupSupplierService,
     private toastr:ToastrManager,
-    private router:Router) { }
+    private router:Router,
+    private _homeService:HomeService) { }
 
   ngOnInit() {
     $('.overlayDivLoader').show();
@@ -83,6 +87,16 @@ public supplierGroup:any;
         $('.overlayDivLoader').hide();
           if(res == 'success'){
           this.toastr.successToastr('Registration SuccessFully');
+          this.userSearchData = JSON.parse(localStorage.getItem('userSearchData'));
+          if(this.userSearchData){
+            this.userData = JSON.parse(localStorage.getItem('currentUser'));
+            this.userSearchData['user_status'] = this.userData.user_table_status;
+            this.userSearchData['user_id'] = this.userData.login_user_id;
+            this._homeService.saveSearchData(this.userSearchData).subscribe(res=>{
+              console.log(res);
+              localStorage.removeItem('userData');
+            })
+          }
           this.router.navigate(['/supplier-dash']);
           }else{
             this.toastr.errorToastr('Failed Registration');

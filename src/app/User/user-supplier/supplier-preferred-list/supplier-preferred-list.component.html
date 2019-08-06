@@ -1,9 +1,11 @@
-<app-user-nav></app-user-nav>
-  <!-- member account -->
-  <div class=" container">
-    <div class="supplierDiv memeberAccountmain supplierDivSignup supplierDivSignupSupplier ">
-      <div class="supplierDivInner ">
-        <div class="custumPop  profileDetailsBG ">
+<div class="wrapper">
+  <app-user-nav></app-user-nav>
+  <app-background-image></app-background-image>
+<!-- member account -->
+<div class=" container">
+    <div class="supplierDiv memeberAccountmain supplierDivSignup supplierDivSignupSupplier marT160">
+      <div class="supplierDivInner">
+        <div class="custumPop  profileDetailsBG minH600">
           <div class="custumPopHead noBord ProfileDetailsHead flexHead">
             <h4 class="popHead pullLeft">Preffered Suppliers</h4>
             <div class="leftText">
@@ -14,7 +16,7 @@
             </div>
           </div>
           <div class="TabDivParent">
-            <div class="srollDiv">
+            <div class="srollDiv minWid160">
               <div class="srollDivInner">
                 <ul>
                   <li [ngClass]="{'active': groupName === groupData.group_name }" (click)="dispalyGroupTab(groupData.group_name)"
@@ -27,7 +29,7 @@
             </div>
             <div class="searchDiv">
               <img src="assets/images/searchBlue.png" class="BlueIcon">
-              <input type="text" class="roundedInput" (keyup)="searchPrefSup($event.target.value)">
+              <input type="text" class="roundedInput searchBox" id="serachKey" (keyup)="searchPrefSup($event.target.value)">
             </div>
           </div>
           <div class="custumPopBody ProfileDetailsBody">
@@ -38,7 +40,7 @@
                 <div class="col-sm-6 col-md-3" *ngFor="let preferedSupplierData of preferedSuppliersData; let i = index ">
                   <div class="singleBoxPrefered">
                     <div class="disFSB">
-                      <h4 class="grayBoxBtn">
+                      <h4 class="grayBoxBtn" [style.background-color]="preferedSupplierData.group_indicator_color">
                         <img src="assets/images/SP_IMG.png" class="spIcon">
                         <span>{{preferedSupplierData.member_no}}</span>
                       </h4>
@@ -61,7 +63,7 @@
                         (click)="addPreferredSupplier(preferedSupplierData.user_supplier_id,preferedSupplierData.added_by,i)">select</button>
                       <button class="btn commonBtnWhite commonLightBtn mar0" *ngIf="preferedSupplierData.prefered_id != null">selected</button>
                       <button class="btn commonBtnWhite redBtn commonLightBtn mar0" *ngIf="preferedSupplierData.prefered_id != null"
-                        (click)="deletePreferredSupplier(preferedSupplierData.prefered_id,preferedSupplierData.user_supplier_id,i)">remove</button>
+                        (click)="deletePreferredSupplier(preferedSupplierData.prefered_id,preferedSupplierData.user_supplier_id,i,1)">remove</button>
                     </div>
                   </div>
                 </div>
@@ -76,27 +78,31 @@
     <!-- Email report -->
     <div class="supplierDiv  memeberAccountmain supplierDivNew" id="PerferredListPopUp" *ngIf="isDisplayList">
       <div class="supplierDivInner">
-        <div class="custumPop EmailreportMail">
-          <div class="custumPopHead noBord text-right">
+        <div class="custumPop EmailreportMail PrefferedMain">
+            <div class="form-group closeBtnDiv borB ">
+              <h4 class="blueHead font23 noBord">My Preffered List </h4>
+              <span href="#" class="closeBtn curPoi marB5 PrefferedClose" (click)="ClosePopUp()"><img src="assets/images/cancel.png" alt=""></span>
+            </div>
+          <!-- <div class="custumPopHead noBord text-right">
             <a class="curPoi"><img src="assets/images/cancel.png" alt="" class="closeBtn" (click)="ClosePopUp()"></a>
           </div>
           <div class="custumPopHead noBord">
             <h4 class="popHead">My Preffered List </h4>
-          </div>
+          </div> -->
           <div class="PrefferedPop">
-            <div class="formgroup">
+            <div class="formgroup popupLabel">
               <label>Supplier Group</label>
               <select class="commonInput" (change)="searchPrefSupplier($event.target.value)">
                 <option *ngFor="let groupname of suppliersGroupData ; let i = index" value={{groupname.supplier_setting_id}}>{{groupname.group_name}}</option>
               </select>
-             <!--  <span *ngIf="searchPrefStatus.status == 0">{{searchPrefStatus.message}}</span> -->
+              <!--  <span *ngIf="searchPrefStatus.status == 0">{{searchPrefStatus.message}}</span> -->
             </div>
             <div class="List DisSpace" *ngFor="let searchPrefSupData of searchPrefSupplierData; let i = index ">
               <div class="ListText" *ngIf="searchPrefSupData.prefered_id != null">
                 <h5>{{searchPrefSupData.business_name}}</h5>
                 <p>{{searchPrefSupData.business_address}}</p>
               </div>
-              <a (click)="deletePreferredSupplier(searchPrefSupData.prefered_id,searchPrefSupData.user_supplier_id,i)"
+              <a (click)="deletePreferredSupplier(searchPrefSupData.prefered_id,searchPrefSupData.user_supplier_id,i,2)"
                 *ngIf="searchPrefSupData.prefered_id != null" class="curPoi">Remove</a>
             </div>
           </div>
@@ -104,3 +110,4 @@
       </div>
     </div>
     <!-- edit report -->
+</div>

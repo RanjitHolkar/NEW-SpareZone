@@ -102,8 +102,8 @@
                             <option *ngFor="let supplierGroup of supplierGroup"
                               [value]="supplierGroup.supplier_setting_id">{{supplierGroup.group_name}}</option>
                           </select>
-                          <div *ngIf="submit && s.business_address.errors" class="invalid-feedback">
-                            <div *ngIf="s.business_address.errors.required">supplier Group is required</div>
+                          <div *ngIf="submit && s.group_id.errors" class="invalid-feedback">
+                            <div *ngIf="s.group_id.errors.required">supplier Group is required</div>
                           </div>
                         </div>
                         <div class="formgroup">

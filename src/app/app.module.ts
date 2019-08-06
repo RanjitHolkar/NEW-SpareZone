@@ -6,11 +6,11 @@ import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { JwtInterceptor } from './_helpers/jwt.intrceptor';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-//  import { AdminNavComponent } from './Admin/admin-nav/admin-nav.component';
 import { RouterModule} from '@angular/router';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { RoleGuardService } from './_guards/RoleGuardService';
 
 @NgModule({
   declarations: [
@@ -36,6 +36,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     // AdminNavComponent
   ],
   providers: [
+    RoleGuardService,
     {
       provide:HTTP_INTERCEPTORS,
       useClass:ErrorInterceptor,

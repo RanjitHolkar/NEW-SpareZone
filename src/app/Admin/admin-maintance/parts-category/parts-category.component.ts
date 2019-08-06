@@ -19,12 +19,14 @@ export class PartsCategoryComponent implements OnInit {
   categoryData = [];
   deleteData : any;
   deleteDataIndex : number;
+  deleteTitle  : number;
   editDataIndex : string;
   partData = [];
   isSubmitted = false;
   saveUpdateButton : number;
-  assignedParts : any;
-  selectedBodyCellID: number;
+  assignedParts = [];
+  newAssignParts : any;
+  selectedBodyCellID = 1;
   constructor(private formBuilder: FormBuilder, private toastr: ToastrManager, private adminmaintainservice: AdminMaintanceService) { }
 
   ngOnInit() {
@@ -33,6 +35,8 @@ export class PartsCategoryComponent implements OnInit {
     $("#catPartDeletePopup").hide();
     $("#assignedPartsPopUp").hide();
     this.getCategories();
+    this.createAssignedPartForm();
+    this.getBodyCell(this.selectedBodyCellID);
   }
 
   /* Get Categories */
@@ -159,9 +163,10 @@ export class PartsCategoryComponent implements OnInit {
 
   /* Delete operations : START */
   //Display Popup
-  openDeletePopUp(deleteData,index){
+  openDeletePopUp(deleteData,index,title){
     this.deleteData = deleteData;
     this.deleteDataIndex = index;
+    this.deleteTitle = title;
     console.log(index);
     $("#catPartDeletePopup").show();
   }
@@ -182,7 +187,7 @@ export class PartsCategoryComponent implements OnInit {
       if(res.status){
         this.toastr.successToastr(res.message,'Success');
         this.categoryData.splice(this.deleteDataIndex,1);
-        $("#catPartDeletePopup").hide();
+        this.closeDeletedConfrimPopUp();
       }
       else if(res.status == 0)
         this.toastr.errorToastr(res.message,'Oops!!');
@@ -192,13 +197,29 @@ export class PartsCategoryComponent implements OnInit {
       $('.overlayDivLoader').hide();
      })
     }
-    else if(this.deleteData.part_id){
+    else if(this.deleteData.part_id && !this.deleteData.assigned_part_id){
       //delete part
       this.adminmaintainservice.updatePart({'is_delete':1,'part_id':this.deleteData.part_id}).subscribe((res:any)=>{
         if(res.status){
           this.toastr.successToastr(res.message,'Success');
-          $("#catPartDeletePopup").hide();
+          this.closeDeletedConfrimPopUp();
           this.partData.splice(this.deleteDataIndex,1);
+        }
+        else if(res.status == 0)
+          this.toastr.errorToastr(res.message,'Oops!!');
+        $('.overlayDivLoader').hide();
+       },error=>{
+        this.toastr.errorToastr(error,'Oops!!');
+        $('.overlayDivLoader').hide();
+       })
+    }
+    else if(this.deleteData.assigned_part_id){
+      //delete assigned part
+      this.adminmaintainservice.updateAssignedPart({'is_delete':1,'assigned_part_id':this.deleteData.assigned_part_id}).subscribe((res:any)=>{
+        if(res.status){
+          this.toastr.successToastr(res.message,'Success');
+          this.closeDeletedConfrimPopUp();
+          this.assignedParts.splice(this.deleteDataIndex,1);
         }
         else if(res.status == 0)
           this.toastr.errorToastr(res.message,'Oops!!');
@@ -282,13 +303,16 @@ export class PartsCategoryComponent implements OnInit {
 
   /* Assigned Parts: START */
   getBodyCell(_this) {
-    this.createAssignedPartForm();
     this.selectedBodyCellID = _this;    
+    this.createAssignedPartForm();    
+    console.log("_this = "+_this);
+    console.log("selectedBodyCellID = "+this.selectedBodyCellID);
     $('.overlayDivLoader').show();
     $('#bodyCell').find('.active').removeClass('active');
     $('#'+_this).addClass('active');
     this.adminmaintainservice.getAssignedParts(_this).subscribe((result:any)=>{
       console.log(result);
+      this.assignedParts=result.assignedParts;
       $('.overlayDivLoader').hide();
     })
    }
@@ -299,6 +323,7 @@ export class PartsCategoryComponent implements OnInit {
   }
 
   closeAssignedPopUp(){
+    this.assignedPartForm.reset();
     $("#assignedPartsPopUp").hide();
   }
 
@@ -306,8 +331,83 @@ export class PartsCategoryComponent implements OnInit {
   createAssignedPartForm(){
     this.assignedPartForm = this.formBuilder.group({
       part_id:['',Validators.required],
+      category_id:['',Validators.required],
       car_body_cell_id: [this.selectedBodyCellID,Validators.required]
     })
+  }
+  get catPartAssignF(){
+    return this.assignedPartForm.controls;
+  }
+
+  /* Display Parts as per Category */
+  getNewAssignPartPerCategory() {
+    let category_id = this.assignedPartForm.value.category_id;
+    this.assignedPartForm.controls['part_id'].setValue('');
+    console.log(category_id);
+    $('.overlayDivLoader').show();
+    this.adminmaintainservice.getPartByCategoryID(category_id).subscribe((res: any) => {
+      this.newAssignParts = res.parts;
+      $('.overlayDivLoader').hide();
+    }, error => {
+      console.log(error);
+      $('.overlayDivLoader').hide();
+    })
+  }
+
+  /* Save Assigned Parts */
+  saveAssignedParts(){
+    this.isSubmitted = true;
+    if(this.assignedPartForm.invalid)
+      return false;
+    $('.overlayDivLoader').show();
+    this.isSubmitted = false;
+    console.log(this.assignedPartForm.value);
+    this.adminmaintainservice.saveAssignedParts(this.assignedPartForm.value).subscribe((result:any)=>{
+      console.log(result);
+      if(result.status){
+        this.toastr.successToastr(result.message, 'Success');
+        this.getBodyCell(this.selectedBodyCellID);
+        this.closeAssignedPopUp();
+      }else{
+        this.toastr.errorToastr(result.message, 'Oops!!');
+      }
+      $('.overlayDivLoader').hide();
+    },error=>{
+      this.toastr.errorToastr(error, 'Oops!!');
+      this.assignedPartForm.reset;
+    })
+  }
+
+  /* open Update form popup */
+  openAssignUpdateFormPopUp(editData){
+    this.createAssignedPartForm();
+    this.assignedPartForm.addControl('assigned_part_id', new FormControl(editData.assigned_part_id, Validators.required));
+    this.assignedPartForm.controls['category_id'].setValue(editData.category_id);
+    this.getNewAssignPartPerCategory();
+    this.assignedPartForm.controls['part_id'].setValue(editData.part_id);
+    this.openAssignedPopUp();
+  }
+
+  /* Update the Assigned Parts */
+  updateAssignedPart(){
+    this.isSubmitted = true;
+    if(this.assignedPartForm.invalid)
+      return false;
+    $('.overlayDivLoader').show();
+    this.isSubmitted = false;
+    this.adminmaintainservice.updateAssignedPart(this.assignedPartForm.value).subscribe((res:any)=>{
+      if(res.status){
+        this.toastr.successToastr(res.message,'Success');
+        this.closeAssignedPopUp();
+        this.getBodyCell(this.selectedBodyCellID);
+      }
+      else if(res.status == 0)
+        this.toastr.errorToastr(res.message,'Oops!!');
+      $('.overlayDivLoader').hide();
+      },error=>{
+      this.toastr.errorToastr(error,'Oops!!');
+      $('.overlayDivLoader').hide();
+      })
   }
   /* Assigned Parts: END */
   

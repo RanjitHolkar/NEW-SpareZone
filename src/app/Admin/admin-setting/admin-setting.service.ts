@@ -63,4 +63,11 @@ export class AdminSettingService {
       return res;
     }));
   }
+
+  /* Update supplier group */
+  updateSupplierGroup(groupData){
+    return this.http.put<any>(environment.base_url + 'Admin/Setting/updateSupplierGroup', groupData).pipe(map((res: any) => {
+      return res;
+    }));
+  }
 }

@@ -1,0 +1,171 @@
+/*============================== profile start =========================*/
+.myProfileSideBar {
+    background-color: #ffffffd6;
+    max-width: 380px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    min-width: 380px;
+	    height: 100vh;
+}
+.sideHead {
+    background-color: #fff;
+}
+.sideHead  h4 {
+    font-size: 20px;
+    margin: 0;
+    color: #119cee;
+    padding: 20px;
+    font-weight: bold;
+}
+.sideText {
+    padding: 20px 40px;
+}
+.Details {
+    display: flex;
+    align-items: flex-end;
+	margin-bottom: 10px;
+	    width: 100%;
+    float: left;
+}
+.Details h5 {
+    font-size: 14px;
+    margin: 3px 0;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+.Details img {
+    border-radius: 5px;
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+    margin: 0 15px 0 0;
+}
+.sideSubhead {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0 10px;
+	width: 100%;
+}
+.sideSubhead h5 {
+    font-size: 17px;
+    margin: 3px 0;
+    color: #119cee;
+    font-weight: bold;
+}
+.sideSubhead p {
+    margin: 0;
+    font-size: 13px;
+    text-decoration: underline;
+    color: #666;
+}
+.ImageBOx img {
+    vertical-align: middle;
+    width: 100%;
+    object-fit: cover;
+    height: 200px;
+}
+.ImageBOx {
+    background-color: #ffffff;
+    border-radius: 0px 0px 5px 5px;
+	    border: 1px solid #999;
+}
+.ImageBOx .imagesDiv  img {
+    vertical-align: middle;
+    width: auto;
+    object-fit: cover;
+    height: auto;
+}
+.ImageBOx  .disFSpace {
+    margin: 10px 0;
+    padding: 0 15px;
+}
+.disFSpaceText h5 {
+    font-size: 16px;
+    color: #119cee;
+    margin: 3px 0;
+    font-weight: bold;
+}
+.setailText h4 {
+    font-size: 17px;
+    color: #119cee;
+    margin: 3px 0;
+}
+.roundCount {
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 9px;
+    margin: 0 5px;
+}
+.myVehicleMain {
+    min-width: 340px;
+    max-width: 340px;
+    margin: 0 150px;
+}
+.myVehiclefirst {
+    background-color: #fff;
+    padding: 20px;
+    width: 100%;
+    float: left;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+.commonBtn.text-left {
+    height: 30px;
+    background-color: #119cee;
+    width: 100%;
+    border-radius: 50px;
+    border: 1px solid #119cee;
+    padding: 0 15px;
+    font-size: 12px;
+    color: #fff;
+    margin: 0px 0 20px;
+}
+.myVehiclefirst .sideSubhead {
+    margin: 0px 0 10px;
+}
+.myVehiclefirst .sideSubhead p {
+    color: #119cee;
+}
+.myVehicleSecond .sideSubhead h5 {
+    font-size: 20px;
+}
+.myVehiclefirst.myVehicleSecond .sideSubhead {
+    border-bottom: 1px solid #ddd;
+    padding: 0 0 10px;
+	margin-bottom: 25px;
+}
+.DisSpace {
+    width: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.DisSpace {
+    width: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px 0 10px;
+}
+.DisSpace a {
+    color: #999;
+    text-decoration: none;
+    font-size: 12px;
+}
+.myVehiclefirst.myVehicleSecond .formgroup {
+    padding: 0px 10px;
+}
+.myVehiclefirst .Details img {
+    border-radius: 0;
+}
+/*============================== profile end =========================*/

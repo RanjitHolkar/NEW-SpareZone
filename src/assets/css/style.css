@@ -90,6 +90,7 @@ form.jform .field fieldset.active {top: -4px;padding: 0px;font-size: 13px;backgr
 .flr {float: right;}
 form.jform .field input, form.jform .field textarea {padding: 5px 4px;}
 .field img {position: absolute;right: 6px;bottom: 10px;}
+.field img.del {bottom: 30px;}
 .rdo {position: relative;padding-bottom: 16px;}
 .rdo input[type="radio"] {top: 2px;position: relative;visibility: hidden;}
 .rdo span {
@@ -161,7 +162,7 @@ label.tro {
 }
 .wrap-box {
     position: relative;
-    width: 608px;
+    width: 600px !important;
     float: left;
 }
 .boxs {
@@ -169,12 +170,17 @@ label.tro {
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
-.box-2, .box-3, .box-4 {
+.box-2, .box-3, .box-4, .box-5 {
     position: absolute;
     top: 0px;
     left: 100%;
     /* left: 300px; */
     visibility: hidden;
+}
+.boxs.active.box-5 {
+    left: 400px;
+    z-index: 9999;
+    visibility: visible;
 }
 .box-2 {
     z-index: 99;
@@ -268,9 +274,7 @@ form.jform .field-slide fieldset {
 form.jform .field-slide {
     position: relative;
     height: 53px;
-    margin-bottom: 15px;
-    /* padding-top: 15px; */
-    overflow: hidden;
+    margin-bottom: 35px;
 }
 .slick-slide:focus .movr-in div img {
    -webkit-filter: sepia(100%) hue-rotate(190deg) saturate(500%);
@@ -393,7 +397,7 @@ form.jform .field-slide {
 .checkbox.sale.default {margin: 19px 0;}
 .button_email_report {margin: 16px 0 0;} 
 
-.button_email_report button.e_d {margin: 24px 1.5em 0;height: 36px;font-size: 13px;}
+.button_email_report button.e_d {margin: 24px 1.5em 0;height: 36px;font-size: 12px;}
 
 
 
@@ -719,7 +723,7 @@ ul.mmy {
     margin-left: 4px;
 }
 .pad-lft {
-    padding-left: 0px;
+    padding-left: 0px !important;
 }
 .pad-rgh {
     padding-right: 0px;
@@ -764,11 +768,9 @@ ul.mmy {
     width: 194px;
     height: 137px;
     float: left;
+    border-radius: 0;
     margin-right: 15px;
 }
-
-
-
 .mrgb, .mrgb:focus, .mrgb:hover {
     margin-bottom: 6px;
     max-width: 138px;
@@ -801,7 +803,7 @@ ul.mmy {
 .nt {
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: 20px;
 }
 .ordr .boxs {
     height: 542px;
@@ -838,14 +840,14 @@ ul.mmy {
     padding-top: 0;
 }
 .notify2 {
-    width: 23px;
-    height: 23px;
+    width: 20px;
+    height: 20px;
     background: #48a5ea;
     color: #fff;
     display: flex;
     text-align: center;
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 14px;
     position: relative;
     padding-top: 2px;
     align-items: center;
@@ -1474,17 +1476,21 @@ ul.mmy {
 }
 .tbdat.table_vieww table tr td {
    text-align: left;
-    font-size: 18px;
+    font-size: 15px;
 }
 .recent_active h3 {
-   border-bottom: 1px solid #ddd;
-   padding: 8px 0 13px;
-   margin: 0;
+    border-bottom: 0.5px solid #f5f5f5;
+    padding: 8px 0 10px;
+    margin: 0;
+    color: #119cee;
+    font-size: 20px;
+    font-weight: bold;
 }
 .recent_active h3 span {
-   font-size: 16px;
-   margin: 6px 0 0;
+   font-size: 15px;
+   margin: 6px 20px 0 0;
    color: #48a5ea;
+   font-weight: normal;
 }
 .tbdat.table_vieww table tr td:nth-child(1) {
     color: #48a5ea;
@@ -1689,11 +1695,11 @@ form.jform .ed_right .field {height: 45px !important;margin-bottom: 6px !importa
 .order_table .title_part .title_part1 h3 {padding: 0 0 10px;margin: 0 1.5em;}
 .order_table .title_part .title_part1 .tablpop.partt {padding: 0 1em;} 
 .order_table .title_part .title_part1 .tablpop.partt p {font-size: 19px;margin: 13px 0 0;}
-.ed_left {padding-left: 0;}
-.ed_left .ed_left1 label { position: relative;width: 94%;text-align: center;background: #119bed;padding: 6px 0;font-weight: 500;color: #fff;margin: 8px 2px;border: 1px solid #fff;font-size: 18px;box-shadow: 0px 0px 16px -2px #505050;}
+.ed_left {padding: 0 !important;}
+.ed_left .ed_left1 label { position: relative;width: 94%;text-align: center;background: #119bed;padding: 6px 0;font-weight: 500;font-family: 'ProximaNovaA-Regular';color: #fff;margin: 8px 0;border: 1px solid #fff;font-size: 18px;box-shadow: 0px 0px 10px -1px #50505070;}
 .ed_left .ed_left1 label input {opacity: 0;position: absolute;width: 100%;} 
-.ed_left .upload_img {border: 1px solid #b2b2b2;text-align: center;padding: 2.8em 0;margin-right: 15px;}
-.ed_left .ed_left1 p {    background: #d3d3d3;text-align: center;padding: 6px 0;width: 95%;box-shadow: 0px 0px 16px -2px #505050;border: 1px solid #fff;}
+.ed_left .upload_img {border: 1px solid #b2b2b2;text-align: center;min-width: 200px; height: 135px;  padding: 20px 15px;margin-right: 15px;}
+.ed_left .ed_left1 p {    background: #d3d3d3;text-align: center;padding: 6px 0;width: 94%;box-shadow: 0px 0px 10px -1px #50505070; font-family: 'ProximaNovaA-Regular'; border: 1px solid #fff;}
 .edit_pro {    background: #fff;padding: 2.5em 2.5em;border-radius: 15px;box-shadow: 0px 0px 21px 1px rgba(0, 0, 0, 0.3803921568627451);}
 .checkbox.sale.default label.label_supply {font-size: 18px;}
 .checkbox.sale.default label.label_supply::before {margin-top: 3px;}
@@ -2413,5 +2419,11 @@ outofsupply {color: #48a4ea;font-size: 13px;}
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.lookingDivParent .invalid-feedback {
+    bottom: 0;
+}
+.scrollingCars .invalid-feedback {
+    bottom: -35px;
 }
 /* new css end */

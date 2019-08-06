@@ -1,0 +1,11 @@
+.max720{
+    max-width: 720px;
+}
+.blueNewHead {
+    color: #119cee;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin: 0px 0 10px;
+    padding: 0 0 10px;
+}

@@ -33,14 +33,18 @@ export class SupplierPreferredListComponent implements OnInit {
 
   /* Get suppliers group list */
   getSupplierGroups() {
+    $('.overlayDivLoader').show();
     this.supplierPreferedService.getSupplierGroups().subscribe(res => {
       this.suppliersGroupData = res.supplierGroups;
       this.getPreferredSuppliersList(this.suppliersGroupData[0].supplier_setting_id, this.suppliersGroupData[0].group_name);
+      $('.overlayDivLoader').hide();
     })
   }
 
   /* Get prefered suppliers list */
   getPreferredSuppliersList(groupId, groupname) {
+    $("#serachKey").val('');
+    $('.overlayDivLoader').show();
     this.groupName = groupname;
     this.groupId = groupId;
     this.supplierPreferedService.getPreferredSuppliersList(groupId, this.limit).subscribe(result => {
@@ -48,11 +52,13 @@ export class SupplierPreferredListComponent implements OnInit {
       this.res = result.success;
       this.preferredSuppliersCount = result.preferredSuppliersCount;
       console.log(result);
+      $('.overlayDivLoader').hide();
     })
   }
 
   /* Add prefered Supplier */
   addPreferredSupplier(supplierId, addedBy, index) {
+    $('.overlayDivLoader').show();
     this.supplierId = supplierId;
     this.userdata = JSON.parse(localStorage.getItem('currentUser'));
     this.custId = this.userdata['userData']['user_table_id'];
@@ -68,28 +74,40 @@ export class SupplierPreferredListComponent implements OnInit {
       else {
         this.toastr.errorToastr('Supplier not added successfully!','Oops!!');
       }
+      $('.overlayDivLoader').hide();
     })
   }
 
   /* Delete prefered Supplier */
-  deletePreferredSupplier(prefId, supplierId, index) {
+  deletePreferredSupplier(prefId, supplierId, index,removeStatus) {
+    $('.overlayDivLoader').show();
     this.selectedSupplierId=supplierId;
     this.supplierPreferedService.deletePreferredSupplier(prefId).subscribe(response => {
       if (response.success == 1) {
         this.preferredSuppliersCount--;
-        if (this.preferedSuppliersData[index]['user_supplier_id'] == supplierId) {
-          this.preferedSuppliersData[index]['prefered_id'] = null;
+        if(removeStatus == 1){
+          if (this.preferedSuppliersData[index]['user_supplier_id'] == supplierId) {
+            this.preferedSuppliersData[index]['prefered_id'] = null;
+            this.toastr.successToastr('Supplier removed successfully!','Success');
+          }
+        }else if(removeStatus == 2){
+          if(this.searchPrefSupplierData[index].group_id == this.preferedSuppliersData[0].group_id)
+            this.getPreferredSuppliersList(this.searchPrefSupplierData[index].group_id, this.searchPrefSupplierData[index].group_name);
+          this.searchPrefSupplierData.splice(index,1);
           this.toastr.successToastr('Supplier removed successfully!','Success');
         }
+        
       }
       else {
         this.toastr.errorToastr('Supplier NOT removed successfully!','Oops!!');
       }
+      $('.overlayDivLoader').hide();
     })
   }
 
   /* On selected group name display preffered supplier  */
   searchPrefSupplier(groupId) {
+    $('.overlayDivLoader').show();
     this.supplierPreferedService.getOnlyPreferredSuppliers(groupId, this.limit).subscribe(result => {
       this.searchPrefSupplierData = result.preferredSuppliers;
       console.log(result);
@@ -101,6 +119,7 @@ export class SupplierPreferredListComponent implements OnInit {
           this.toastr.successToastr('Supplier removed successfully!');
         }
       } */
+      $('.overlayDivLoader').hide();
     })
   }
 
@@ -119,9 +138,11 @@ export class SupplierPreferredListComponent implements OnInit {
   
   /* On Search get preffered supplier */
   searchPrefSup(searchData) {
+    $('.overlayDivLoader').show();
     this.supplierPreferedService.getSearchedPrefSupplier(this.groupId,this.limit,searchData).subscribe(result => {
       this.preferedSuppliersData = result.preferredSuppliers;
       this.res = result.success;
+      $('.overlayDivLoader').hide();
     })
   }
   /* Group Tab active  */
