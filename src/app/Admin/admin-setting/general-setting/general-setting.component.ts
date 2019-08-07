@@ -54,10 +54,10 @@ export class GeneralSettingComponent implements OnInit {
   createGeneralSettingFrom() {
     this.generalSettingForm = this.formBuilder.group({
       setting_id: ['', Validators.required],
-      sub_charges: ['', Validators.required],
-      ord_commession: ['', Validators.required],
+      sub_charges: ['', Validators.compose([Validators.required,Validators.pattern('^[0-9]+(\.[0-9]+)?$')])],
+      ord_commession: ['', Validators.compose([Validators.required,Validators.pattern('^[0-9]+(\.[0-9]+)?$')])],
       invoice_terms: ['', Validators.required],
-      gst_rate: ['', Validators.required],
+      gst_rate: ['', Validators.compose([Validators.required,Validators.pattern('^[0-9]+(\.[0-9]+)?$')])],
       reIssue_after: ['', Validators.required],
       due_days: ['', Validators.required],
       terms_file: ['', Validators.required],
@@ -101,7 +101,6 @@ export class GeneralSettingComponent implements OnInit {
       formData.append('acknowleg_statement', this.generalSettingForm.value.acknowleg_statement);
       formData.append('supplier_min_limit', this.generalSettingForm.value.supplier_min_limit);
       formData.append('supplier_max_limit', this.generalSettingForm.value.supplier_max_limit);
-      $('.overlayDivLoader').hide(); 
       if(!!this.terms_file)
         formData.append('terms_file', this.terms_file);
       this.AdminService.updateGeneralSetting(formData).subscribe((response: any) => {
@@ -110,6 +109,7 @@ export class GeneralSettingComponent implements OnInit {
           this.toastr.errorToastr(response.message, 'Oops!');
         else if(response.status)
           this.toastr.successToastr(response.message, 'Success!');
+        $('.overlayDivLoader').hide(); 
       }, error => {
         $('.overlayDivLoader').hide();
         this.toastr.errorToastr(error, 'Oops!');

@@ -66,7 +66,7 @@
                   <div class="formgroup">
                     <label>Address</label>
                     <p class="savedText">{{details.business_address}}</p>
-                    <p class="savedText">{{details.state}}</p>
+                    <p class="savedText">{{details.state_name}}</p>
                     <!-- <p class="savedText">SA</p> -->
                   </div>
                   
@@ -133,7 +133,11 @@
                   <div class="formgroup DisF marB10">
                     <div class="formgroup formgroupN1" >
                       <label>State</label>
-                      <input type="text" class="commonInput" formControlName="state" [(ngModel)]="details.state">
+                      <!-- <input type="text" class="commonInput" formControlName="state" [(ngModel)]="details.state"> -->
+                      <select [(ngModel)]="details.state" formControlName="state">
+                          <option value="">Select State</option>
+                          <option *ngFor="let state of allStates" value="{{state.state_id}}">{{state.state_name}}</option>
+                          </select>
                       <div *ngIf="submit && f.state.errors" class="invalid-feedback">
                           <div *ngIf="f.state.errors.required" >State is required</div>
     

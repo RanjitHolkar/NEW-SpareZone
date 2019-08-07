@@ -77,9 +77,15 @@
 												</div>
 												<div class="col-md-4 field">
 													<div class="row">
-														<input type="text" 
-															[(ngModel)]="customerDetails.state" formControlName="state">
-														<fieldset class="labelHead active">State</fieldset>
+														<!-- <input type="text" 
+															[(ngModel)]="customerDetails.state" formControlName="state"> -->
+
+														
+														<select [(ngModel)]="customerDetails.state" formControlName="state">
+																<option value="">Select State</option>
+																<option *ngFor="let state of allStates" value="{{state.state_id}}">{{state.state_name}}</option>
+															  </select>
+															  <fieldset class="labelHead active">State</fieldset>
 														<div *ngIf="submit && f.state.errors" class="invalid-feedback">
 													<div *ngIf="f.state.errors.required">State is required</div>
 													</div>
@@ -229,7 +235,11 @@
 													<div class="clearfix"></div>
 													<div class="col-md-4 field">
 														<div class="row">	
-															<input type="text"  formControlName="state" [(ngModel)]="personalDetails.state">
+															<!-- <input type="text"  formControlName="state" [(ngModel)]="personalDetails.state"> -->
+															<select [(ngModel)]="personalDetails.state" formControlName="state">
+																	<option value="">Select State</option>
+																	<option *ngFor="let state of allStates" value="{{state.state_id}}">{{state.state_name}}</option>
+																  </select>
 															<fieldset class="active">State</fieldset>
 															<div *ngIf="submited && pform.state.errors" class="invalid-feedback">
 																<div *ngIf="pform.state.errors.required"> State is required</div>

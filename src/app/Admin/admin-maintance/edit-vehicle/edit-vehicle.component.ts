@@ -15,7 +15,7 @@ export class EditVehicleComponent implements OnInit {
   finalData = ['data1', 'data2'];
   maintenanceForm: FormGroup;
   UpdateForm: FormGroup;
-  interdependentType: FormGroup;
+  BodyType: FormGroup;
   maintenanceSelectedType = '';
   dropdownData: any;
   dynamicFirstKey: string;
@@ -29,6 +29,10 @@ export class EditVehicleComponent implements OnInit {
   heading: any;
   // Update Child Component data
   UpdateChildComponentData:any;
+  // Keys For Add Field 
+  keys:any;
+  url = '';
+  restrict = false
 
   @Input() valueSelected: any;
 
@@ -45,6 +49,7 @@ export class EditVehicleComponent implements OnInit {
       'dropdown': new FormControl(null)
     })
     this.UpdateForm = new FormGroup({});
+    this.BodyType = new FormGroup({});
 
   }
 
@@ -52,14 +57,11 @@ export class EditVehicleComponent implements OnInit {
     $('#UpdatePopup').hide();
   }
 
-
   /* get vehcile database data */
   getVehicleDatabase() {
     this.maintenanceService.getVehicleDatabase().subscribe((response: any) => {
       this.maintenanceData = response;
-      console.log('from getVehicaleDataBase')
       console.log(this.maintenanceData);
-
     })
   }
   ClosePopUp() {
@@ -68,14 +70,32 @@ export class EditVehicleComponent implements OnInit {
 
                       /*  ADD new Maintenance DATA START HERE    */
 
-  /* Display Maintenance Popup */
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      let imageType = event.target.files[0].type.split("/")[0];
+      if (imageType == 'image') {
+        let reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = (event) => { 
+          this.url = event.target['result'];
+          this.restrict = true;
+        }
+      }
+      else{
+        
+        this.toastr.errorToastr("Please Image With Correct Format.", "Oops!")
+      }
+
+    }
+  }
+    /* Display Maintenance Popup */
   DisplayMaintenancePopup(maintenanceKey) {
     this.heading = maintenanceKey;
     this.dropdownData = '';
     $('#maintenancePopup').show();
     this.maintenanceSelectedType = maintenanceKey;
     if (maintenanceKey == 'Make') {
-
+      this.restrict = true;
       this.maintenanceForm = this.formBuilder.group({
         body_type_id: ['', Validators.required],
         make_name: ['', Validators.required]
@@ -83,6 +103,7 @@ export class EditVehicleComponent implements OnInit {
       this.dropdownData = this.maintenanceData.data1[0].Body_Type;
       this.API_URL = environment.base_url + '/Admin/Maintance/saveMake';
     } else if (maintenanceKey == 'Model') {
+      this.restrict = true;
       this.maintenanceForm = this.formBuilder.group({
         make_id: ['', Validators.required],
         model_name: ['', Validators.required]
@@ -90,6 +111,7 @@ export class EditVehicleComponent implements OnInit {
       this.dropdownData = this.maintenanceData.data1[1].Make;
       this.API_URL = environment.base_url + '/Admin/Maintance/saveModel';
     } else if (maintenanceKey == 'Year') {
+      this.restrict = true;
       this.maintenanceForm = this.formBuilder.group({
         model_id: ['', Validators.required],
         year_name: ['', Validators.required]
@@ -98,6 +120,7 @@ export class EditVehicleComponent implements OnInit {
       this.API_URL = environment.base_url + '/Admin/Maintance/saveYear';
     }
     else if (maintenanceKey == 'Series') {
+      this.restrict = true;
       this.maintenanceForm = this.formBuilder.group({
         year_id: ['', Validators.required],
         series: ['', Validators.required]
@@ -105,8 +128,18 @@ export class EditVehicleComponent implements OnInit {
       this.dropdownData = this.maintenanceData.data1[3].Year;
       this.API_URL = environment.base_url + '/Admin/Maintance/saveSeries';
     }
+                    /*  For Body Type  */
+    else if(maintenanceKey == 'Body Type'){
+      this.BodyType = this.formBuilder.group({
+        maintance_key:['body_type'],
+        maintance_value:['',Validators.required],
+        maintenance_image:['',Validators.required]
+      });
+      this.API_URL = environment.base_url + 'Admin/Maintance/saveBodyType';
+    }
     else if (maintenanceKey === 'Transmission Type' || maintenanceKey === 'Fuel Type' || maintenanceKey === 'Engine Type') {
       let maintenancetypeKey = maintenanceKey.replace(" ", "_").toLowerCase();
+      this.restrict = true;
       this.maintenanceForm = this.formBuilder.group({
         maintance_key: [maintenancetypeKey, Validators.required],
         maintance_value: ['', Validators.required]
@@ -116,48 +149,60 @@ export class EditVehicleComponent implements OnInit {
     }
   }
 
-  /*  For Validation  */ 
+  /*  For Validation  */
   get groupF() {
     return this.maintenanceForm.controls
   }
 
-   /*  Service call and push new saved data to display array  */ 
+   /*  Service call and push new saved data to display array  */
   saveGroup() {
     this.isSubmitted = true;
     if (this.maintenanceForm.invalid) return false;
     this.isSubmitted = false;
+    console.log(this.maintenanceForm.value);
     if (this.maintenanceForm.valid) {
-      this.maintenanceService.saveNewVehicleDetails(this.API_URL, this.maintenanceForm.value).subscribe(data => {
-        console.log(data);
-        if (data.status) {
+      this.maintenanceService.saveNewVehicleDetails(this.API_URL, this.maintenanceForm.value).subscribe(val => {
+        console.log(val);
+        this.keys = val;
+        if (val.status) {
+          this.toastr.successToastr(val.message, "Success!")
           let data = this.maintenanceForm.value;
-          this.toastr.successToastr(data.message, 'Success!')
           if (this.maintenanceSelectedType == 'Make') {
-            this.maintenanceData.data1[1].Make.push(data);
+            data['make_id'] = this.keys.make_id
+            this.maintenanceData.data1[1].Make.push(data); 
+          }
+          else if(this.maintenanceSelectedType == 'Body Type'){
+            data['maintance_id'] = this.keys.maintance_id;
+            this.maintenanceData.data1[0].Body_Type.push(data);
           }
           else if (this.maintenanceSelectedType == 'Model') {
+            data['model_id'] = this.keys.model_id;
             this.maintenanceData.data1[2].Model.push(data);
           }
           else if (this.maintenanceSelectedType == 'Year') {
+            data['year_id'] = this.keys.year_id;
             this.maintenanceData.data1[3].Year.push(data);
           }
           else if (this.maintenanceSelectedType == 'Series') {
+            data['series_id'] = this.keys.series_id;
             this.maintenanceData.data2[0].Series.push(data);
           }
           else if (this.maintenanceSelectedType === 'Transmission Type') {
-            this.maintenanceData.data2[1].transmission_type.push(data);
- 
+            data['maintance_id'] = this.keys.maintance_id;
+            this.maintenanceData.data2[1].Transmission_Type.push(data);
+            console.log(data)
+
           }
           else if (this.maintenanceSelectedType === 'Fuel Type') {
-            this.maintenanceData.data2[2].fuel_type.push(data);
+            data['maintance_id'] = this.keys.maintance_id
+            this.maintenanceData.data2[2].Fuel_Type.push(data);
           }
           else if (this.maintenanceSelectedType === 'Engine Type') {
-            this.maintenanceData.data2[3].engine_type.push(data);
+            data['maintance_id'] = this.keys.maintance_id
+            this.maintenanceData.data2[3].Engine_Type.push(data);
           }
         }
-        if (!data.status)
-          this.toastr.errorToastr(data.message, 'Oops!')
-        console.log(data);
+        if (!val.status) this.toastr.errorToastr(val.message, 'Oops!')
 
         $('#maintenancePopup').hide();
       }, error => {
@@ -170,24 +215,19 @@ export class EditVehicleComponent implements OnInit {
     }
   }
 
-
- 
-                                 /*   ADD ends Here    */ 
-
-                                /*  DELETE Starts Here   */
-
+                                 /*   ADD ends Here    */
+                                /*  DELETE Starts Here */
 
  dataFromVehicleChild(data) {
     this.FromVehicleChildData = data;
   }
 
-
-/* To remove perticular record From DB */ 
+/* To remove perticular record From DB */
   removeFromDB() {
     console.log(this.FromVehicleChildData);
     let postData = {};
     postData['is_delete'] = "1";
-    //  For Year 
+    //  For Year
     if (this.FromVehicleChildData.year_name) {
       this.API_URL = environment.base_url + '/Admin/Maintance/updateYear'
       postData['year_id'] = this.FromVehicleChildData.year_id;
@@ -195,7 +235,7 @@ export class EditVehicleComponent implements OnInit {
       this.commonCall(this.API_URL, postData,this.FromVehicleChildData.index);
     }
 
-    // For  model 
+    // For  model
     else if (this.FromVehicleChildData.model_name) {
       this.API_URL = environment.base_url + '/Admin/Maintance/updateModel'
       postData['model_id'] = this.FromVehicleChildData.model_id;
@@ -203,14 +243,14 @@ export class EditVehicleComponent implements OnInit {
       this.commonCall(this.API_URL, postData,this.FromVehicleChildData.index);
     }
 
-    // For  serise  
+    // For  serise
     else if (this.FromVehicleChildData.series) {
       this.API_URL = environment.base_url + '/Admin/Maintance/updateSeries'
       postData['series_id'] = this.FromVehicleChildData.series_id;
       this.commonCall(this.API_URL, postData,this.FromVehicleChildData.index);
     }
 
-    //  For make 
+    //  For make
     else if (this.FromVehicleChildData.make_name) {
       this.API_URL = environment.base_url + '/Admin/Maintance/updateMake'
       postData['make_id'] = this.FromVehicleChildData.make_id;
@@ -240,13 +280,12 @@ export class EditVehicleComponent implements OnInit {
     else if (this.FromVehicleChildData.maintance_key == 'body_type') {
       this.API_URL = environment.base_url + '/Admin/Maintance/updateMaintanceData';
       postData['maintance_id'] = this.FromVehicleChildData.maintance_id;
- 
+      console.log(this.FromVehicleChildData.maintance_id);
+      console.log(postData)
       this.commonCallForMaintance(this.API_URL, postData,this.FromVehicleChildData.index);
     }
   }
 
-
-  
   /* Close Delete popup */
   closeDeletedConfrimPopUp() {
     $('#maintainDeletePopup').hide();
@@ -272,6 +311,9 @@ export class EditVehicleComponent implements OnInit {
         if (this.FromVehicleChildData.series_id) {
           this.maintenanceData.data2[0].Series.splice(index, 1);
         }
+        if(this.FromVehicleChildData.maintance_id){
+          this.maintenanceData.data1[0].Body_Type.splice(index, 1)
+        }
 
         this.toastr.successToastr(data.message, "Succsess!")
         this.closeDeletedConfrimPopUp()
@@ -280,40 +322,52 @@ export class EditVehicleComponent implements OnInit {
 
    /*   Common service call for delete with put request */
   commonCallForMaintance(url: any, parameters,index) {
-    console.log(this.FromVehicleChildData);
+    console.log("index = "+index);
     this.maintenanceService.MaintanceData(url, parameters)
       .subscribe((data) => {
         console.log(data);
-                /*    Remove data from display   */
-        if(this.FromVehicleChildData.maintance_key ==  "transmission_type"){
-          this.maintenanceData.data2[1].Transmission_Type.splice(index, 1);
+        if(data.msg == 'error'){
+          this.toastr.errorToastr(data.info , data.msg);
+          this.closeDeletedConfrimPopUp();
         }
-        if(this.FromVehicleChildData.maintance_key == "fuel_type"){
-          this.maintenanceData.data2[2].Fuel_Type.splice(index, 1)
+        else{
+             /*    Remove data from display   */
+             console.log("Maintenance KEY = "+this.FromVehicleChildData.maintance_key);
+             if(this.FromVehicleChildData.maintance_key ==  "body_type"){
+              this.maintenanceData.data1[0].Body_Type.splice(index, 1);
+              console.log(this.maintenanceData.data1[0].Body_Type.splice(index, 1))
+              console.log("body_type");
+            }
+             if(this.FromVehicleChildData.maintance_key ==  "transmission_type"){
+              this.maintenanceData.data2[1].Transmission_Type.splice(index, 1);
+              console.log(this.maintenanceData.data2[1].Transmission_Type.splice(index, 1))
+              console.log("transmission_type");
+            }
+            if(this.FromVehicleChildData.maintance_key == "fuel_type"){
+              this.maintenanceData.data2[2].Fuel_Type.splice(index, 1)
+              console.log("fuel_type");
+            }
+            if(this.FromVehicleChildData.maintance_key == "engine_type"){
+              this.maintenanceData.data2[3].Engine_Type.splice(index,1);
+              console.log("engine_type");
+            }
+            this.toastr.successToastr(data.info, "Success!");
+            this.closeDeletedConfrimPopUp();
         }
-        if(this.FromVehicleChildData.maintance_key == "engine_type"){
-          this.maintenanceData.data2[3].Engine_Type.splice(index,1);
-        }
-        this.toastr.successToastr(data.info, "Success!");
-        this.closeDeletedConfrimPopUp();
+   
       }, error => {
         console.log(error);
         this.toastr.errorToastr("Something went wrong..", "Oops!");
       })
   }
 
-
-                                /*   DELETE ends Here   */ 
-
-
-                                 /* Update Start here */
-  
-
+                                /*   DELETE ends Here   */
+                                /*  Update Start here  */
 
   reciveData(data) {
     this.dropdownData = '';
     this.fromChildComponent = data;
-    // For Update Year 
+    // For Update Year
     if (this.fromChildComponent.year_name) {
       this.editTypeSelect = 'Year';
       this.UpdateForm = this.formBuilder.group({
@@ -324,7 +378,7 @@ export class EditVehicleComponent implements OnInit {
       this.API_URL = environment.base_url + '/Admin/Maintance/updateYear';
       this.dropdownData = this.maintenanceData.data1[2].Model
     }
-    // For Update Model 
+    // For Update Model
     else if (this.fromChildComponent.model_name) {
       this.editTypeSelect = 'Model';
       this.UpdateForm = this.formBuilder.group({
@@ -343,7 +397,6 @@ export class EditVehicleComponent implements OnInit {
         make_id: [data.make_id, Validators.required],
         make_name: [data.make_name, Validators.required]
       })
-
       this.API_URL = environment.base_url + '/Admin/Maintance/updateMake'
       this.dropdownData = this.maintenanceData.data1[0].Body_Type;
     }
@@ -359,7 +412,7 @@ export class EditVehicleComponent implements OnInit {
       this.dropdownData = this.maintenanceData.data1[3].Year;
       this.API_URL = environment.base_url + '/Admin/Maintance/updateSeries'
     }
-    // Update MaintanceData 
+    // Update MaintanceData
     else if (this.fromChildComponent.maintance_key == "engine_type" || this.fromChildComponent.maintance_key == "fuel_type" || this.fromChildComponent.maintance_key == "fuel_type" || this.fromChildComponent.maintance_key == "transmission_type") {
       this.editTypeSelect = 'common';
       this.UpdateForm = this.formBuilder.group({
@@ -388,7 +441,7 @@ export class EditVehicleComponent implements OnInit {
             let model_name = this.UpdateChildComponentData.model_name
               this.maintenanceData.data1[2].Model[this.fromChildComponent.index].model_name = model_name;
           }
-          // For make 
+          // For make
           if(this.fromChildComponent.make_name){
             let make_name = this.UpdateChildComponentData.make_name;
             this.maintenanceData.data1[1].Make[this.fromChildComponent.index].make_name = make_name;
@@ -420,25 +473,18 @@ export class EditVehicleComponent implements OnInit {
 
   };
 
-  /*  */ 
+  /*  */
   OnSubmitUpdateForm() {
 
     /* For Update Series */
-    if (this.editTypeSelect == 'series') {
-      this.callToService();
-    }
+    if (this.editTypeSelect == 'series') this.callToService();
     /* For Update Year */
-    if (this.editTypeSelect == 'Year') {
-      this.callToService();
-    }
+    if (this.editTypeSelect == 'Year') this.callToService();
     /* For Update Model */
-    if (this.editTypeSelect == 'Model') {
-      this.callToService();
-    }
+    if (this.editTypeSelect == 'Model')  this.callToService();
     /* For Update Make */
-    if (this.editTypeSelect == 'Make') {
-      this.callToService();
-    }
+    if (this.editTypeSelect == 'Make')  this.callToService();
+    /* For Update transmission-type && fuel-type && engine-type  */
     if (this.editTypeSelect == 'common') {
       this.UpdateForm.value.maintance_id = this.fromChildComponent.maintance_id;
       if (this.UpdateForm.valid) {
@@ -449,19 +495,16 @@ export class EditVehicleComponent implements OnInit {
             this.UpdateChildComponentData = this.UpdateForm.value;
             if(this.fromChildComponent.maintance_key ==  "transmission_type"){
               let maintance_value = this.UpdateChildComponentData.maintance_value;
-              console.log(maintance_value)
               console.log(this.maintenanceData.data2[1].Transmission_Type[this.fromChildComponent.index])
               this.maintenanceData.data2[1].Transmission_Type[this.fromChildComponent.index].maintance_value = maintance_value;
             }
             if(this.fromChildComponent.maintance_key ==  "fuel_type"){
               let maintance_value = this.UpdateChildComponentData.maintance_value;
-              console.log(maintance_value);
               console.log(this.maintenanceData.data2[2].Fuel_Type[this.fromChildComponent.index])
               this.maintenanceData.data2[2].Fuel_Type[this.fromChildComponent.index].maintance_value = maintance_value;
             }
             if(this.fromChildComponent.maintance_key ==  "engine_type"){
               let maintance_value = this.UpdateChildComponentData.maintance_value;
-              console.log(maintance_value);
               console.log(this.maintenanceData.data2[3].Engine_Type[this.fromChildComponent.index])
               this.maintenanceData.data2[3].Engine_Type[this.fromChildComponent.index].maintance_value = maintance_value;
             }
@@ -486,4 +529,3 @@ export class EditVehicleComponent implements OnInit {
 
 
 }
-

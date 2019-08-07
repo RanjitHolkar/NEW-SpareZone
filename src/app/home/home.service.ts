@@ -43,5 +43,16 @@ public Base_url = environment.base_url;
       return res;
     }))
   }
+  getParts(info:any){
+    return this.httpClient.get<any>(this.Base_url + 'Admin/Parts/getPartByKeyword/'+ info ).pipe(map(res=>{
+      return res;
+    }))
+  }
+  getGroups(){
+    return this.httpClient.get<any>(this.Base_url + 'Admin/Setting/getSupplierGroups').pipe(map(res=>{
+      return res;
+    }))
+  }
+  
   
 }

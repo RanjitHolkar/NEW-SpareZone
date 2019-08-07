@@ -33,4 +33,18 @@ public base_url = environment.base_url;
         return res;
     }))
   }
+
+  /* Get All States */
+  getAllStates(){
+    return this.httpClient.get<any>(this.base_url+'Admin/States/getAllStates').pipe(map((result:any)=>{
+      return result;
+    }))
+  }
+
+  /* Get All States */
+  getAllBusinessTypes(){
+    return this.httpClient.get<any>(this.base_url+'Admin/BusinessType/getBusinessTypeList').pipe(map((result:any)=>{
+      return result;
+    }))
+  }
 }

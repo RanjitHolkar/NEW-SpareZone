@@ -18,14 +18,12 @@ export class EditVehicleChildComponent implements OnInit {
   @Input() updateEdit:any;
   dataFromChild:any;
   @Output() updateEditDataFromChild:any;
-  constructor(private service: AdminMaintanceService) { }
+  constructor() { }
   ngOnInit() {
-    this.maintanData = this.maintanData[this.maintanData.name];
-    
+    this.maintanData = this.maintanData[this.maintanData.name1];
+
   }
 
-
- 
    /* Display Delete popup */
    displayDeleteConfrimPopUp(data:any,index){
     $('#maintainDeletePopup').show();

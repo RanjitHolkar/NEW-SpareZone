@@ -30,13 +30,26 @@ public engineType:any;
 public transmissionType:any;
 public LoginForm = false;
 public data:any;
+public serachData={name:'Ranjit'};
 public userSearchData :any;
+public searchBox=false;
+public partDetails:any;
+public groupDetailsPopUp:any;
+public groupDetails:any;
+public groupsData=[];
+public groupImages=[];
+public part_id:any;
+public exhost=[];
+public part_name:any;
+public imagesUrl=[];
+public images:any;
   constructor(private fb:FormBuilder,private _homeService:HomeService,
     private _authenticationService:AuthenticationService,
     private router:Router,
     private toastr:ToastrManager) { }
 
   ngOnInit() {
+    this.groupDetailsPopUp = false;
     localStorage.removeItem('userSearchData');
     this._homeService.getMakes().subscribe(res=>{
       this.makesDetails = res.result;
@@ -47,7 +60,7 @@ public userSearchData :any;
       car_year_id:['',Validators.required]
     })
     this.SecondForm = this.fb.group({
-      looking_for_part:this.fb.array([this.addForm()])
+      exhaust:[''],
     })
     this.ThirdForm = this.fb.group({
       car_engine_type_id:['',Validators.required],
@@ -89,38 +102,86 @@ public userSearchData :any;
       this.FirstForm.disable();
     }
   }
-  addExahost(){
-    let control = <FormArray>this.SecondForm.controls['looking_for_part'];
-    control.push(this.addForm());
-  }
-  removeExahost(index){
-    let control = <FormArray>this.SecondForm.controls['looking_for_part'];
-    control.removeAt(index);
-  }
-  addForm(){
-    return this.fb.group({
-      exhaust:['',Validators.required]
-    })
-  }
+  
   SubmitsecondForm(){
-    this.submit = true;
-   if(this.SecondForm.valid){
-    this.submit = false;
-     this.thirdForm = true;
-     this.SecondForm.disable();
-     this.getBodyType();
-     this.getEngineType();
-     this.getTransmissionType();
-   }
+   
+      this.submit = false;
+      this.thirdForm = true;
+      this.SecondForm.disable();
+      this.getBodyType();
+      this.getEngineType();
+      this.getTransmissionType();
+    
+   
   }
   getBodyType(){
     $('.overlayDivLoader').show();
     this._homeService.getBodyType().subscribe(res=>{
       this.bodyType = res.Data;
     $('.overlayDivLoader').hide();
-
     })
   }
+  /* Search function: Start */
+  displayGroup(part_name,part_id){
+    if(part_name !=''){
+      this.SecondForm.patchValue({
+        exhaust:part_name
+      })
+    }
+    this.part_id = part_id;
+    $('.overlayDivLoader').show();
+    this._homeService.getGroups().subscribe(res=>{
+      this.groupDetails = res.supplierGroups;
+      console.log(res);
+      $('.overlayDivLoader').hide();
+    })
+    this.groupDetailsPopUp = true;
+  }
+  removeElement(index){
+    this.exhost.splice(index, 1);
+  }
+  searchParts(event){
+    $('.overlayDivLoader').show();
+    this._homeService.getParts(event.target.value).subscribe(res=>{
+      this.partDetails = res.parts;
+      $('.overlayDivLoader').hide();
+    })
+    this.searchBox = true;
+  }
+  addGroups(group_id,group_color,event){
+    if(event.target.checked == true){
+      this.groupsData.push({'group_id':group_id,'group_color':group_color});
+    }else{
+      for(let i=0;i<this.groupsData.length;i++){
+        if(this.groupsData[i]==group_id)
+          this.groupsData.splice(i, 1);
+      }
+    }
+  }
+  partsImages(index,event){
+    if (event.target.files && event.target.files[0]) {
+      this.images = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => this.imagesUrl[index] = reader.result;
+      reader.readAsDataURL(this.images);
+    }
+    this.groupImages.push(this.images);
+    console.log(event.target.files[0]);
+    
+    console.log(this.imagesUrl);
+  }
+  SavePartsImages(){
+    let data = {'group_id':this.groupsData,'groupImages':JSON.stringify(this.groupImages),'part_id':this.part_id,'part_name':this.SecondForm.value.exhaust}
+    this.exhost.push(data);
+    this.searchBox = false;
+    this.groupDetailsPopUp = false;
+    this.SecondForm.reset();
+    this.groupsData=[];
+    this.groupImages=[];
+    this.imagesUrl = [];
+    console.log(this.exhost);
+  }
+  /* Search function: Stop */
   clickEvent(value){
     this.ThirdForm.patchValue({
       car_body_type_id:value

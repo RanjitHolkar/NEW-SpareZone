@@ -2365,6 +2365,9 @@ max-width: 135px;
     bottom: -15px;
     font-size: 10px;
 }
+.error{
+    color: red !important;
+}
 .marT130{
     margin-top: 100px !important;
 }
@@ -2969,8 +2972,35 @@ input.uploadInput {
     height: 55px;
 }
 .lookingDiv {
-    max-height: 210px;
+    max-height: 160px;
     overflow-y: auto;
+    min-height: 160px;
+}
+.roundExahostDiv {
+    position: absolute;
+    bottom: 21px;
+    display: flex;
+    left: 2px;
+}
+.formDiv form.jform .lookingDiv .field input {
+    padding: 0px 25px 14px 0;
+    height: 25px;
+    line-height: 1;
+}
+.roundExahostDiv span {
+    width: 5px;
+    height: 5px;
+    display: block;
+    margin: 0 5px 0 0px;
+    border-radius: 50%;
+}
+.iconsEx {
+    position: absolute;
+    top: 5px;
+    right: 0;
+}
+.iconsEx.iconsEx2 {
+    right: 29px;
 }
 .formDiv form.jform .field input, .formDiv form.jform .field textarea, .formDiv form.jform select {
     padding: 0px 25px 5px 0;
@@ -3061,6 +3091,7 @@ select {
 .boxs-in h3{
     margin: 0 0 20px;
     padding-bottom: 15px;
+    color: #119cee;
 }
 .step3Head{
     font-size: 17px;
@@ -3168,4 +3199,126 @@ box-sizing: border-box;
 }
 .font23{
     font-size: 23px !important;
+}
+/* supplier selection area css */
+.SupplySelectionAreaLeft .boxs-in h3 {
+    margin: 0 0 15px;
+    padding-bottom: 15px;
+    padding: 0 0 10px;
+    font-size: 21px;
+    font-weight: bold;
+}
+.searchDivSuppli input{
+    height: 30px;
+    border: 1px solid #ddd;
+    padding: 0 8px;
+    border-radius: 3px;
+    margin-right: 15px;
+}
+.searchDivSuppli {
+    display: flex;
+    margin: 20px 0 0;
+}
+.SupplySelectionAreaLeft .btn-def-blu {
+    height: 30px;
+    background: #fff;
+    font-weight: normal;
+    line-height: 1;
+    font-size: 12px;
+}
+.searchDivSuppli button.btn.commonBlueBtn {
+    font-weight: normal;
+    font-size: 12px;
+    background-color: #48a5ea!important;
+    border: 2px solid #48a5ea!important;
+    font-family: 'ProximaNovaA-Regular';
+    min-width: 90px;
+}
+.disFN{
+    display: flex;
+}
+.wrap-box.listing.SupplySelectionAreaLeft {
+    width: 716px !important;
+    margin-right: 30px;
+}
+
+.SupplySelectionAreaLeft.boxShadow, .SupplySelectionAreaRight.boxShadow{
+    box-shadow: 0px 0px 30px #b9b9b9 !important;
+}
+.SupplySelectionAreaRightSection {
+    width: calc(100% - 716px);
+    position: relative;
+}
+.SupplySelectionAreaRight{
+    min-height: 540px;
+    min-width: 330px;
+    padding: 15px 50px 20px 25px;
+}
+.commonRedBordBtn{
+    color: #e94343;
+    background-color: #fff;
+    border: 1px solid #e94343!important;
+    border-radius: 25px !important;
+    line-height: 1 !important;
+    box-shadow: 1px 1px 5px #a7a7a7;
+    margin: 0 5px !important;
+    padding: 7px 20px !important;
+    font-size: 13px;
+    height: 31px;
+    font-weight: 600;
+}
+.field.supplierBtnDiv{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+.supplierBtnDiv .commonBtn{
+    width: 48%;
+    margin: 0 !important;
+}
+.fontFamDiv label{
+    font-family: 'ProximaNovaA-Regular';
+}
+.fontFamDiv input::placeholder {
+    font-family: 'ProximaNovaA-Regular';
+    color: #333333;
+  }
+  .vehicleImgDiv{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  .minWid78{
+      min-width: 78px;
+      font-family: 'ProximaNovaA-Regular';
+  }
+  .boxs.b_shadow.box-2.active.SupplySelectionAreaRight {
+    left: 40px;
+}
+/* for input file */
+.vehicleImg {
+    width: 50px;
+    position: relative;
+    text-align: center;
+}
+.vehicleImg input[type=file] {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    z-index: 99;
+    cursor: pointer;
+}
+.field img.del.newDel {
+    bottom: 15px;
+}
+.field.min49 input[type="text"] {
+    padding: 0 0 10px !important;
+}
+.SupplySelectionAreaRight.box-3 {
+    padding: 15px 25px 20px 25px;
+}
+.SupplySelectionAreaRight.boxs.active.box-3 {
+    left: 80px;
+    visibility: visible;
 }

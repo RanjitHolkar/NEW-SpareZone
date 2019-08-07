@@ -4,6 +4,7 @@ import { SignupCustomerService } from './signup-customer.service';
 import { HomeService } from '../../../home/home.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { Router } from '@angular/router';
+import {AuthenticationService} from '../../../services/authentication.service';
 declare var $;
 @Component({
   selector: 'app-signup-customer',
@@ -29,11 +30,12 @@ export class SignupCustomerComponent implements OnInit {
   public imagesUrl:any;
   public userSearchData:any;
   public userData:any;
+  businessTypes :any;
     constructor(private formBuilder:FormBuilder,
       private SignupCustomerService :SignupCustomerService,
       private router: Router,
       private _homeService:HomeService,
-      private toastr:ToastrManager) { }
+      private toastr:ToastrManager,private commonService:AuthenticationService) { }
     ngOnInit() {
       $('.overlayDivLoader').show();
       this.SignupCustomerService.getBusinessType().subscribe(res=>{
@@ -66,8 +68,15 @@ export class SignupCustomerComponent implements OnInit {
         profile_logo :['',Validators.required],
         termsCond :['',Validators.required]
       })
+
+      this.getBusinessType();
     }
-    
+    getBusinessType(){
+      this.commonService.getAllBusinessTypes().subscribe((result:any)=>{
+        this.businessTypes = result.businessTypeData;
+        console.log(result);
+      })
+    }
     //Submit First Form Sign up
     signUpFirstFormSubmit(){
       this.submitFirst = true;
@@ -145,16 +154,17 @@ export class SignupCustomerComponent implements OnInit {
           formData.append('profile_logo',this.images);
           formData.append('user_role','9');
           this.SignupCustomerService.signupCustomer(formData).subscribe(res=>{
-            this.userSearchData = JSON.parse(localStorage.getItem('userSearchData'));
-            if(this.userSearchData){
-              this.userData = JSON.parse(localStorage.getItem('currentUser'));
-              this.userSearchData['user_status'] = this.userData.user_table_status;
-              this.userSearchData['user_id'] = this.userData.login_user_id;
-              this._homeService.saveSearchData(this.userSearchData).subscribe(res=>{
-                console.log(res);
-                localStorage.removeItem('userData');
-              })
-            }
+            console.log(res);
+            //this.userSearchData = JSON.parse(localStorage.getItem('userSearchData'));
+            // if(this.userSearchData){
+            //   this.userData = JSON.parse(localStorage.getItem('currentUser'));
+            //   this.userSearchData['user_status'] = this.userData.user_table_status;
+            //   this.userSearchData['user_id'] = this.userData.login_user_id;
+            //   this._homeService.saveSearchData(this.userSearchData).subscribe(res=>{
+            //     console.log(res);
+            //     localStorage.removeItem('userData');
+            //   })
+            // }
             $('.overlayDivLoader').hide();
 
             this.toastr.successToastr(res.msg);
@@ -167,6 +177,7 @@ export class SignupCustomerComponent implements OnInit {
        $('.overlayDivLoader').show();
       this.SignupCustomerService.signupCustomer(alldata).subscribe(res=>{
         if(res.memberId){
+          console.log(res);
           this.customerSucess = true;
           this.userSearchData = JSON.parse(localStorage.getItem('userSearchData'));
           if(this.userSearchData){

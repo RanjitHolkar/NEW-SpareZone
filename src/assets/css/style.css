@@ -89,7 +89,7 @@ form.jform .field fieldset.active {top: -4px;padding: 0px;font-size: 13px;backgr
 .btn-def {min-width: 91px;height: 31px;background: #48a5ea;border-radius: 50px;font-weight: 500;font-size: 12px;color: #fff;text-transform: capitalize;box-shadow: 1px 1px 5px #afa6a6;padding: 8px 15px;text-align: center;}
 .flr {float: right;}
 form.jform .field input, form.jform .field textarea {padding: 5px 4px;}
-.field img {position: absolute;right: 6px;bottom: 10px;}
+.field img {position: absolute;right: 6px;bottom: 10px; z-index: 99;}
 .field img.del {bottom: 30px;}
 .rdo {position: relative;padding-bottom: 16px;}
 .rdo input[type="radio"] {top: 2px;position: relative;visibility: hidden;}

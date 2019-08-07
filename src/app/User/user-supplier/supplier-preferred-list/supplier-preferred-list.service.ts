@@ -7,7 +7,8 @@ import { environment } from '../../../../environments/environment';
   providedIn: 'root'
 })
 export class SupplierPreferredListService {
-  public custId: number;
+  public loggedUserdata = JSON.parse(localStorage.getItem('currentUser'));
+  public custId = this.loggedUserdata['userData']['login_user_id'];
   public limit: number = 1;
   public userdata = [];
   public BaseUrl = environment.base_url;
@@ -22,25 +23,19 @@ export class SupplierPreferredListService {
 
   /* Get prefered suppliers list */
   getPreferredSuppliersList(groupId: number, limit: number) {
-    this.userdata = JSON.parse(localStorage.getItem('currentUser'));
-    this.custId = this.userdata['userData']['user_table_id'];
-    return this.httpClient.get<any>(this.BaseUrl +'SupplierPreferred/getPreferredSuppliersList/' + this.custId + '/' + groupId + '/' + this.limit).pipe(map(res=>{
+       return this.httpClient.get<any>(this.BaseUrl +'SupplierPreferred/getPreferredSuppliersList/' + this.custId + '/' + groupId + '/' + this.limit).pipe(map(res=>{
       return res;
     }))
   }
 
   /* Get only selected  prefered suppliers list */
   getOnlyPreferredSuppliers(groupId: number, limit: number) {
-    this.userdata = JSON.parse(localStorage.getItem('currentUser'));
-    this.custId = this.userdata['userData']['user_table_id'];
     return this.httpClient.get<any>(this.BaseUrl +'SupplierPreferred/getOnlyPreferredSuppliers/' + this.custId + '/' + groupId + '/' + this.limit).pipe(map(res=>{
       return res;
     }))
   }
   /* Get searched preffered supplier data */
   getSearchedPrefSupplier(groupId: number, limit: number,searchData:any){
-    this.userdata = JSON.parse(localStorage.getItem('currentUser'));
-    this.custId = this.userdata['userData']['user_table_id'];
     return this.httpClient.get<any>(this.BaseUrl +'SupplierPreferred/getPreferredSuppliersList/' + this.custId + '/' + groupId + '/' + this.limit + '/' + searchData).pipe(map(res=>{
       return res;
     }))

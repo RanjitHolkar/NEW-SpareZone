@@ -227,8 +227,8 @@
                                         <div class="formgroup">
                                           <label>Business Type</label>
                                           <select class="commonInput" formControlName="business_type">
-                                            <option value=''>--Select Type--</option>
-                                            <option  > jn;.j</option>
+                                            <option value=''>Select Business Type</option>
+                                            <option  *ngFor="let business of businessTypes" value="{{business.business_type_id}}"> {{business.business_type_name}}</option>
                                           </select>
                                           <div *ngIf="businesFormSubmit && businessForms.business_type.errors" class="invalid-feedback">
                                             <div *ngIf="businessForms.business_type.errors.required">Business Type is required</div>

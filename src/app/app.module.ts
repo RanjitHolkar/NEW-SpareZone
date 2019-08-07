@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RoleGuardService } from './_guards/RoleGuardService';
 
+
 @NgModule({
   declarations: [
     AppComponent,

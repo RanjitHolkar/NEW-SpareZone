@@ -15,7 +15,7 @@
             </form>
           </div>
           <ul class="nav navbar-nav">
-            <li><a href="member-listing.php">Members</a></li>
+            <li><a href="#">Members</a></li>
             <li *ngIf="activestate == '/login' || activestate == '/signup-customer' || activestate =='/' || activestate =='/home'" ><a routerLink="/signup-customer">Sign Up</a></li>
             <li *ngIf="activestate == '/login' || activestate == '/signup-customer' || activestate =='/' || activestate =='/home'"><a routerLink="/login">Login</a></li>
             <li *ngIf="activestate != '/login' && activestate != '/signup-customer' && activestate !='/' && activestate !='/home'"><a (click)="logout()" routerLink="/login">Logout</a></li>
@@ -25,5 +25,5 @@
       </div>
     </div>
   </div>
-  <div class="logo"><a href="index.php"><img src="assets/images/logo.png" alt="" /></a></div>
+  <div class="logo"><a href=""><img src="assets/images/logo.png" alt="" /></a></div>
 </header>

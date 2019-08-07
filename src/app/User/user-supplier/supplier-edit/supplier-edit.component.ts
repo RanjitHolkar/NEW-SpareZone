@@ -3,6 +3,7 @@ import { SupplierEditService } from './supplier-edit.service';
 import { Form,FormBuilder,FormArray,FormControl,FormGroup,Validators} from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import {AuthenticationService} from '../../../services/authentication.service';
 declare var $;
 
 @Component({
@@ -27,10 +28,11 @@ public acctionButton:any;
 public editIndex:any;
 public supplierGroup:any;
 public confirmationPopUp = false;
+  allStates : any;
   constructor(
     private _supplierEditService:SupplierEditService,
     private _formBuilder:FormBuilder,
-    private toastr:ToastrManager) { }
+    private toastr:ToastrManager,private commonService:AuthenticationService) { }
 
   ngOnInit() {
     $('.overlayDivLoader').show();
@@ -64,7 +66,17 @@ public confirmationPopUp = false;
    this.getBusinessType();
    this.getSubSupplierDetails();
    this.getgroupType();
+   this.getStates();
   }
+
+  /* Get All States */
+  getStates(){
+    this.commonService.getAllStates().subscribe((result:any)=>{
+      this.allStates = result.states;
+      console.log(result);
+    })
+  }
+
   //This Function For get Upload Files
   uploadFiles(event){
     if (event.target.files && event.target.files[0]) {

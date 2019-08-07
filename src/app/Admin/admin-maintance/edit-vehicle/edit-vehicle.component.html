@@ -40,11 +40,37 @@
 
 <!-- For Add -->
 <div id="maintenancePopup" class="overlayDiv">
+
+    <ng-container *ngIf="maintenanceSelectedType === 'Body Type'">
+      <form [formGroup]="BodyType" class="newBtnPopup min500">
+        <div class="form-group closeBtnDiv">
+          <h4 class="popHead">maintenance and {{heading}}</h4> <span href="#" class="closeBtn" (click)="ClosePopUp()"><img
+              src="assets/images/cancel.png" alt=""></span>
+        </div>
+        <div class="padd2040">
+          <div class="form-group">
+            <input type="text" formControlName="maintance_value" class="commonInput">
+          </div>
+          <div class="form-group">
+            <img [src]="url" height="100">
+            <input type='file' (change)="onSelectFile($event)" formControlName="maintenance_image">
+          </div>
+        </div>
+        <div class="form-group">
+          <button *ngIf="restrict" class="btn commonBlueBtn lightBlueBtn marT15" type="button"
+            (click)="saveGroup()">SAVE</button>
+        </div>
+      </form>
+    </ng-container>
+
+
   <form [formGroup]="maintenanceForm" class="newBtnPopup min500">
     <div class="form-group closeBtnDiv">
       <h4 class="popHead">maintenance and {{heading}}</h4> <span href="#" class="closeBtn" (click)="ClosePopUp()"><img
           src="assets/images/cancel.png" alt=""></span>
     </div>
+
+   
 
     <div *ngIf="maintenanceSelectedType === 'Make'" class="padd2040">
       <div class="form-group">
@@ -109,8 +135,8 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <button class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()">SAVE</button>
+    <div class="form-group" >
+      <button *ngIf="restrict" class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()">SAVE</button>
     </div>
   </form>
 </div>
@@ -126,11 +152,11 @@
       <img src="assets/images/trash-can.png">
     </div>
     <div class="form-group TextDiv">
-      <h4 class="popUpHead">Are you sure to ?</h4>
-      <p class="popupPara">Do you really want to delete the account? You can not cancel this process.</p>
+      <h4 class="popUpHead">Are you sure to Remove ?</h4>
+      <p class="popupPara">Do you really want to Remove This data ? It cannot be recovered !!.</p>
     </div>
     <div class="form-group cancelPopupBtn">
-      <button class="btn commonBlueBtn lightBlueBtn" type="button">NO</button>
+      <button class="btn commonBlueBtn lightBlueBtn" type="button" (click)="closeDeletedConfrimPopUp()">NO</button>
       <button class="btn commonWhiteBtn" type="button" (click)="removeFromDB()">YES</button>
     </div>
   </div>

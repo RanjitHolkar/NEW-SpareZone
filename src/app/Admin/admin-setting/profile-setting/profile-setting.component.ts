@@ -3,6 +3,7 @@ import { Form, FormBuilder, FormArray, FormControl, FormGroup, Validators } from
 import {AdminSettingService} from '../admin-setting.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import {environment} from '../../../../environments/environment';
+import {AuthenticationService} from '../../../services/authentication.service';
 declare var $;
 @Component({
   selector: 'app-profile-setting',
@@ -15,9 +16,11 @@ export class ProfileSettingComponent implements OnInit {
   adminProfileLogo : any;
   adminProfileLogoURL : any;
   userProfileDetails :any;
-  constructor(private formBuilder: FormBuilder,private AdminService:AdminSettingService,private toastr:ToastrManager) { }
+  allStates : any;
+  constructor(private formBuilder: FormBuilder,private AdminService:AdminSettingService,private toastr:ToastrManager,private commonService:AuthenticationService) { }
   ngOnInit() {
     this.createFormGroup();
+    this.getStates();
   }
   /* get admin profile details */
   getAdminProfileDetails(){
@@ -36,9 +39,15 @@ export class ProfileSettingComponent implements OnInit {
             this.profileForm.controls['first_name'].setValue(response.res.key);
           }
         }
-      } 
-     
-      
+      }
+    })
+  }
+
+  /* Get All States */
+  getStates(){
+    this.commonService.getAllStates().subscribe((result:any)=>{
+      this.allStates = result.states;
+      console.log(result);
     })
   }
 

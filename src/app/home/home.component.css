@@ -42,3 +42,121 @@
     border-radius: 5px;
     padding-bottom: 5px;
 } */
+.searchListExahost {
+    border: 1px solid #ddd !important;
+    position: absolute;
+    width: 100%;
+    max-height: 170px;
+    overflow-y: auto;
+    z-index: 99;
+    background-color: #fff;
+}
+.searchListExahost li {
+    font-size: 14px;
+    color: #666;
+    padding: 2px 5px;
+}
+.searchListExahost li:hover {
+    background-color: #ddd;
+}
+/* for exaost color round */
+/* .lookingDiv{
+
+} */
+.width50{
+    width: 48%;
+    float: left;
+    margin: 0 2% 0 0;
+}
+/* for custome check box */
+.containerN {
+    position: relative;
+    padding-left: 18px;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .containerN input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmarkC {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 2px solid #119cee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .containerN:hover input ~ .checkmarkC {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .containerN input:checked ~ .checkmarkC {
+    background-color: #ffffff;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmarkC:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .containerN input:checked ~ .checkmarkC:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .containerN .checkmarkC:after {
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 12px;
+    border: solid #119cee;
+    border-width: 0 2px 3px 0;
+    transform: rotate(45deg);
+  }
+  label.disF.width50.containerN{
+    display: flex;
+    justify-content: end;
+  }
+  .uploadDivTargetPop {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+.uploadDivTargetPop input[type=file] {
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 9;
+}
+.uploadDivTargetPop .chosseImg {
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

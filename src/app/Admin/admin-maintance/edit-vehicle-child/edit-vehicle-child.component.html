@@ -1,21 +1,14 @@
 <ul>
   <li *ngFor="let data of maintanData; let i=index;">
-
-      <ng-container *ngIf="data.maintance_value">
-          <p (click)="displayUpdatePopUp(data, i)">{{data.maintance_value}}</p>
-      </ng-container>
-        <ng-container *ngIf="data.make_name">
-            <p (click)="displayUpdatePopUp(data, i)" >{{data.make_name}}</p>
-        </ng-container>
-        <ng-container *ngIf="data.model_name">
-            <p (click)="displayUpdatePopUp(data, i)">{{data.model_name}}</p>
-        </ng-container>
-        <ng-container  *ngIf="data.year_name">
-            <p (click)="displayUpdatePopUp(data, i)" >{{data.year_name}}</p>
-        </ng-container>
-        <ng-container *ngIf="data.series">
-            <p (click)="displayUpdatePopUp(data, i)">{{data.series}}</p>
-        </ng-container>
+    <ng-container >
+        <p *ngIf="data.maintance_value" (click)="displayUpdatePopUp(data, i)">{{data.maintance_value}}</p>
+    </ng-container>
+    <!-- <p *ngIf="data.maintance_key == 'fuel_type'" (click)="displayUpdatePopUp(data, i)">{{data.maintance_value}}</p>
+    <p *ngIf="data.maintance_key == 'engine_type'" (click)="displayUpdatePopUp(data, i)">{{data.maintance_value}}</p> -->
+    <p *ngIf="data.make_name" (click)="displayUpdatePopUp(data, i)">{{data.make_name}}</p>
+    <p *ngIf="data.model_name" (click)="displayUpdatePopUp(data, i)">{{data.model_name}}</p>
+    <p *ngIf="data.year_name" (click)="displayUpdatePopUp(data, i)">{{data.year_name}}</p>
+    <p *ngIf="data.series" (click)="displayUpdatePopUp(data, i)">{{data.series}}</p>
 
     <button type="button" class="closeRound" (click)="displayDeleteConfrimPopUp(data,i)">X</button>
   </li>
@@ -25,3 +18,4 @@
 
 
 
+<!-- *ngIf="data.is_delete == 0 " -->

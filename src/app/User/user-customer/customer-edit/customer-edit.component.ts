@@ -3,6 +3,7 @@ import { CustomerEditService } from './customer-edit.service';
 import { Form, FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import {AuthenticationService} from '../../../services/authentication.service';
 declare var $;
 @Component({
   selector: 'app-customer-edit',
@@ -20,12 +21,14 @@ export class CustomerEditComponent implements OnInit {
   public imagesUrl: any;
   public submited = false;
   public BaseUrl = environment.base_url;
-  constructor(private _customerEditService: CustomerEditService, private fb: FormBuilder, private toastr: ToastrManager) { }
+  allStates : any;
+  constructor(private _customerEditService: CustomerEditService, private fb: FormBuilder, private toastr: ToastrManager,private commonService:AuthenticationService) { }
 
   ngOnInit() {
     $(".overlayDivLoader").show();
     this.getUserDetails();
     this.getBusinessType();
+    this.getStates();
     this.businessForm = this.fb.group({
       business_name: ['', Validators],
       contact_person: ['', Validators.required],
@@ -48,6 +51,14 @@ export class CustomerEditComponent implements OnInit {
       postcode: ['', Validators.required],
       state: ['', Validators.required],
       email_id: ['', [Validators.required]],
+    })
+  }
+
+  /* Get All States */
+  getStates(){
+    this.commonService.getAllStates().subscribe((result:any)=>{
+      this.allStates = result.states;
+      console.log(result);
     })
   }
 

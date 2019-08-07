@@ -4,6 +4,7 @@ import { SignupSupplierService } from './signup-supplier.service';
 import { HomeService } from '../../../home/home.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import {Router} from '@angular/router';
+import {AuthenticationService} from '../../../services/authentication.service';
 declare var $;
 @Component({
   selector: 'app-signup-supplier',
@@ -19,12 +20,13 @@ public businessType:any;
 public supplierGroup:any;
 public userSearchData:any;
 public userData:any;
+allStates : any;
   constructor(
     private formBuilder:FormBuilder,
     private _signupSupplierService:SignupSupplierService,
     private toastr:ToastrManager,
     private router:Router,
-    private _homeService:HomeService) { }
+    private _homeService:HomeService,private commonService:AuthenticationService) { }
 
   ngOnInit() {
     $('.overlayDivLoader').show();
@@ -58,8 +60,17 @@ public userData:any;
       state :['',Validators.required],
       termsCond:['',Validators.required]
     })
+    this.getStates();
   }
- 
+  
+  /* Get All States */
+  getStates(){
+    this.commonService.getAllStates().subscribe((result:any)=>{
+      this.allStates = result.states;
+      console.log(result);
+    })
+  }
+  
   fileUpload(event){
     this.images=event.target.files; 
     //this.fileError = false;

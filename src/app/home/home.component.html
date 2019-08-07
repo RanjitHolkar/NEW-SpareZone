@@ -95,33 +95,36 @@
 											Parts Name</span></h4>
 									<div class="frm lookingDivParent">
 										<form class="jform" [formGroup]="SecondForm" (submit)="SubmitsecondForm()">
-											<div formArrayName="looking_for_part" class="lookingDiv">
-												<div class="field"
-													*ngFor="let exh of SecondForm.controls.looking_for_part.controls;let i=index"
-													[formGroupName]="i">
-													<img src="assets/images/add.png" class="del" alt=""
-														(click)="addExahost()"
-														*ngIf="SecondForm.controls.looking_for_part.controls.length - 1 == i " />
-													<img src="assets/images/del.png" class="del" alt=""
-														(click)="removeExahost(i)"
-														*ngIf="SecondForm.controls.looking_for_part.controls.length - 1 != i" />
-													<input type="text" placeholder="Exhaust"
+											<div  >
+												<div class="field mar0">
+													<img src="assets/images/add.png" class="del" alt="" (click)="displayGroup('',0)" *ngIf="partDetails?.length == 0"/>
+													<!-- <img src="assets/images/del.png" class="del" alt="" (click)="removeExahost()" -->
+													<input type="text" placeholder="Exhaust" (keyup)="searchParts($event)"
 														formControlName="exhaust" />
-													<div *ngIf="submit && s.looking_for_part.controls[i].controls.exhaust.errors"
-														class="invalid-feedback">
-														<div
-															*ngIf="s.looking_for_part.controls[i].controls.exhaust.errors.required">
-															Exhaust is required</div>
+													<div *ngIf="submit && s.exhaust.errors" class="invalid-feedback">
+														<div *ngIf="s.exhaust.errors.required">
+															Exhaust is required
+														</div>
+													</div>
+													<ul class="searchListExahost" *ngIf="searchBox">
+														<li *ngFor="let part of partDetails" (click)="displayGroup(part.part_name,part.part_id)">{{part.part_name}} </li>
+													</ul>
+												</div>
+											</div>
+											<div class=" lookingDiv">
+												<div class="field " *ngFor="let exhost of exhost;let i=index">
+													<input type="text" name="" placeholder="" [value]="exhost.part_name" readonly/>
+													<!-- <img class="iconsEx iconsEx2" src="assets/images/editicon1.png"> -->
+													<img class="iconsEx" src="assets/images/deleteIcon.png" (click)="removeElement(i)">
+													
+													<div class="roundExahostDiv">
+														<span *ngFor="let group_color of exhost.group_id" [ngStyle]="{'background-color': group_color.group_color}" ></span>
+														<!-- <span class="" style="background-color: green"></span>
+														<span class="" style="background-color:orange"></span> -->
 													</div>
 												</div>
 											</div>
-											<!-- <div class="field">
-												<input type="text" name="" placeholder="Bonnet"
-													formControlName="bonnet" />
-												<div *ngIf="submit && s.bonnet.errors" class="invalid-feedback">
-													<div *ngIf="s.bonnet.errors.required">Bonnet is required</div>
-												</div>
-											</div> -->
+
 											<div class="sub">
 												<button class="btn-no" type="button" (click)="SecondForm.reset()"
 													[disabled]="thirdForm">Reset All</button>
@@ -288,6 +291,7 @@
 									</div>
 								</div>
 							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -295,3 +299,55 @@
 		</div>
 	</div>
 </div>
+<!-- member order pop  -->
+	<div class="popupDiv" *ngIf="groupDetailsPopUp">
+		<div class="popInner partDetailMain">
+			<div class="poHeader">
+				<h4 class="popHead">Part Details</h4>
+			</div>
+			<div class="popBody">
+				<div class="Condition">
+					<h4>Condition</h4>
+					<div class="">
+						<div>
+							<label  class="disF width50 containerN" *ngFor="let groupDetails of groupDetails;let i=index">
+								<img src="assets/images/shape1.png" class="commonshape">
+								<p>{{groupDetails.group_name}}</p>
+								<input type="checkbox" (click)="addGroups(groupDetails.supplier_setting_id,groupDetails.group_indicator_color,$event)" value="1">
+								<span class="checkmarkC"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="notes">
+					<p>Note : </p>
+					<div class="inputDiv">
+						<input type="text" class="commonInput">
+					</div>
+				</div>
+				<div class="tragetDiv">
+					<div class="uploadDivTargetPop">
+						<input type="file" (change)="partsImages(0,$event)"/>
+						<img src="{{imagesUrl[0] != undefined ?imagesUrl[0] : 'assets/images/target.png'}}" [ngClass]="{'chosseImg':imagesUrl[0] != 'undefined'}"> 
+						<!-- <img src="{{imagesUrl}}"> -->
+					</div>
+					<div class="uploadDivTargetPop">
+							<input type="file"  (change)="partsImages('1',$event)"/>
+						<img src="{{imagesUrl[1] != undefined ?imagesUrl[1] : 'assets/images/target.png'}}" [ngClass]="{'chosseImg':imagesUrl[1] != 'undefined'}">
+					</div>
+					<div class="uploadDivTargetPop">
+							<input type="file"  (change)="partsImages('2',$event)">
+							<img src="{{imagesUrl[2] != undefined ?imagesUrl[2] : 'assets/images/target.png'}}" [ngClass]="{'chosseImg':imagesUrl[2] != 'undefined'}">
+					</div>
+					<div class="uploadDivTargetPop">
+							<input type="file" (change)="partsImages('3',$event)">
+							<img src="{{imagesUrl[3] != undefined ?imagesUrl[3] : 'assets/images/target.png'}}" [ngClass]="{'chosseImg':imagesUrl[3] != 'undefined'}">
+					</div>
+				</div>
+				<div class="text-center minAutoBtn">
+					<button class="btn commonBlueBtn" (click)="SavePartsImages()"> Done</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- member order pop end-->

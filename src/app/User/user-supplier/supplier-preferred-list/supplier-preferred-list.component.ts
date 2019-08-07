@@ -61,7 +61,7 @@ export class SupplierPreferredListComponent implements OnInit {
     $('.overlayDivLoader').show();
     this.supplierId = supplierId;
     this.userdata = JSON.parse(localStorage.getItem('currentUser'));
-    this.custId = this.userdata['userData']['user_table_id'];
+    this.custId = this.userdata['userData']['login_user_id'];
     this.supplierPreferedService.addPreferredSupplier({ 'customer_id': this.custId, 'supplier_id': supplierId, 'added_by': addedBy }).subscribe(data => {
       this.pereferredID = data.PereferredID;
        if (data.success == 1) {

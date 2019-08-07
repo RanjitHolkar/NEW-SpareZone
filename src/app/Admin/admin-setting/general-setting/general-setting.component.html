@@ -9,6 +9,7 @@
         <input type="text" class="commonInput width50" formControlName="sub_charges">
         <div *ngIf="isGSettingSubmitted">
           <label class="error" *ngIf="gSettingF.sub_charges.errors?.required">Subscription charges is required</label>
+          <label class="error" *ngIf="gSettingF.sub_charges.errors?.pattern">Subscription charges  should be in digits</label>
         </div>
       </div>
       <div class="formgroup">
@@ -16,6 +17,7 @@
         <input type="text" class="commonInput width50" formControlName="ord_commession">
         <div *ngIf="isGSettingSubmitted">
           <label class="error" *ngIf="gSettingF.ord_commession.errors?.required">Order commission is required</label>
+          <label class="error" *ngIf="gSettingF.ord_commession.errors?.pattern">Order commission should be in digits</label>
         </div>
       </div>
   
@@ -39,6 +41,7 @@
           <input type="text" class="commonInput" formControlName="gst_rate">
           <div *ngIf="isGSettingSubmitted">
             <label class="error" *ngIf="gSettingF.gst_rate.errors?.required">GST rate is required</label>
+            <label class="error" *ngIf="gSettingF.gst_rate.errors?.pattern">GST rate should be in digits</label>
           </div>
         </div>
         <div class="formgroup formgroup3 ">
@@ -62,7 +65,7 @@
             <option>4</option>
           </select>
           <div *ngIf="isGSettingSubmitted">
-            <label class="error" *ngIf="gSettingF.due_date.errors?.required">Due date is required</label>
+            <label class="error" *ngIf="gSettingF.due_date?.errors.required">Due date is required</label>
           </div>
         </div>
       </div>
@@ -105,6 +108,7 @@
           <input type="text" class="commonInput" formControlName="supplier_min_limit">
           <div *ngIf="isGSettingSubmitted">
             <label class="error" *ngIf="gSettingF.supplier_min_limit.errors?.required">Min selection is required</label>
+            <label class="error" *ngIf="gSettingF.supplier_min_limit.errors?.pattern">Min selection should be in digit</label>
           </div>
         </div>
         <div class="formgroup formgroup3 ">
@@ -112,6 +116,7 @@
           <input type="text" class="commonInput" formControlName="supplier_max_limit">
           <div *ngIf="isGSettingSubmitted">
             <label class="error" *ngIf="gSettingF.supplier_max_limit.errors?.required">Max selection is required</label>
+            <label class="error" *ngIf="gSettingF.supplier_max_limit.errors?.pattern">Max selection should be in digit</label>
           </div>
         </div>
   

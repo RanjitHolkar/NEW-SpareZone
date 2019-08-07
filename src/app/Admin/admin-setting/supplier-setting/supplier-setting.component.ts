@@ -3,7 +3,7 @@ import { Form, FormBuilder, FormArray, FormControl, FormGroup, Validators } from
 import { AdminSettingService } from '../admin-setting.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { environment } from '../../../../environments/environment';
-declare var $:any;
+declare var $: any;
 @Component({
   selector: 'app-supplier-setting',
   templateUrl: './supplier-setting.component.html',
@@ -13,7 +13,7 @@ export class SupplierSettingComponent implements OnInit {
   supplierGroups: any;
   supplierGroupForm: FormGroup;
   isGroupSumitted = false;
-  formTitle : string;
+  formTitle: string;
   editIndex = '';
   constructor(private formBuilder: FormBuilder, private AdminService: AdminSettingService, private toastr: ToastrManager) { }
 
@@ -26,7 +26,7 @@ export class SupplierSettingComponent implements OnInit {
   getAllGroups() {
     $('.overlayDivLoader').show();
     this.AdminService.getAllGroups().subscribe((response: any) => {
-    $('.overlayDivLoader').hide();
+      $('.overlayDivLoader').hide();
       console.log(response);
       this.supplierGroups = response.supplierGroups;
     })
@@ -44,19 +44,19 @@ export class SupplierSettingComponent implements OnInit {
   }
 
   /* Dislpay Pop Up */
-  displayPopUp(title){
+  displayPopUp(title) {
     this.formTitle = title;
     this.supplierGroupForm.reset();
     $("#addGroup").show();
   }
 
   /* Dislpay Pop Up */
-  ClosePopUp(){
+  ClosePopUp() {
     this.supplierGroupForm.reset();
     this.editIndex = '';
     $("#addGroup").hide();
   }
-  
+
   /* Save the new group details */
   saveGroup() {
     this.isGroupSumitted = true;
@@ -64,13 +64,13 @@ export class SupplierSettingComponent implements OnInit {
       this.isGroupSumitted = false;
       $('.overlayDivLoader').show();
       this.AdminService.saveSupplierGroup(this.supplierGroupForm.value).subscribe((response: any) => {
-      $('.overlayDivLoader').hide();
+        $('.overlayDivLoader').hide();
         if (!response.status)
           this.toastr.errorToastr(response.message, 'Oops!');
-        else if (!!response.status){
+        else if (!!response.status) {
           $("#addGroup").hide();
           this.toastr.successToastr(response.message, 'Success');
-          var data=this.supplierGroupForm.value;
+          var data = this.supplierGroupForm.value;
           data['supplier_setting_id'] = response.groupID;
           this.supplierGroups.push(data);
         }
@@ -81,8 +81,8 @@ export class SupplierSettingComponent implements OnInit {
   }
 
   /* Open Edit groups popUp */
-  OpenEditpopUp(editData,index,title){
-    
+  OpenEditpopUp(editData, index, title) {
+
     console.log(editData);
     console.log(index);
     this.editIndex = index;
@@ -93,28 +93,28 @@ export class SupplierSettingComponent implements OnInit {
   }
 
   /* Update group */
-  updateSupplierGroup(){
+  updateSupplierGroup() {
     this.isGroupSumitted = true;
-    if(this.supplierGroupForm.invalid){
+    if (this.supplierGroupForm.invalid) {
       return false;
     }
     this.isGroupSumitted = false;
     $('.overlayDivLoader').show();
     let updateData = this.supplierGroupForm.value;
     updateData['supplier_setting_id'] = this.supplierGroups[this.editIndex].supplier_setting_id;
-    
-    this.AdminService.updateSupplierGroup(updateData).subscribe((result:any)=>{
+
+    this.AdminService.updateSupplierGroup(updateData).subscribe((result: any) => {
       console.log(result);
-      if(result.status){
-        this.toastr.successToastr(result.message,'Success');
-        $('.overlayDivLoader').hide();
+      if (result.status) {
+        this.toastr.successToastr(result.message, 'Success');
         this.supplierGroups[this.editIndex] = updateData;
         this.ClosePopUp();
-      }else{
-        this.toastr.errorToastr(result.message,'Oops!!');
+      } else {
+        this.toastr.errorToastr(result.message, 'Oops!!');
       }
-    },error=>{
-      this.toastr.errorToastr(error,'ERROR!!');
+      $('.overlayDivLoader').hide();
+    }, error => {
+      this.toastr.errorToastr(error, 'ERROR!!');
       $('.overlayDivLoader').hide();
       this.ClosePopUp();
     })
