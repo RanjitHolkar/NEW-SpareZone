@@ -24,9 +24,9 @@ export class GeneralSettingComponent implements OnInit {
 
   /* Get general setting data */
   getGeneralSettingData() {
-    $('.overlayDivLoader').show(); 
+    $('.overlayDivLoader').show();
     this.AdminService.getGeneralSetting().subscribe((response: any) => {
-    $('.overlayDivLoader').hide(); 
+      $('.overlayDivLoader').hide();
       this.generalSettingData = response.generalSetting;
       console.log(response);
       this.setGeneralValues();
@@ -47,20 +47,20 @@ export class GeneralSettingComponent implements OnInit {
       this.generalSettingForm.controls['acknowleg_statement'].setValue(this.generalSettingData.acknowleg_statement);
       this.generalSettingForm.controls['supplier_min_limit'].setValue(this.generalSettingData.supplier_min_limit);
       this.generalSettingForm.controls['supplier_max_limit'].setValue(this.generalSettingData.supplier_max_limit);
-     }
+    }
 
   }
 
   createGeneralSettingFrom() {
     this.generalSettingForm = this.formBuilder.group({
       setting_id: ['', Validators.required],
-      sub_charges: ['', Validators.compose([Validators.required,Validators.pattern('^[0-9]+(\.[0-9]+)?$')])],
-      ord_commession: ['', Validators.compose([Validators.required,Validators.pattern('^[0-9]+(\.[0-9]+)?$')])],
+      sub_charges: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+(\.[0-9]+)?$')])],
+      ord_commession: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+(\.[0-9]+)?$')])],
       invoice_terms: ['', Validators.required],
-      gst_rate: ['', Validators.compose([Validators.required,Validators.pattern('^[0-9]+(\.[0-9]+)?$')])],
+      gst_rate: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+(\.[0-9]+)?$')])],
       reIssue_after: ['', Validators.required],
       due_days: ['', Validators.required],
-      terms_file: ['', Validators.required],
+      terms_file: [''],
       acknowleg_statement: ['', Validators.required],
       supplier_min_limit: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]*$')])],
       supplier_max_limit: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]*$')])]
@@ -86,9 +86,12 @@ export class GeneralSettingComponent implements OnInit {
 
   /* Update the general setting */
   updateGeneralSetting() {
+    console.log(this.generalSettingForm.valid);
+    console.log(this.generalSettingForm.value);
+    console.log(this.generalSettingForm.controls);
     this.isGSettingSubmitted = true;
     if (this.generalSettingForm.valid) {
-      $('.overlayDivLoader').show(); 
+      $('.overlayDivLoader').show();
       this.isGSettingSubmitted = false;
       const formData = new FormData();
       formData.append('setting_id', this.generalSettingForm.value.setting_id);
@@ -101,15 +104,15 @@ export class GeneralSettingComponent implements OnInit {
       formData.append('acknowleg_statement', this.generalSettingForm.value.acknowleg_statement);
       formData.append('supplier_min_limit', this.generalSettingForm.value.supplier_min_limit);
       formData.append('supplier_max_limit', this.generalSettingForm.value.supplier_max_limit);
-      if(!!this.terms_file)
+      if (!!this.terms_file)
         formData.append('terms_file', this.terms_file);
       this.AdminService.updateGeneralSetting(formData).subscribe((response: any) => {
         console.log(response);
         if (!response.status)
           this.toastr.errorToastr(response.message, 'Oops!');
-        else if(response.status)
+        else if (response.status)
           this.toastr.successToastr(response.message, 'Success!');
-        $('.overlayDivLoader').hide(); 
+        $('.overlayDivLoader').hide();
       }, error => {
         $('.overlayDivLoader').hide();
         this.toastr.errorToastr(error, 'Oops!');
@@ -118,5 +121,4 @@ export class GeneralSettingComponent implements OnInit {
       return false;
     }
   }
-
 }

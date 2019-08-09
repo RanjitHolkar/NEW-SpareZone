@@ -13,7 +13,7 @@ public states:any;
 public limit =1;
 public memberListing:any;
 public confirmationPopUp = false;
-public supplier_data:any;
+public customer_data:any;
 public index:any;
   constructor(private membersListService:MembersListService,private toaster:ToastrManager) { }
 
@@ -24,22 +24,25 @@ public index:any;
     })
     this.membersListService.getStates().subscribe(res=>{
       this.states =res.states;
+      console.log(res);
     })
-    this.membersListService.getSupplierListing(this.limit).subscribe(res=>{
+    this.membersListService.getCustomerListing(this.limit).subscribe(res=>{
       this.memberListing = res.states;
+      console.log(res);
+      $('.overlayDivLoader').hide(); 
     })
-    $('.overlayDivLoader').hide(); 
+   
   }
-  activeDeactiveSupplier(index,status,supplier_id){
+  activeDeactiveSupplier(index,status,customer_id,email_id){
     this.index =index;
-    this.supplier_data ={supplier_id:supplier_id,supplier_status:status};
+    this.customer_data ={customer_id:customer_id,cust_status:status,email_id:email_id};
     this.confirmationPopUp=true;
   }
   confirmActionSupplier(){
     $('.overlayDivLoader').show(); 
-    this.membersListService.activeDeactiveSupplier(this.supplier_data).subscribe(res=>{
-      console.log( this.supplier_data['supplier_status']);
-      this.memberListing[this.index]['supplier_status'] = this.supplier_data['supplier_status'];
+    this.membersListService.activeDeactiveSupplier(this.customer_data).subscribe(res=>{
+      console.log( this.customer_data['cust_status']);
+      this.memberListing[this.index]['cust_status'] = this.customer_data['cust_status'];
       if(res.status == 1){
         this.toaster.successToastr(res.message);
       }else{

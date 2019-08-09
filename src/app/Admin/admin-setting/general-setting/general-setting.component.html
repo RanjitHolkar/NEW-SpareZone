@@ -9,7 +9,7 @@
         <input type="text" class="commonInput width50" formControlName="sub_charges">
         <div *ngIf="isGSettingSubmitted">
           <label class="error" *ngIf="gSettingF.sub_charges.errors?.required">Subscription charges is required</label>
-          <label class="error" *ngIf="gSettingF.sub_charges.errors?.pattern">Subscription charges  should be in digits</label>
+          <label class="error" *ngIf="gSettingF.sub_charges.errors?.pattern">Subscription charges should be in digits</label>
         </div>
       </div>
       <div class="formgroup">
@@ -20,19 +20,15 @@
           <label class="error" *ngIf="gSettingF.ord_commession.errors?.pattern">Order commission should be in digits</label>
         </div>
       </div>
-  
       <h5 class="blueText text-left">Invoice Settings and Commnets </h5>
-  
       <div class="formgroup">
         <label>Invoice Terms And Conditions </label>
-        <!-- <textarea type="text" class=""></textarea> -->
         <div class="paraDiv">
-          <!-- <p> As per Aggrement, We Resever the right to check the vehilce, should there be any issue with car, and open
-            Inspection will void warranty</p> -->
-            <textarea formControlName="invoice_terms"></textarea>
-            <div *ngIf="isGSettingSubmitted">
-              <label class="error" *ngIf="gSettingF.invoice_terms.errors?.required">Invoice Terms And Conditions are required</label>
-            </div>
+          <textarea formControlName="invoice_terms"></textarea>
+          <div *ngIf="isGSettingSubmitted">
+            <label class="error" *ngIf="gSettingF.invoice_terms.errors?.required">Invoice Terms And Conditions are
+              required</label>
+          </div>
         </div>
       </div>
       <div class="formgroup DisF marB10">
@@ -47,6 +43,7 @@
         <div class="formgroup formgroup3 ">
           <label>Re-Issue After Days </label>
           <select class="commonInput" formControlName="reIssue_after">
+            <option value="">Select Re-Issue After Days</option>
             <option>14</option>
             <option>15</option>
             <option>4</option>
@@ -60,19 +57,17 @@
         <div class="formgroup formgroup3 ">
           <label>Due Days </label>
           <select class="commonInput" formControlName="due_days">
+            <option value="">Select Due Days</option>
             <option>14</option>
             <option>15</option>
             <option>4</option>
           </select>
           <div *ngIf="isGSettingSubmitted">
-            <label class="error" *ngIf="gSettingF.due_date?.errors.required">Due date is required</label>
+            <label class="error" *ngIf="gSettingF.due_days.errors?.required">Due date is required</label>
           </div>
         </div>
       </div>
     </div>
-  
-  
-  
     <div class="width60">
       <h5 class="blueText text-left">Website Terms and Conditions</h5>
       <div class="termCond">
@@ -82,26 +77,22 @@
           <label>Last Update : 10-11-2019 11:35AM</label>
         </div>
         <div class="uploadDivBtn">
-          <input type="file" (change)="profileImagePreview($event)">
+          <input type="file" (change)="profileImagePreview($event)" accept=".pdf">
           <button class="btn commonWhiteBtn">Upload</button>
-      </div>
+        </div>
       </div>
       <h5 class="blueText text-left">Acknowledgement Statement. </h5>
-  
       <div class="formgroup mar0">
-        <!-- <textarea type="text" class=""></textarea> -->
         <div class="paraDiv">
-          <!-- <p> I have Read and Understood all the terms and Conditions I will follow all the Terms set out by SpareZone.
-          </p> -->
           <textarea formControlName="acknowleg_statement"></textarea>
           <div *ngIf="isGSettingSubmitted">
-            <label class="error" *ngIf="gSettingF.acknowleg_statement.errors?.required">Acknowledgement statement is required</label>
+            <label class="error" *ngIf="gSettingF.acknowleg_statement.errors?.required">Acknowledgement statement is
+              required</label>
           </div>
         </div>
       </div>
       <div class="clearfix"></div>
       <h5 class="blueText text-left marT30">Supplier Selection Limits </h5>
-  
       <div class="formgroup DisF marT10 width50">
         <div class="formgroup formgroup3 ">
           <label>Min Selection</label>
@@ -119,9 +110,7 @@
             <label class="error" *ngIf="gSettingF.supplier_max_limit.errors?.pattern">Max selection should be in digit</label>
           </div>
         </div>
-  
       </div>
-  
     </div>
     <div class="clearfix "></div>
     <div class="text-center ">

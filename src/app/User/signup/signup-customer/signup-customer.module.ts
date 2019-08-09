@@ -4,7 +4,7 @@ import { SignupCustomerRoutingModule } from './signup-customer-routing.module';
 import { SignupCustomerComponent } from './signup-customer.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { UserNavModule } from '../../user-nav/user-nav.module';
-
+import { ImageCropperModule } from 'ngx-image-cropper';
 @NgModule({
   declarations: [
     SignupCustomerComponent
@@ -15,6 +15,7 @@ import { UserNavModule } from '../../user-nav/user-nav.module';
     FormsModule,
     UserNavModule,
     ReactiveFormsModule,
+    ImageCropperModule
   ]
 })
 export class SignupCustomerModule { }

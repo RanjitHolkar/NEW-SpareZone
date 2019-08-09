@@ -6,7 +6,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-offset-2 col-md-8 col-xs-12">
-						<div class="wrap-box listing ordr nvr edit_pro">
+						<div class="wrap-box listing ordr nvr edit_pro ">
 							<div class="">
 								<div class="boxs-in edit_Profile_Form">
 									<div class="frm" *ngFor="let customerDetails of customerDetails;let i=index">
@@ -61,10 +61,11 @@
 												</div>
 												<div class="field">
 													<input type="text" 
-														[(ngModel)]="customerDetails.personal_contact" formControlName="personal_contact" readonly>
+														[(ngModel)]="customerDetails.personal_contact" formControlName="personal_contact" readonly placeholder="XX-XXXX-XXXX">
 													<fieldset class="labelHead active">Personal Contact </fieldset>
 													<div *ngIf="submit && f.personal_contact.errors" class="invalid-feedback">
 														<div *ngIf="f.personal_contact.errors.required">Personal Contact is required</div>
+														<div *ngIf="f.personal_contact.errors.pattern">Personal Contact should be in digit & format</div>
 													</div>
 												</div>
 												<div class="field">
@@ -105,10 +106,11 @@
 												<div class="field col-md-12">
 													<div class="row">
 														<input type="text" 
-															[(ngModel)]="customerDetails.business_contact" formControlName="business_contact">
+															[(ngModel)]="customerDetails.business_contact" formControlName="business_contact" placeholder="XX-XXXX-XXXX">
 														<fieldset class="labelHead active">Business Contact Number</fieldset>
 														<div *ngIf="submit && f.business_contact.errors" class="invalid-feedback">
 													<div *ngIf="f.business_contact.errors.required">Business Contact Number is required</div>
+													<div *ngIf="f.business_contact.errors.pattern">Business Contact should be in digit & format</div>
 													</div>
 													</div>
 												</div>
@@ -154,12 +156,12 @@
 
 		<!-- Personal Customer Edit Details Start -->
 		<div class="banner-wrap" *ngIf="accountType == 1">	
-				<div class="banner" style="background-image:url(assets/images/banner.jpg);">
+				<div class="banner">
 				<div class="banner-in">
 					<div class="container">
 						<div class="row">
 							<div class="col-md-offset-2 col-md-8 col-xs-12">
-								<div class="wrap-box listing ordr nvr edit_pro">
+								<div class="wrap-box listing ordr nvr edit_pro edit_proN">
 									<div class="">
 										<div class="boxs-in" *ngFor="let personalDetails of customerDetails">
 											<div class="frm">
@@ -248,10 +250,11 @@
 													</div>
 													<div class="field col-md-12">
 														<div class="row">
-															<input type="text"  formControlName="personal_contact" [(ngModel)]="personalDetails.personal_contact">
+															<input type="text"  formControlName="personal_contact" [(ngModel)]="personalDetails.personal_contact" placeholder="XX-XXXX-XXXX">
 															<fieldset class="active">Phone Number</fieldset>
 															<div *ngIf="submited && pform.personal_contact.errors" class="invalid-feedback">
-																<div *ngIf="pform.personal_contact.errors.required"> Email is required</div>
+																<div *ngIf="pform.personal_contact.errors.required"> Phone number is required</div>
+																<div *ngIf="pform.personal_contact.errors.pattern">Phone number should be in digit & format</div>
 															</div>
 														</div>
 													</div>
@@ -267,7 +270,7 @@
 													</div>
 													
 													<div class="text-center button_email_report fullwidth">
-														<button class="btn-def btnsld white e_d" type="button">Back</button>									
+														<button class="btn-def btnsld white e_d" routerLink="/personal-customer-dash" type="button">Back</button>									
 														<button class="btn-def " type="submit" >Submit</button>									
 													</div>
 												</div>	

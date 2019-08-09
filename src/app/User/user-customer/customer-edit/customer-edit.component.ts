@@ -32,11 +32,11 @@ export class CustomerEditComponent implements OnInit {
     this.businessForm = this.fb.group({
       business_name: ['', Validators],
       contact_person: ['', Validators.required],
-      personal_contact: ['', Validators.required],
+      personal_contact: ['', Validators.compose([Validators.required,Validators.pattern(/^\+?\d{2}[- ]?\d{4}[- ]?\d{4}$/)])],
       business_address: ['', Validators.required],
       state: ['', Validators.required],
       business_abn: ['', Validators.required],
-      business_contact: ['', Validators.required],
+      business_contact: ['', Validators.compose([Validators.required,Validators.pattern(/^\+?\d{2}[- ]?\d{4}[- ]?\d{4}$/)])],
       email_id: ['', Validators.required],
       business_type: ['', Validators.required],
     })
@@ -45,7 +45,7 @@ export class CustomerEditComponent implements OnInit {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       contact_person: ['', Validators.required],
-      personal_contact: ['', Validators.required],
+      personal_contact: ['', Validators.compose([Validators.required,Validators.pattern(/^\+?\d{2}[- ]?\d{4}[- ]?\d{4}$/)])],
       business_address: ['', Validators.required],
       suburbs: ['', Validators.required],
       postcode: ['', Validators.required],
@@ -68,6 +68,7 @@ export class CustomerEditComponent implements OnInit {
     this._customerEditService.getUserDetails().subscribe(res => {
       this.customerDetails.push(res['res']);
       this.accountType = res['res']['account_type'];
+      console.log(res);
       $(".overlayDivLoader").hide();
     })
   }

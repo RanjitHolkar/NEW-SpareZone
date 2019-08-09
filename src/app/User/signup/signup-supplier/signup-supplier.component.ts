@@ -47,7 +47,7 @@ allStates : any;
     })
     this.supplierSignUpFormSecond = this.formBuilder.group({
       business_name :['',Validators.required],
-      personal_contact :['',Validators.required],
+      personal_contact :['', Validators.compose([Validators.required,Validators.pattern(/^\+?\d{2}[- ]?\d{4}[- ]?\d{4}$/)])],
       mobile_no :['',Validators.required],
       contact_person :['',Validators.required],
       business_address :['',Validators.required],

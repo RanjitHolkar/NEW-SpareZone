@@ -163,7 +163,7 @@
             <select formControlName="part_id" class="commonInput">
               <option value="null" *ngIf="newAssignParts.length>0" selected>Select Part</option>
               <option *ngFor="let newAssigneParts of newAssignParts" value="{{newAssigneParts.part_id}}">{{newAssigneParts.part_name}}</option>
-              <option value="null" *ngIf="!newAssignParts.length==0" selected>Parts are not available</option>
+              <!-- <option value="null" *ngIf="!newAssignParts.length==0" selected>Parts are not available</option> -->
             </select>
             <div *ngIf="isSubmitted">
               <label class="error" *ngIf="catPartAssignF.part_id.errors?.required">Select the part</label>

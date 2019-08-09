@@ -3,6 +3,7 @@ import { Form, FormBuilder, FormArray, FormControl, FormGroup, Validators } from
 import { AdminSettingService } from '../admin-setting.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { environment } from '../../../../environments/environment';
+
 declare var $: any;
 @Component({
   selector: 'app-supplier-setting',
@@ -10,6 +11,7 @@ declare var $: any;
   styleUrls: ['./supplier-setting.component.css']
 })
 export class SupplierSettingComponent implements OnInit {
+  editpoup = false;
   supplierGroups: any;
   supplierGroupForm: FormGroup;
   isGroupSumitted = false;
@@ -45,6 +47,7 @@ export class SupplierSettingComponent implements OnInit {
 
   /* Dislpay Pop Up */
   displayPopUp(title) {
+    this.editpoup = false;
     this.formTitle = title;
     this.supplierGroupForm.reset();
     $("#addGroup").show();
@@ -86,7 +89,9 @@ export class SupplierSettingComponent implements OnInit {
     console.log(editData);
     console.log(index);
     this.editIndex = index;
+    
     this.displayPopUp(title);
+    this.editpoup = true;
     //this.supplierGroupForm.addControl('supplier_setting_id', new FormControl(editData.supplier_setting_id, Validators.required));
     this.supplierGroupForm.controls['group_name'].setValue(editData.group_name);
     this.supplierGroupForm.controls['group_indicator_color'].setValue(editData.group_indicator_color);

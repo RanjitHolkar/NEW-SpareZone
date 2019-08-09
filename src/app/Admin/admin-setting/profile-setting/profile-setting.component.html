@@ -4,7 +4,7 @@
     <div class="profileLeftSec">
       <div class="text-center">
         <h4 class="blueHead">Admin Profile</h4>
-        <div class="logoDiv">
+        <div class="logoDiv" *ngIf="adminProfileLogoURL">
           <img [src]="adminProfileLogoURL" class="tabLogo">
         </div>
         <div class="uploadDivBtn width150 marX20">
@@ -64,7 +64,7 @@
         <div class="formgroup DisF">
           <div class="formgroup formgroup3">
             <label>Phone Number:</label>
-            <input type="text" class="commonInput" formControlName="phone_number">
+            <input type="text" class="commonInput" formControlName="phone_number" placeholder="XX-XXXX-XXXX">
             <div *ngIf="isProfileSubmitted">
               <label class="error" *ngIf="profileF.phone_number.errors?.required">Phone number is required</label>
               <label class="error" *ngIf="profileF.phone_number.errors?.pattern">Phone number should be in digit</label>
@@ -72,7 +72,7 @@
           </div>
           <div class="formgroup formgroup3">
             <label>Mobile Number:</label>
-            <input type="text" class="commonInput" formControlName="mobile_number">
+            <input type="text" class="commonInput" formControlName="mobile_number" placeholder="XXXX-XXX-XXX">
             <div *ngIf="isProfileSubmitted">
               <label class="error" *ngIf="profileF.mobile_number.errors?.required">Mobile number is required</label>
               <label class="error" *ngIf="profileF.mobile_number.errors?.pattern">Mobile number should be in digit</label>

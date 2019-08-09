@@ -79,9 +79,10 @@
                              <!-- <fieldset>Address</fieldset> -->
                           </div>
                           <div class="field">
-                             <input type="number"  formControlName="personal_contact" placeholder="Mobile Number" />
+                             <input type="text"  formControlName="personal_contact" placeholder="Mobile Number (XX-XXXX-XXXX)"/>
                              <div *ngIf="submitSecond && second.personal_contact.errors" class="invalid-feedback">
                                  <div *ngIf="second.personal_contact.errors.required">Mobile Number is required</div>
+                                 <div *ngIf="second.personal_contact.errors.pattern">Mobile Number should be in digit & format</div>
                              </div>
                              <!-- <fieldset class="active">Mobile Number</fieldset> -->
                           </div>
@@ -122,7 +123,7 @@
                           </div>
                           <div class="sub">
                              <button class="btn-def" type="button"  routerLink="/login">Close</button>									
-                             <button class="btn-def flr btnsld" type="button" routerLink="/add-vehicle">Add Vehicle</button>
+                             <button class="btn-def flr btnsld" type="button" routerLink="/personal-customer-dash">Add Vehicle</button>
                           </div>
                          </form>
                         </div>
@@ -164,9 +165,10 @@
                                        <div class="formgroup">
                                          <div class="formgroup ">
                                            <label>Business Contact</label>
-                                           <input type="text" class="commonInput" formControlName="personal_contact">
+                                           <input type="text" class="commonInput" formControlName="personal_contact" placeholder="XX-XXXX-XXXX">
                                            <div *ngIf="businesFormSubmit && businessForms.personal_contact.errors" class="invalid-feedback">
                                             <div *ngIf="businessForms.personal_contact.errors.required">Business Contact is required</div>
+                                            <div *ngIf="businessForms.personal_contact.errors.pattern">Business Contact should be in digit & format</div>
                                            </div>
                                          </div>
                                        </div>
@@ -205,9 +207,10 @@
                                      <div class="width80">
                                       <div class="formgroup">
                                         <label>Business Contact Number</label>
-                                        <input type="text" class="commonInput" formControlName="business_contact">
+                                        <input type="text" class="commonInput" formControlName="business_contact" placeholder="XX-XXXX-XXXX">
                                         <div *ngIf="businesFormSubmit && businessForms.business_contact.errors" class="invalid-feedback">
                                           <div *ngIf="businessForms.business_contact.errors.required">Business Contact Number is required</div>
+                                          <div *ngIf="businessForms.business_contact.errors.pattern">Business Contact should be in digit & format</div>
                                          </div> 
                                       </div>
                                     </div>
@@ -241,6 +244,19 @@
                                          <div *ngIf="businesFormSubmit && businessForms.profile_logo.errors" class="invalid-feedback">
                                           <div *ngIf="businessForms.profile_logo.errors.required">Profile Picture is required</div>
                                          </div>
+                                          <!--  <input type="file" (change)="bannerFileChangeEvent($event)" /> -->
+
+                                        <!--  <image-cropper
+                                         [imageChangedEvent]="bannerImageChangedEvent"
+                                         [maintainAspectRatio]="true"
+                                         [aspectRatio]="4 / 3"
+                                         [cropperMinWidth]="150" 
+                                         [cropperMinHeight]="200"                    
+                                         format="png"
+                                         [imageQuality]="100"
+                                         (imageCropped)="bannerImageCropped($event)" 
+                                         ></image-cropper>  -->
+                                         <!-- <img [src]="bannerCroppedImage" /> -->
                                          </div>
                                          <div class="formgroup signupTextN">
                                            <input type="checkbox" class="checkIcon" formControlName="termsCond">

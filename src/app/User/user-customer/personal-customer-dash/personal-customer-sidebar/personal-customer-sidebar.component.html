@@ -6,16 +6,19 @@
 				</div> -->
 				<div class="form-group closeBtnDiv sideHead">
 					<h4 class="popHead" >My Profile </h4>
-					<span class="closeBtn curPoi"><img src="assets/images/cancel.png" alt=""></span>
+					<span class="closeBtn curPoi"><img src="assets/images/cancel.png" alt="" (click)="CustomerDashComponent.hideShowSlider(false)"></span>
 				  </div>
 				<div class="sideText">
 					<div class="Details">
-						<img src="assets/images/profile1.png" class="">
-						<div class="setailText">
-							<h5>Account Type: Personal</h5>
-							<h5>Location: xxx-xxx</h5>
-							<h5>Change Passwod</h5>
-						</div>
+						<img src="assets/images/profile1.png" class="userIcon">
+						<div class="sideBoxText">
+							<h4>{{userDetails?.first_name |uppercase}} {{userDetails?.last_name |uppercase}}</h4>
+							<p>Account type :Personal Customer</p>
+							<p>Location : {{userDetails?.state_name}}</p>
+							<p>change Password</p>
+						  </div>
+						  <a routerLink="/customer-edit">Edit</a>
+						  <!-- <a (click)="logout()" routerLink="/login">Logout</a> -->
 					</div>
 					<div class="commonSectionSide">
 						<div class="sideSubhead">

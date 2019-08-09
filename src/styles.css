@@ -3086,7 +3086,22 @@ select {
     display: flex;
 }
 .movr {
-    padding: 0 10px;
+    padding: 0 0px;
+    margin: 0 3px;
+}
+.movr .movr-in {
+    display: table;
+    width: 100%;
+    height: 45px;
+}
+.movr .movr-in img {
+    display: table;
+    margin: 0 auto;
+    width: 60px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 3px;
+    padding: 2px;
 }
 .boxs-in h3{
     margin: 0 0 20px;
@@ -3122,7 +3137,6 @@ select {
 .movr.selected{
     border: 2px solid #48a5ea;
     border-radius: 5px;
-    padding-bottom: 5px;
 }
 /*Scrolling cars CSS Ends */
 select.commonInput{

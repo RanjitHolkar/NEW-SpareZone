@@ -249,7 +249,7 @@ export class PartsCategoryComponent implements OnInit {
       this.displayCartPartPopup('Edit Part', formStatus,buttonStatus)
       this.catPartForm.controls['part_name'].setValue(editData.part_name);
       this.catPartForm.controls['category_id'].setValue(editData.category_id);
-      this.catPartForm.addControl('part_id', new FormControl('4', Validators.required));
+      this.catPartForm.addControl('part_id', new FormControl(editData.part_id, Validators.required));
     }
     
   }
@@ -280,6 +280,7 @@ export class PartsCategoryComponent implements OnInit {
         $('.overlayDivLoader').hide();
       })
     }else if(formData.category_id && formData.part_id){
+
       this.adminmaintainservice.updatePart(formData).subscribe((result:any)=>{
         console.log(result);
         if(result.status){

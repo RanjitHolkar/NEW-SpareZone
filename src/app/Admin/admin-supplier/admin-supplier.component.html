@@ -1,4 +1,4 @@
-	<app-background-image></app-background-image>
+<app-background-image></app-background-image>
 	<!-- fix bg -->
 	<!-- main Page -->
 	<div class="commonMainDiv">
@@ -24,7 +24,7 @@
 				</div>
 				<div class="custumPop max800 listinvoicePop">
 					<div class="listinvoicePopHead">
-						<h4 class="">Members listing</h4>
+						<h4 class="">Supplier listing</h4>
 						<div class="membListRight">
 							<a>Least Active Supplier</a>
 							<img src="assets/images/searchicon.png" class="searchIcon">
@@ -36,7 +36,7 @@
 							<thead>
 							  <tr>
 								<th> ID </th>
-								<th class="text-left">Members Name</th>
+								<th class="text-left">supplier Name</th>
 								<th>State</th>
 								<th>Contact Number</th>
 								<th>Status</th>
@@ -47,18 +47,17 @@
 							<tbody>
 							  <tr *ngFor="let memberListing of memberListing;let i=index">
 								<td>{{memberListing.member_no}}</td>
-								<td *ngIf="memberListing.account_type == 1">{{memberListing.first_name}} {{memberListing.last_name}}</td>
-								<td *ngIf="memberListing.account_type == 2">{{memberListing.business_name}}</td>
+								<td class="text-left"><span class="orangeRoundN" [ngStyle]="{'background-color':memberListing.group_indicator_color}"></span>{{memberListing.business_name}}</td>
 								<td>{{memberListing.state_name}}</td>
 								<td>{{memberListing.personal_contact}}</td>
-								<td  [ngClass]="memberListing.cust_status == 1?'red':'green'">{{memberListing.cust_status == 0?'Active':'Inactive'}}</td>
+								<td [ngClass]="memberListing.cust_status == 1?'red':'green'">{{memberListing.supplier_status == 0?'Active':'Inactive'}}</td>
 								<td>{{memberListing.added_date_time|date}}</td>
 								<td>
 									<div class="disF">
 										<img src="assets/images/viewicon.png" class="commonIconTable" >
 										<img src="assets/images/editicon.png" class="commonIconTable">
-										<img src="assets/images/closexicon.png" class="commonIconTable" *ngIf="memberListing.cust_status == 0" (click)="activeDeactiveSupplier(i,'1',memberListing.customer_id,memberListing.email_id)">
-										<img src="assets/images/check.png" class="commonIconTable" *ngIf="memberListing.cust_status == 1" (click)="activeDeactiveSupplier(i,'0',memberListing.customer_id,memberListing.email_id)">
+										<img src="assets/images/closexicon.png" class="commonIconTable" *ngIf="memberListing.supplier_status == 0" (click)="activeDeactiveSupplier(i,'1',memberListing.supplier_id)">
+										<img src="assets/images/check.png" class="commonIconTable" *ngIf="memberListing.supplier_status == 1" (click)="activeDeactiveSupplier(i,'0',memberListing.supplier_id)">
 									</div>
 								</td>
 							  </tr>
@@ -80,7 +79,7 @@
 	  </div>
 	  <div class="form-group TextDiv">
 		<h4 class="popUpHead">Are you sure to ?</h4>
-		<p class="popupPara">Do you really want to {{customer_data['cust_status'] == 0?'Active':'Deactive'}} the account? You can not cancel this process.</p>
+		<p class="popupPara">Do you really want to {{supplier_data['supplier_status'] == 0?'Active':'Deactive'}} the account? You can not cancel this process.</p>
 	  </div>
 	  <div class="form-group cancelPopupBtn">
 		<button class="btn commonBlueBtn lightBlueBtn" type="button" (click)="confirmationPopUp = false">NO</button>

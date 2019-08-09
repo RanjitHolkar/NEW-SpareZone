@@ -6,7 +6,8 @@
     top: 0;
     right: 0;
     min-width: 380px;
-	    height: 100vh;
+        height: 100vh;
+        z-index: 999;
 }
 .sideHead {
     background-color: #fff;
@@ -20,6 +21,17 @@
 }
 .sideText {
     padding: 20px 40px;
+}
+.sideBoxText h4 {
+    font-size: 15px;
+    margin: 0 0;
+    font-weight: bold;
+}
+.sideBoxText p {
+    margin: 4px 0;
+    line-height: 1;
+    font-size: 13px;
+    color: #333;
 }
 .Details {
     display: flex;

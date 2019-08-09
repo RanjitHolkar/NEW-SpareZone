@@ -2427,3 +2427,23 @@ outofsupply {color: #48a4ea;font-size: 13px;}
     bottom: -35px;
 }
 /* new css end */
+.minUnset{
+    min-width: unset;
+}
+.personalCustomerDashBoxes .boxs.box_personal_p{
+    height: auto;
+    min-height: unset;
+}
+
+/* .edit_proN .field fieldset{
+    top: -15px;
+} */
+.edit_proN  form.jform .field input {
+    margin-top: 10px;
+}
+.edit_proN form.jform select {
+    height: 30px;
+    padding: 5px 5px;
+    line-height: 1;
+    margin-top: 10px;
+}

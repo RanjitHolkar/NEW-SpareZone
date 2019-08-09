@@ -115,8 +115,8 @@
           </div>
         </form>
         <div class="form-group">
-          <button *ngIf="!supplierGroupForm.value.group_name" class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()">SAVE</button>
-          <button *ngIf="!!supplierGroupForm.value.group_name" class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="updateSupplierGroup()">UPDATE</button>
+          <button *ngIf="!editpoup" class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()">SAVE</button>
+          <button *ngIf="!!editpoup" class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="updateSupplierGroup()">UPDATE</button>
         </div>
       </div>
   

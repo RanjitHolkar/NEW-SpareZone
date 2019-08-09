@@ -5,7 +5,7 @@ import { CustomerDashComponent } from './customer-dash.component';
 import { UserNavModule } from '../../user-nav/user-nav.module';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { PersonalCustomerSidebarComponent } from './personal-customer-sidebar/personal-customer-sidebar.component';
-
+import { BackgroundImageModule } from '../../../background-image/background-image.module';
 
 @NgModule({
   declarations: [CustomerDashComponent, PersonalCustomerSidebarComponent],
@@ -14,7 +14,8 @@ import { PersonalCustomerSidebarComponent } from './personal-customer-sidebar/pe
     CustomerDashRoutingModule,
     UserNavModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BackgroundImageModule
   ]
 })
 export class CustomerDashModule { }

@@ -80,6 +80,7 @@ export class CmsSettingComponent implements OnInit {
         reader.readAsDataURL(event.target.files[0]);
         this.userLogoFile=event.target.files[0];
       }
+      console.log(this.userLogoFile);
   }
    profileSupplierImagePreview(event){ 
     if (event.target.files[0]) {
@@ -118,7 +119,7 @@ export class CmsSettingComponent implements OnInit {
         formData.append('user_avatar',this.userLogoFile);
       if(!!this.supLogoFile)
         formData.append('sup_logo',this.supLogoFile);
-      if(!!this.buyerLogoURL)
+      if(!!this.buyerLogoFile)
         formData.append('buyar_logo',this.buyerLogoFile);
       this.AdminService.updateCMSSetting(formData).subscribe((response:any) => {
       $('.overlayDivLoader').hide(); 
@@ -128,7 +129,8 @@ export class CmsSettingComponent implements OnInit {
           this.toastr.successToastr(response.message, 'Success!');
                   
       },error=>{
-        console.log(error)
+        this.toastr.errorToastr(error, 'Oops!');
+        $('.overlayDivLoader').hide(); 
       })
     }else{
       return false;

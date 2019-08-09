@@ -53,6 +53,18 @@ public Base_url = environment.base_url;
       return res;
     }))
   }
+  // save Parts
+  saveParts(info:any){
+    return this.httpClient.post<any>(this.Base_url + 'CarProfile/savePartsDetails',info).pipe(map(res=>{
+      return res;
+    }))
+
+  }
+  deleteParts(info:any){
+    return this.httpClient.post<any>(this.Base_url + 'CarProfile/deletePartsDetails',info).pipe(map(res=>{
+      return res;
+    }))
+  }
   
   
 }

@@ -1,14 +1,14 @@
-<div class="sideBox" *ngFor="let user of userDetails">
+<div class="sideBox">
   <div class="imageDiv">
-    <img src="assets/images/profile.jpg" class="userIcon">
+    <img [src]="userDetails.profile_logo" class="userIcon">
   </div>
   <div class="sideBoxText">
-    <h4>{{user.business_name}}</h4>
-    <p>Account type : {{user.business_name}}</p>
-    <p>Location : XX-XX-XX</p>
+    <h4>{{userDetails.business_name}}</h4>
+    <p>Account type :Admin</p>
+    <p>Location : {{userDetails.state_name}}</p>
     <p>change Password</p>
   </div>
-  <a>Edit</a>
+  <a routerLink="/admin-setting">Edit</a>
   <a (click)="logout()" routerLink="/login">Logout</a>
   <p class="roundBlue"><span class=""></span>Notifications</p>
 </div>

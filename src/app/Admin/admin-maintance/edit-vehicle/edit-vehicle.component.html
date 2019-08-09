@@ -41,41 +41,51 @@
 <!-- For Add -->
 <div id="maintenancePopup" class="overlayDiv">
 
-    <ng-container *ngIf="maintenanceSelectedType === 'Body Type'">
-      <form [formGroup]="BodyType" class="newBtnPopup min500">
-        <div class="form-group closeBtnDiv">
-          <h4 class="popHead">maintenance and {{heading}}</h4> <span href="#" class="closeBtn" (click)="ClosePopUp()"><img
-              src="assets/images/cancel.png" alt=""></span>
+  <ng-container *ngIf="maintenanceSelectedType === 'Body Type'">
+    <form [formGroup]="BodyType" class="newBtnPopup min500 " >
+      <div class="form-group closeBtnDiv">
+        <h4 class="popHead">Maintenance and {{heading}}</h4> <span href="#" class="closeBtn" (click)="ClosePopUp()"><img
+            src="assets/images/cancel.png" alt=""></span>
+      </div>
+      <div class="padd2040">
+        <div class="form-group ">
+          <input type="text" formControlName="maintance_value" class="commonInput">
+          <ng-container *ngIf="bIsSubmitted">
+        <span class="error" *ngIf="bodyF.maintance_value.errors?.required" >Maintainance Value is required</span>
+      </ng-container>
         </div>
-        <div class="padd2040">
-          <div class="form-group">
-            <input type="text" formControlName="maintance_value" class="commonInput">
-          </div>
-          <div class="form-group">
-            <img [src]="url" height="100">
-            <input type='file' (change)="onSelectFile($event)" formControlName="maintenance_image">
-          </div>
+        <div class="form-group ">
+          <ng-container *ngIf="imageUrl" >
+            <img [src]="imageUrl" height="100">
+          </ng-container>
+          <input type='file' (change)="onSelectFile($event)" formControlName="maintenance_image">
+          <ng-container *ngIf="bIsSubmitted">
+          <span class="error" *ngIf="bodyF.maintenance_image.errors?.required" >Image is required</span>
+        </ng-container>
         </div>
-        <div class="form-group">
-          <button *ngIf="restrict" class="btn commonBlueBtn lightBlueBtn marT15" type="button"
-            (click)="saveGroup()">SAVE</button>
-        </div>
-      </form>
-    </ng-container>
+      </div>
+      <div class="form-group">
+        
+              <button class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()">SAVE</button>
+      
+        
+      </div>
+    </form>
+  </ng-container>
 
 
-  <form [formGroup]="maintenanceForm" class="newBtnPopup min500">
+  <form [formGroup]="maintenanceForm" class="newBtnPopup min500" *ngIf="maintenanceSelectedType != 'Body Type'">
     <div class="form-group closeBtnDiv">
-      <h4 class="popHead">maintenance and {{heading}}</h4> <span href="#" class="closeBtn" (click)="ClosePopUp()"><img
+      <h4 class="popHead">Maintenance and {{heading}}</h4> <span href="#" class="closeBtn" (click)="ClosePopUp()"><img
           src="assets/images/cancel.png" alt=""></span>
     </div>
 
-   
+
 
     <div *ngIf="maintenanceSelectedType === 'Make'" class="padd2040">
       <div class="form-group">
         <select formControlName="body_type_id" class="commonInput">
-          <option value="null">Select Body Type</option>
+          <option value="" selected>Select Body Type</option>
           <option *ngFor="let data of dropdownData" value="{{data.maintance_id}}">{{data.maintance_value}}</option>
         </select>
         <div *ngIf="isSubmitted">
@@ -135,8 +145,8 @@
       </div>
     </div>
 
-    <div class="form-group" >
-      <button *ngIf="restrict" class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()">SAVE</button>
+    <div class="form-group">
+      <button class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()">SAVE</button>
     </div>
   </form>
 </div>
@@ -168,7 +178,34 @@
 
 
 <div id="UpdatePopup" class="overlayDiv">
-  <form [formGroup]="UpdateForm" class="newBtnPopup min500">
+
+
+    <ng-container *ngIf="editTypeSelect == 'Body Type'">
+        <form [formGroup]="BodyType" class="newBtnPopup min500 " >
+          <div class="form-group closeBtnDiv">
+            <h4 class="popHead">maintenance and {{heading}}</h4> <span href="#" class="closeBtn" (click)="CloseUpdatePopup()"><img
+                src="assets/images/cancel.png" alt=""></span>
+          </div>
+          <div class="padd2040">
+            <div class="form-group ">
+             <input type="text" formControlName="maintance_value">
+            </div>
+            <div class="form-group ">
+          <img [src]="imageForEdit" height="100" >
+          <input type="file" formControlName="maintenance_image"  (change)="forBodyType($event)">
+            </div>
+          </div>
+          <div class="form-group">
+              <button class="btn commonBlueBtn lightBlueBtn" type="button" (click)="CloseUpdatePopup()">No</button>
+              <button class="btn commonBlueBtn" type="button" (click)="OnSubmitUpdateForm()">Yes</button>
+            </div>
+        </form>
+      </ng-container>
+
+
+      
+
+  <form [formGroup]="UpdateForm" class="newBtnPopup min500" *ngIf="editTypeSelect != 'Body Type'">
     <div class="form-group closeBtnDiv">
       <h4 class="popHead">Edit {{editTypeSelect}}</h4> <span href="#" class="closeBtn" (click)="CloseUpdatePopup()"><img
           src="assets/images/cancel.png" alt=""></span>

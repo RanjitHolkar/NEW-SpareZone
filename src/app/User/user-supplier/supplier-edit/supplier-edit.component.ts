@@ -12,7 +12,7 @@ declare var $;
   styleUrls: ['./supplier-edit.component.css']
 })
 export class SupplierEditComponent implements OnInit {
-public userDetails=[];
+public userDetails:any;
 public businessType:any;
 public editForm:FormGroup;
 public addSubSupplier:FormGroup;
@@ -27,6 +27,7 @@ public subSupplierId:any;
 public acctionButton:any;
 public editIndex:any;
 public supplierGroup:any;
+public user_id:any;
 public confirmationPopUp = false;
   allStates : any;
   constructor(
@@ -39,7 +40,9 @@ public confirmationPopUp = false;
     this.acctionButton = 'Save';
     this.viewDetails = true;
     this.submited = false;
-    this.userDetails =[];
+    this.userDetails;
+    let data = JSON.parse(localStorage.getItem('currentUser'));
+    this.user_id = data.userData.user_table_id;
     this.editForm = this._formBuilder.group({
       business_name:['',Validators.required],
       contact_person:['',Validators.required],
@@ -60,6 +63,7 @@ public confirmationPopUp = false;
       full_name:['',Validators.required],
       employer_id:['',Validators.required],
       position:['',Validators.required],
+      supplier_id:[''],
       email_id:['',[Validators.email,Validators.required]]
     })
    this.getSupplierDetails();
@@ -86,14 +90,21 @@ public confirmationPopUp = false;
       reader.readAsDataURL(this.images);
     }
   }
+  
   // This Function For Get Supplier Details
   getSupplierDetails(){
     $('.overlayDivLoader').show();
-    this.userDetails =[];
+    this.userDetails;
     this._supplierEditService.getUserDetails().subscribe(res=>{
-      this.userDetails.push(res['res']);
+      this.userDetails = res.res;
       $('.overlayDivLoader').hide();
+      if(this.userDetails.profile_logo){
+        this.userDetails.profile_logo = environment.base_url + this.userDetails.profile_logo;
+      }else{
+        this.userDetails.profile_logo = environment.base_url + res.defaultImages.sup_logo;
+      }
       console.log('ZX',this.userDetails);
+      console.log('ZX',);
     })
   }
   // This Function For Get Business Type
@@ -109,7 +120,8 @@ public confirmationPopUp = false;
   getSubSupplierDetails(){
     $('.overlayDivLoader').show();
     this._supplierEditService.getSubSupplier().subscribe(res=>{
-      this.subSupplierDetails = res;
+      this.subSupplierDetails= res;
+      console.log(this.subSupplierDetails);
     $('.overlayDivLoader').hide();   
     }) 
   }
@@ -170,8 +182,9 @@ public confirmationPopUp = false;
     if(this.addSubSupplier.valid){
       $('.overlayDivLoader').show();
       if(this.acctionButton == 'Save'){
+        this.addSubSupplier.patchValue({supplier_id :this.user_id});
         this._supplierEditService.addSubSupplier(this.addSubSupplier.value).subscribe(res=>{
-      $('.overlayDivLoader').hide();
+        $('.overlayDivLoader').hide();
           if(res.status == 1){
             this.addSubSupplier.patchValue({'sub_supplier_id':res.userId});
             this.toastr.successToastr(res.message);
@@ -211,6 +224,7 @@ public confirmationPopUp = false;
     this.addSubSupplier.setValue({
       user_id:this.subSupplierDetails[index].user_id,
       password:'',
+      supplier_id:this.subSupplierDetails[index].supplier_id,
       full_name:this.subSupplierDetails[index].full_name,
       employer_id:this.subSupplierDetails[index].employer_id,
       position:this.subSupplierDetails[index].position,
@@ -231,6 +245,7 @@ public confirmationPopUp = false;
   /* This Function For confirm Remove Sub Supplier Details*/
   confirmRemoveSubSupplier(){
     $('.overlayDivLoader').show();
+
     this._supplierEditService.deleteSubSupplier({'sub_supplier_id':this.subSupplierId}).subscribe(res=>{
     $('.overlayDivLoader').hide();
       if(res == 1){

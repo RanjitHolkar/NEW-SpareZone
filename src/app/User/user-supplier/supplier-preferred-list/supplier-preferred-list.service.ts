@@ -44,7 +44,6 @@ export class SupplierPreferredListService {
   /* Add prefered supplier */
   addPreferredSupplier(info: any) {
     return this.httpClient.post<any>(this.BaseUrl +'SupplierPreferred/addPreferredSupplier', info).pipe(map(res=>{
-      console.log(this.BaseUrl +'SupplierPreferred/addPreferredSupplier');
       return res;
     }))
   }

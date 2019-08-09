@@ -47,6 +47,9 @@ const routes: Routes = [
     path:'business-customer-dash',loadChildren:'./User/user-customer/business-customer-dash/business-customer-dash.module#BusinessCustomerDashModule'
   },
   {
+    path:'supplier-listing',loadChildren:'./Admin/admin-supplier/admin-supplier.module#AdminSupplierModule'
+  },
+  {
     path:'**',loadChildren: './home/home.module#HomeModule',pathMatch:'full' 
   }
 ];

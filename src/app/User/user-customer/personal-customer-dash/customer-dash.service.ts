@@ -12,6 +12,11 @@ public Base_Url = environment.base_url;
     return this._httpClient.get<any>(this.Base_Url + 'CarProfile/getCarProfileList/'+id).pipe(map(res=>{
       return res;
     }))
-
   }
+  /* Get User Details*/
+  getUserDetails(){
+      return this._httpClient.get<any>(this.Base_Url + 'User/getUserDeatils').pipe(map(res=>{
+        return res;
+      }))
+    }
 }

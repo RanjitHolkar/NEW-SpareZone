@@ -5,6 +5,8 @@ import { HomeService } from '../../../home/home.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { Router } from '@angular/router';
 import {AuthenticationService} from '../../../services/authentication.service';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+
 declare var $;
 @Component({
   selector: 'app-signup-customer',
@@ -12,6 +14,8 @@ declare var $;
   styleUrls: ['./signup-customer.component.css']
 })
 export class SignupCustomerComponent implements OnInit {
+  bannerImageChangedEvent: any = '';
+  bannerCroppedImage: any = '';
   public businessForm:FormGroup; 
   public SignInFormFirst:FormGroup;
   public SignInFormSecond:FormGroup;
@@ -30,12 +34,14 @@ export class SignupCustomerComponent implements OnInit {
   public imagesUrl:any;
   public userSearchData:any;
   public userData:any;
+  bannerImgHeight: number;
+bannerImgWidth: number;
   businessTypes :any;
     constructor(private formBuilder:FormBuilder,
       private SignupCustomerService :SignupCustomerService,
       private router: Router,
       private _homeService:HomeService,
-      private toastr:ToastrManager,private commonService:AuthenticationService) { }
+      private toastr:ToastrManager,private commonService:AuthenticationService,private toaster :ToastrManager) { }
     ngOnInit() {
       $('.overlayDivLoader').show();
       this.SignupCustomerService.getBusinessType().subscribe(res=>{
@@ -52,17 +58,17 @@ export class SignupCustomerComponent implements OnInit {
         first_name : ['',Validators.required],
         last_name  : ['',Validators.required],
         business_address : ['',Validators.required],
-        personal_contact : ['',Validators.required]
+        personal_contact : ['', Validators.compose([Validators.required,Validators.pattern(/^\+?\d{2}[- ]?\d{4}[- ]?\d{4}$/)])]
       })
       // FormBuilder In Signup second form in bussiness
       this.businessForm = this.formBuilder.group({
         business_name :['',Validators.required],
         contact_person :['',Validators.required],
-        personal_contact :['',Validators.required],
+        personal_contact :['', Validators.compose([Validators.required,Validators.pattern(/^\+?\d{2}[- ]?\d{4}[- ]?\d{4}$/)])],
         email_id :['',Validators.required],
         password :['',Validators.required],
         business_address :['',Validators.required],
-        business_contact :['',Validators.required],
+        business_contact :['', Validators.compose([Validators.required,Validators.pattern(/^\+?\d{2}[- ]?\d{4}[- ]?\d{4}$/)])],
         business_abn :['',Validators.required],
         business_type :['',Validators.required],
         profile_logo :['',Validators.required],
@@ -71,6 +77,32 @@ export class SignupCustomerComponent implements OnInit {
 
       this.getBusinessType();
     }
+
+    bannerFileChangeEvent(event: any) {
+      if (event.target.files[0]) {
+      var BannerImgSize = event.target.files[0].size;
+      var maxSize = 15000;
+      if (BannerImgSize > maxSize) {
+      this.bannerImageChangedEvent = event;
+      } else {
+      this.toaster.errorToastr("Choose better quality image (Minimum 150 kb)", "Try Again")
+      }
+      } else {
+      this.bannerImageChangedEvent = null;
+      }
+      }
+      
+      bannerImageCropped(event: ImageCroppedEvent) {
+      this.bannerCroppedImage = event.base64;
+      var thisvar = this;
+      var i = new Image();
+      i.onload = function () {
+      thisvar.bannerImgHeight = i.height;
+      thisvar.bannerImgWidth = i.width;
+      };
+      i.src = event.base64;
+      
+      }
     getBusinessType(){
       this.commonService.getAllBusinessTypes().subscribe((result:any)=>{
         this.businessTypes = result.businessTypeData;
@@ -141,7 +173,7 @@ export class SignupCustomerComponent implements OnInit {
         if(this.businessForm.valid){
           $('.overlayDivLoader').show();
           let formData = new FormData();
-          formData.append('account_type',this.businessForm.value.account_type);
+          formData.append('account_type',this.SignInFormFirst.value.account_type);
           formData.append('email_id',this.businessForm.value.email_id);
           formData.append('password',this.businessForm.value.password);
           formData.append('business_name',this.businessForm.value.business_name);
@@ -154,21 +186,27 @@ export class SignupCustomerComponent implements OnInit {
           formData.append('profile_logo',this.images);
           formData.append('user_role','9');
           this.SignupCustomerService.signupCustomer(formData).subscribe(res=>{
-            console.log(res);
-            //this.userSearchData = JSON.parse(localStorage.getItem('userSearchData'));
-            // if(this.userSearchData){
-            //   this.userData = JSON.parse(localStorage.getItem('currentUser'));
-            //   this.userSearchData['user_status'] = this.userData.user_table_status;
-            //   this.userSearchData['user_id'] = this.userData.login_user_id;
-            //   this._homeService.saveSearchData(this.userSearchData).subscribe(res=>{
-            //     console.log(res);
-            //     localStorage.removeItem('userData');
-            //   })
-            // }
+            if(res.success == 1){
+              localStorage.setItem('currentUser',JSON.stringify(res));
+              this.userSearchData = JSON.parse(localStorage.getItem('userSearchData'));
+              if(this.userSearchData){
+                this.userData = JSON.parse(localStorage.getItem('currentUser'));
+                this.userSearchData['user_status'] = this.userData.user_table_status;
+                this.userSearchData['user_id'] = this.userData.login_user_id;
+                this._homeService.saveSearchData(this.userSearchData).subscribe(res=>{
+                  console.log(res);
+                  localStorage.removeItem('userSearchData');
+                })
+              }
+              this.router.navigate(['/login']);
+            }else{
+              this.toastr.errorToastr(res.msg);
+            }
+           
             $('.overlayDivLoader').hide();
 
-            this.toastr.successToastr(res.msg);
-            this.router.navigate(['/login']);
+            
+            
           })    
           
         }  
@@ -177,7 +215,7 @@ export class SignupCustomerComponent implements OnInit {
        $('.overlayDivLoader').show();
       this.SignupCustomerService.signupCustomer(alldata).subscribe(res=>{
         if(res.memberId){
-          console.log(res);
+          localStorage.setItem('currentUser',JSON.stringify(res));
           this.customerSucess = true;
           this.userSearchData = JSON.parse(localStorage.getItem('userSearchData'));
           if(this.userSearchData){
@@ -185,8 +223,7 @@ export class SignupCustomerComponent implements OnInit {
             this.userSearchData['user_status'] = this.userData.user_table_status;
             this.userSearchData['user_id'] = this.userData.login_user_id;
             this._homeService.saveSearchData(this.userSearchData).subscribe(res=>{
-              console.log(res);
-              localStorage.removeItem('userData');
+              localStorage.removeItem('userSearchData');
             })
           }
           this.memberId = res.memberId;

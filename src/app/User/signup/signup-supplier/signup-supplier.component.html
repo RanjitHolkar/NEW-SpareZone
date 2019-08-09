@@ -39,7 +39,7 @@
                       <div class="formgroup DisF marB10">
                         <div class="formgroup formgroupN1 ">
                           <label>Phone Number</label>
-                          <input type="text" class="commonInput" formControlName="personal_contact">
+                          <input type="text" class="commonInput" formControlName="personal_contact"  placeholder="XX-XXXX-XXXX">
                           <span class="ORclass">Or</span>
                         </div>
                         <div class="formgroup formgroupN2 ">
@@ -47,7 +47,8 @@
                           <input type="text" class="commonInput" formControlName="mobile_no">
                         </div>
                         <div *ngIf="submit && s.personal_contact.errors" class="invalid-feedback">
-                          <div *ngIf="s.personal_contact.errors.required">Mobile Number is required</div>
+                          <div *ngIf="s.personal_contact.errors.required">Phone Number is required</div>
+                          <div *ngIf="s.personal_contact.errors.pattern">Phone Number should be in digit & format</div>
                         </div>
                       </div>
 
@@ -113,7 +114,6 @@
                             <div *ngIf="s.business_address.errors.required">Address is required</div>
                           </div>
                         </div>
-
                         <div class="formgroup DisF marB10">
                           <div class="formgroup formgroupN2 ">
                             <label>Suburb</label>
@@ -142,10 +142,8 @@
                             </div>
                           </div>
                         </div>
-
                         <div class="formgroup signupTextN">
                           <input type="checkbox" class="checkIcon" formControlName="termsCond">
-                          <!-- <img src="assets/images/checkBox.png" class="checkIcon"> -->
                           <p>I acknowledge that I have read all the <a>terms and conditions</a> set out for the use of
                             this website and Im bound by those conditions.</p>
                           <div *ngIf="submit && s.termsCond.errors" class="invalid-feedback">
@@ -157,7 +155,6 @@
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -166,15 +163,12 @@
           </form>
         </div>
       </div>
-
-
       <!-- member account Profile end-->
     </div>
   </div>
   <footer>
     <div class="container">
       <div class="row">
-
       </div>
     </div>
   </footer>

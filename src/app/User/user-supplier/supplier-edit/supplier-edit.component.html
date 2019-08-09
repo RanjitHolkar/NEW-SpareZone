@@ -6,22 +6,22 @@
         <div class="custumPopHead noBord">
           <h4 class="popHead">Profile Details</h4>
         </div>
-        <div class="custumPopBody"  *ngFor="let details of userDetails">
-          <div class="popSupplierText padd0">
+        <div class="custumPopBody"  >
+          <div class="popSupplierText padd0" *ngIf="userDetails">
             <!-- member account Left section -->
             <div class="width60N memAccRight">
             <form [formGroup]="editForm" (submit)="updateDetails()">
               <div class="memAccRightInner">
                 <div class="width40N">
-                  <div class="imageDiv">
-                    <img [src]="imagesUrl || base_url + details.profile_logo" class="profilrPicIcon" class="profilrPicIcon">
+                  <div class="imageDiv" *ngIf="userDetails?.profile_logo">
+                    <img [src]="userDetails?.profile_logo" class="profilrPicIcon" class="profilrPicIcon">
                   </div>
                   <div class="btnDiv">
                       <div class="uploadBtnDiv" *ngIf="!viewDetails">
                           <button class="btn btnBlueNew uploadBtn">Change Logo</button>
                           <input type="file" class="uploadInput" (change)="uploadFiles($event)">
                       </div>
-                    <p>Member ID: {{details.member_no}}</p>
+                    <p>Member ID: {{userDetails.member_no}}</p>
                   </div>
                   <div class="formgroup marT30 text-center">
                     
@@ -33,7 +33,7 @@
                   </div>
                   <div class="formgroup">
                     <label>Capricorn No.</label>
-                    <input type="text" class="commonInput" formControlName="is_capricon" [(ngModel)]="details.is_capricon">
+                    <input type="text" class="commonInput" formControlName="is_capricon" [(ngModel)]="userDetails.is_capricon">
                     <div *ngIf="submit && f.is_capricon.errors" class="invalid-feedback">
                         <div *ngIf="f.is_capricon.errors.required" >Capricorn No. is required</div>
                     </div>
@@ -60,33 +60,33 @@
                    <!-- member account view admin left close-->
                   <div class="formgroup">
                     <label class="blueLabel">Woodville Auto Wreckers</label>
-                    <p class="savedText">{{details.business_name}}</p>
+                    <p class="savedText">{{userDetails.business_name}}</p>
                   </div>
                   
                   <div class="formgroup">
                     <label>Address</label>
-                    <p class="savedText">{{details.business_address}}</p>
-                    <p class="savedText">{{details.state_name}}</p>
+                    <p class="savedText">{{userDetails.business_address}}</p>
+                    <p class="savedText">{{userDetails.state_name}}</p>
                     <!-- <p class="savedText">SA</p> -->
                   </div>
                   
                   
                   <div class="formgroup">
                     <label>ABN </label>
-                    <p class="savedText">{{details.business_abn}}</p>
+                    <p class="savedText">{{userDetails.business_abn}}</p>
                   </div>
                   
                   <div class="formgroup">
                     <label>Phone Number:</label>
-                    <p class="savedText">{{details.personal_contact}}</p>
+                    <p class="savedText">{{userDetails.personal_contact}}</p>
                   </div>
                   <div class="formgroup">
                     <label>Email</label>
-                    <input type="text" class="commonInput" formControlName="email_id" [(ngModel)]="details.email_id" readonly>
+                    <input type="text" class="commonInput" formControlName="email_id" [(ngModel)]="userDetails.email_id" readonly>
                   </div>
                   <div class="formgroup">
                     <label>Account Type</label>
-                    <p class="savedText"><span class="blackroundN"></span>{{details.business_type}}</p>
+                    <p class="savedText"><span class="blackroundN"></span>{{userDetails.business_type}}</p>
                   </div>
                 </div>
 
@@ -95,21 +95,21 @@
                   <div >
                   <div class="formgroup">
                     <label>Business Name</label>
-                    <input type="text" class="commonInput" formControlName="business_name" [(ngModel)]="details.business_name">
+                    <input type="text" class="commonInput" formControlName="business_name" [(ngModel)]="userDetails.business_name">
                     <div *ngIf="submit && f.business_name.errors" class="invalid-feedback">
                         <div *ngIf="f.business_name.errors.required" >Business Name is required</div>
                     </div>
                   </div>
                   <div class="formgroup">
                     <label>Contact Person</label>
-                    <input type="text" class="commonInput" formControlName="contact_person" [(ngModel)]="details.contact_person">
+                    <input type="text" class="commonInput" formControlName="contact_person" [(ngModel)]="userDetails.contact_person">
                     <div *ngIf="submit && f.contact_person.errors" class="invalid-feedback">
                         <div *ngIf="f.contact_person.errors.required" >Contact Person is required</div>
                     </div>
                   </div>
                   <div class="formgroup">
                     <label>Address</label>
-                    <input type="text" class="commonInput" formControlName="business_address" [(ngModel)]="details.business_address">
+                    <input type="text" class="commonInput" formControlName="business_address" [(ngModel)]="userDetails.business_address">
                     <div *ngIf="submit && f.business_address.errors" class="invalid-feedback">
                         <div *ngIf="f.business_address.errors.required" >Address is required</div>
                     </div>
@@ -117,16 +117,16 @@
                   <div class="formgroup DisF marB10">
                     <div class="formgroup formgroupN2">
                       <label>Suburb</label>
-                      <input type="text" class="commonInput" formControlName="suburbs" [(ngModel)]="details.suburbs">
+                      <input type="text" class="commonInput" formControlName="suburbs" [(ngModel)]="userDetails.suburbs">
                       <div *ngIf="submit && f.suburbs.errors" class="invalid-feedback">
                           <div *ngIf="f.suburbs.errors.required" >Suburb is required</div>
                       </div>
                     </div>
                     <div class="formgroup formgroupN1 ">
                       <label>Post Code </label>
-                      <input type="text" class="commonInput" formControlName="postcode" (keypress)="numberOnly($event)" [(ngModel)]="details.postcode">
+                      <input type="text" class="commonInput" formControlName="postcode" (keypress)="numberOnly($event)" [(ngModel)]="userDetails.postcode">
                       <div *ngIf="submit && f.postcode.errors" class="invalid-feedback">
-                          <div *ngIf="f.postcode.errors.required" >Post Code is required</div>
+                          <div *ngIf="f.postcode.errors?.required" >Post Code is required</div>
                       </div>
                     </div>
                   </div>
@@ -134,7 +134,7 @@
                     <div class="formgroup formgroupN1" >
                       <label>State</label>
                       <!-- <input type="text" class="commonInput" formControlName="state" [(ngModel)]="details.state"> -->
-                      <select [(ngModel)]="details.state" formControlName="state">
+                      <select [(ngModel)]="userDetails.state" formControlName="state">
                           <option value="">Select State</option>
                           <option *ngFor="let state of allStates" value="{{state.state_id}}">{{state.state_name}}</option>
                           </select>
@@ -145,7 +145,7 @@
                     </div>
                     <div class="formgroup formgroupN2 ">
                       <label>ABN </label>
-                      <input type="text" class="commonInput" formControlName="business_abn" [(ngModel)]="details.business_abn" >
+                      <input type="text" class="commonInput" formControlName="business_abn" [(ngModel)]="userDetails.business_abn" >
                       <div *ngIf="submit && f.business_abn.errors" class="invalid-feedback">
                           <div *ngIf="f.business_abn.errors.required" >ABN is required</div>
     
@@ -154,21 +154,21 @@
                   </div>
                   <div class="formgroup">
                     <label>Phone Number:</label>
-                    <input type="text" class="commonInput" formControlName="personal_contact" [(ngModel)]="details.personal_contact" readonly>
+                    <input type="text" class="commonInput" formControlName="personal_contact" [(ngModel)]="userDetails.personal_contact" readonly>
                     <div *ngIf="submit && f.personal_contact.errors" class="invalid-feedback">
                         <div *ngIf="f.personal_contact.errors.required" >Phone Number is required</div>
                     </div>
                   </div>
                   <div class="formgroup">
                     <label>Email</label>
-                    <input type="text" class="commonInput" formControlName="email_id" [(ngModel)]="details.email_id" readonly> 
+                    <input type="text" class="commonInput" formControlName="email_id" [(ngModel)]="userDetails.email_id" readonly> 
                     <div *ngIf="submit && f.email_id.errors" class="invalid-feedback">
                         <div *ngIf="f.email_id.errors.required" >Email is required</div>
                     </div>
                   </div>
                   <div class="formgroup">
                     <label>Business Type</label>
-                    <select class="commonInput" formControlName="business_type" [(ngModel)]="details.business_type">
+                    <select class="commonInput" formControlName="business_type" [(ngModel)]="userDetails.business_type">
                       <option *ngFor="let type of businessType" [value]="type.business_type_id"> {{ type.business_type_name }} </option>
                     </select>
                     <div *ngIf="submit && f.business_type.errors" class="invalid-feedback">
@@ -177,7 +177,7 @@
                   </div>
                   <div class="formgroup">
                       <label>Group Type</label>
-                      <select class="commonInput" formControlName="group_id" [(ngModel)]="details.group_id">
+                      <select class="commonInput" formControlName="group_id" [(ngModel)]="userDetails.group_id">
                         <!-- <option value="" [selected]=true>--Select group--</option> -->
                         <option *ngFor="let type of supplierGroup" [value]="type.supplier_setting_id"> {{ type.group_name }} </option>
                       </select>
@@ -276,6 +276,7 @@
                             <div class="formgroup formgroup3 ">
                               <label>Name</label>
                               <input type="text" class="commonInput" formControlName="full_name">
+                              <input type="hidden" formControlName="supplier_id">
                               <div *ngIf="submited && fo.full_name.errors" class="invalid-feedback">
                                   <div *ngIf="fo.full_name.errors.required" >Name is required</div>
                               </div>
@@ -320,6 +321,8 @@
                         </div>
                       </div>
                     </div>
+													<button class="btn-def btnsld white e_d" type="button" routerLink="/supplier-dash">Back</button>
+
                     <!-- Profile Settings tab content end-->
                     <!-- general Settings tab content start-->
                     <div id="menu1" class="tab-pane fade">
@@ -436,25 +439,14 @@
                                   <p>Electricals</p>
                                   <h5 class="closeRound">X</h5>
                                 </li>
-                                
                               </ul>
-                              
                             </div>
                           </div>
-                          
                         </div>
-                        
-                        
-                        
                       </div>
                     </div>
-                    
                   </div>
-                  
-                  
-                  
                 </div>
-                
                 <div class="overlayDiv" id="addGroup" *ngIf="confirmationPopUp">
                     <form  class="newBtnPopup">
                       <div class="form-group closeBtnDiv">
@@ -471,11 +463,8 @@
                         <button class="btn commonBlueBtn lightBlueBtn" type="button" (click)="confirmationPopUp = false">NO</button>
                         <button class="btn commonWhiteBtn" type="button" (click)="confirmRemoveSubSupplier()">YES</button>
                       </div>
-                      
                     </form>
                   </div>
-
-
                 <!-- member account view admin right -->
                 <!-- <div class="AccountStatDiv">
                   <div class="memAcchead">

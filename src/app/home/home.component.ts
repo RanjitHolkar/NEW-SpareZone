@@ -4,6 +4,7 @@ import { HomeService } from './home.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { environment } from '../../environments/environment';
 import { JsonPipe } from '@angular/common';
 declare var $;
 @Component({
@@ -43,6 +44,8 @@ public exhost=[];
 public part_name:any;
 public imagesUrl=[];
 public images:any;
+public base_url=environment.base_url;
+public car_profile_parts_id:any;
   constructor(private fb:FormBuilder,private _homeService:HomeService,
     private _authenticationService:AuthenticationService,
     private router:Router,
@@ -57,7 +60,8 @@ public images:any;
     this.FirstForm = this.fb.group({
       car_make_id:['',Validators.required],
       car_model_id:['',Validators.required],
-      car_year_id:['',Validators.required]
+      car_year_id:['',Validators.required],
+      plate_number:['',Validators.required]
     })
     this.SecondForm = this.fb.group({
       exhaust:[''],
@@ -102,17 +106,13 @@ public images:any;
       this.FirstForm.disable();
     }
   }
-  
   SubmitsecondForm(){
-   
       this.submit = false;
       this.thirdForm = true;
       this.SecondForm.disable();
       this.getBodyType();
       this.getEngineType();
       this.getTransmissionType();
-    
-   
   }
   getBodyType(){
     $('.overlayDivLoader').show();
@@ -121,7 +121,7 @@ public images:any;
     $('.overlayDivLoader').hide();
     })
   }
-  /* Search function: Start */
+  /* Add Exahost function: Start */
   displayGroup(part_name,part_id){
     if(part_name !=''){
       this.SecondForm.patchValue({
@@ -137,8 +137,13 @@ public images:any;
     })
     this.groupDetailsPopUp = true;
   }
-  removeElement(index){
-    this.exhost.splice(index, 1);
+  removeElement(index,car_part_id){
+    $('.overlayDivLoader').show();
+    this._homeService.deleteParts({car_profile_parts_id:car_part_id,is_delete:1}).subscribe(res=>{
+      this.exhost.splice(index, 1);
+      $('.overlayDivLoader').hide();
+    })
+    
   }
   searchParts(event){
     $('.overlayDivLoader').show();
@@ -153,8 +158,9 @@ public images:any;
       this.groupsData.push({'group_id':group_id,'group_color':group_color});
     }else{
       for(let i=0;i<this.groupsData.length;i++){
-        if(this.groupsData[i]==group_id)
-          this.groupsData.splice(i, 1);
+        if(this.groupsData[i].group_id == group_id){
+            this.groupsData.splice(i, 1);
+        }
       }
     }
   }
@@ -167,21 +173,41 @@ public images:any;
     }
     this.groupImages.push(this.images);
     console.log(event.target.files[0]);
-    
-    console.log(this.imagesUrl);
   }
+
   SavePartsImages(){
-    let data = {'group_id':this.groupsData,'groupImages':JSON.stringify(this.groupImages),'part_id':this.part_id,'part_name':this.SecondForm.value.exhaust}
-    this.exhost.push(data);
-    this.searchBox = false;
-    this.groupDetailsPopUp = false;
-    this.SecondForm.reset();
-    this.groupsData=[];
-    this.groupImages=[];
-    this.imagesUrl = [];
-    console.log(this.exhost);
+    if(this.groupsData.length == 0){
+      this.submit = true;
+      return false;
+    }
+     $('.overlayDivLoader').show();
+    console.log(this.groupImages);
+    var formData = new FormData();
+     for(var i=0;i < this.groupImages.length; i++){
+       console.log(this.groupImages[i]); 
+       formData.append("partImage"+i,this.groupImages[i]);
+     }
+     formData.append('group_id',JSON.stringify(this.groupsData));
+     formData.append('part_id',this.part_id);
+     formData.append('new_part_name',this.SecondForm.value.exhaust);
+     this._homeService.saveParts(formData).subscribe(res=>{
+       this.car_profile_parts_id = res;
+       $('.overlayDivLoader').hide();
+      if(this.car_profile_parts_id != undefined){
+        let data = {'group_id':this.groupsData,'part_id':this.part_id,'part_name':this.SecondForm.value.exhaust,'car_profile_parts_id':this.car_profile_parts_id}
+        this.exhost.push(data);
+        this.searchBox = false;
+        this.submit = false;
+        this.groupDetailsPopUp = false;
+        this.SecondForm.reset();
+        this.groupsData=[];
+        this.groupImages=[];
+        this.imagesUrl=[];
+      }
+    })
+    
   }
-  /* Search function: Stop */
+  /*  Add Exahost function: Stop */
   clickEvent(value){
     this.ThirdForm.patchValue({
       car_body_type_id:value
@@ -211,6 +237,7 @@ public images:any;
   }
   SubmitsuccessForm(){
     this.LoginForm = true;
+    this.submit = false;
     this.setData();
   }
   login(){
@@ -234,8 +261,8 @@ public images:any;
   checkLogin(){
     if(localStorage.getItem('currentUser')){
       this.data = JSON.parse(localStorage.getItem('currentUser'));
-      this.userSearchData['user_status'] = this.data.user_table_status;
-      this.userSearchData['user_id'] = this.data.login_user_id;
+      this.userSearchData['user_status'] = this.data.userData.user_table_status;
+      this.userSearchData['user_id'] = this.data.userData.login_user_id;
       this._homeService.saveSearchData(this.userSearchData).subscribe(res=>{
         localStorage.removeItem('userSearchData');
       })
@@ -259,8 +286,7 @@ public images:any;
     }
   }
   setData(){
-    this.userSearchData = Object.assign(this.FirstForm.value, this.SecondForm.value,this.ThirdForm.value);
-    this.userSearchData['looking_for_part'] = JSON.stringify(this.SecondForm.value.looking_for_part);
+    this.userSearchData = Object.assign(this.FirstForm.value,this.ThirdForm.value);
       localStorage.setItem('userSearchData',JSON.stringify(this.userSearchData));
   }
 

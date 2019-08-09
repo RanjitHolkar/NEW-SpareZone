@@ -60,7 +60,7 @@
                     </div>
                     <div class="disFSpace">
                       <button class="btn commonBtnBlue lightBlueBtn commonLightBtn mar0" *ngIf="preferedSupplierData.prefered_id == null"
-                        (click)="addPreferredSupplier(preferedSupplierData.user_supplier_id,preferedSupplierData.added_by,i)">select</button>
+                        (click)="addPreferredSupplier(preferedSupplierData.user_supplier_id,i)">select</button>
                       <button class="btn commonBtnWhite commonLightBtn mar0" *ngIf="preferedSupplierData.prefered_id != null">selected</button>
                       <button class="btn commonBtnWhite redBtn commonLightBtn mar0" *ngIf="preferedSupplierData.prefered_id != null"
                         (click)="deletePreferredSupplier(preferedSupplierData.prefered_id,preferedSupplierData.user_supplier_id,i,1)">remove</button>
