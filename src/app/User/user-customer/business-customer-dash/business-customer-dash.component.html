@@ -1,17 +1,18 @@
 <div class="wrapper">
    <app-user-nav></app-user-nav>
-       <div class="commonBgDiv"><img src="assets/images/banner.jpg" alt="" /></div>
-         <div class="banner-wrap">
+   <div class="commonBgDiv"><img src="assets/images/banner.jpg" alt="" /></div>
+   <div class="banner-wrap">
       <div class="banner" style="background-image:url(assets/images/banner.jpg);">
          <div class="banner-in">
             <div class="container">
                <div class="row">
-                  <div class="col-md-8">
-                     <div class="wrap-box listing ordr">
-                        <div class="boxs lister onsc supplier_main_content max720">
+                  <div class="col-md-12 disFN">
+                     <div class="wrap-box listing SupplySelectionAreaLeft boxShadow">
+                        <div class="boxs lister onsc supplier_main_content">
                            <div class="boxs-in">
                               <h3 class="blueNewHead">Dashboard</h3>
-                              <div class="nt"><a href="javascript:;" class="notification"><span class="notify">2</span>Notifications</a></div>
+                              <div class="nt"><a href="javascript:;" class="notification"><span
+                                       class="notify">2</span>Notifications</a></div>
                               <div class="frm">
                                  <div class="col-md-8 col-sm-8 tabld pad-lft">
                                     <div class="dvr">
@@ -21,13 +22,13 @@
                                     </div>
                                     <span class="bl-titl">{{userDetails.business_name}}</span>
                                     <ul class="mmy">
-                                     <li>Address: {{userDetails.business_address}}</li>
-                                     <li>{{userDetails.state_name}}</li>
-                                     <li>Phone: {{userDetails.business_contact}}</li>
-                                    <!--  <li>Fax: 08 7655 8792</li> -->
-                                     <li>Email: {{userDetails.email_id}}</li>
-                                   <!--   <li>Website: www.autoteam.com</li> -->
-                                  </ul>
+                                       <li>Address: {{userDetails.business_address}}</li>
+                                       <li>{{userDetails.state_name}}</li>
+                                       <li>Phone: {{userDetails.business_contact}}</li>
+                                       <!--  <li>Fax: 08 7655 8792</li> -->
+                                       <li>Email: {{userDetails.email_id}}</li>
+                                       <!--   <li>Website: www.autoteam.com</li> -->
+                                    </ul>
                                     <!-- <ul class="mmy">
                                        <li>Address: 16 baulderstone Road</li>
                                        <li>Gepps, Cross, SA, 5000</li>
@@ -37,11 +38,11 @@
                                        <li>Website: www.autoteam.com</li>
                                     </ul> -->
                                  </div>
-                                 <div class="col-md-4 col-sm-4 text-right pad-rgh pad-top">									
-                                    <a routerLink="/customer-edit"  class="btn-def mrgb">Edit Profile</a>	
-                                    <a href="javascript:;" class="btn-def-blu mrgb">View Reports</a>									
-                                    <a href="javascript:;" class="btn-def-blu mrgb">Orders</a>									
-                                    <a href="javascript:;" class="btn-def-blu mrgb">Accounts</a>									
+                                 <div class="col-md-4 col-sm-4 text-right pad-rgh pad-top">
+                                    <a routerLink="/customer-edit" class="btn-def mrgb">Edit Profile</a>
+                                    <a href="javascript:;" class="btn-def-blu mrgb">View Reports</a>
+                                    <a href="javascript:;" class="btn-def-blu mrgb">Orders</a>
+                                    <a href="javascript:;" class="btn-def-blu mrgb">Accounts</a>
                                  </div>
                                  <div class="clearfix"></div>
                                  <div class="recent_active">
@@ -57,7 +58,8 @@
                                              <td></td>
                                              <td><span class="notify2 text-right">4</span></td>
                                              <td class="text-center green_complete">Completed</td>
-                                             <td><a href="javascript:;" data-toggle="modal" data-target=".view_supplier" class="btn-def min80">View</a></td>
+                                             <td><a href="javascript:;" data-toggle="modal" data-target=".view_supplier"
+                                                   class="btn-def min80">View</a></td>
                                           </tr>
                                           <tr>
                                              <td>W03030</td>
@@ -66,7 +68,8 @@
                                              <td></td>
                                              <td><span class="notify2 text-right">4</span></td>
                                              <td class="text-center red_complete">Quoted</td>
-                                             <td><a href="javascript:;" data-toggle="modal" data-target=".view_supplier" class="btn-def	min80">View</a></td>
+                                             <td><a href="javascript:;" data-toggle="modal" data-target=".view_supplier"
+                                                   class="btn-def	min80">View</a></td>
                                           </tr>
                                           <tr>
                                              <td>W03030</td>
@@ -75,7 +78,8 @@
                                              <td></td>
                                              <td><span class="notify2 text-right">4</span></td>
                                              <td class="text-center green_complete">Ordered</td>
-                                             <td><a href="javascript:;" data-toggle="modal" data-target=".view_supplier" class="btn-def	min80">View</a></td>
+                                             <td><a href="javascript:;" data-toggle="modal" data-target=".view_supplier"
+                                                   class="btn-def	min80">View</a></td>
                                           </tr>
                                           <tr>
                                              <td>W03030</td>
@@ -84,11 +88,223 @@
                                              <td></td>
                                              <td><span class="notify2 text-right">4</span></td>
                                              <td class="text-center request_complete">Request</td>
-                                             <td><a href="javascript:;" data-toggle="modal" data-target=".view_supplier" class="btn-def	min80">View</a></td>
+                                             <td><a href="javascript:;" data-toggle="modal" data-target=".view_supplier"
+                                                   class="btn-def	min80">View</a></td>
                                           </tr>
                                        </table>
                                     </div>
                                  </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- right section -->
+                     <div class="SupplySelectionAreaRightSection">
+                        <div class="boxs b_shadow top SupplySelectionAreaRight boxShadow">
+                           <div class="boxs-in">
+                              <h3 class="popHead blueHead noBord marB10"> New Work Order</h3>
+                              <div class="frm formDiv">
+                                 <form class="jform fontFamDiv" [formGroup]="FirstForm" (submit)="saveFirstForm()">
+                                    <div class="field">
+                                       <label class="commonLabel">Order No.</label>
+                                       <input type="text" placeholder="Note Goes Here" formControlName="order_no" />
+                                       <div *ngIf="submit && f.order_no.errors" class="invalid-feedback">
+                                          <div *ngIf="f.order_no.errors.required">Order No. is required</div>
+                                       </div>
+                                    </div>
+                                    <div class="field">
+                                       <label class="commonLabel">Claim No.</label>
+                                       <input type="text" placeholder="Claim No." formControlName="claim_no" />
+                                       <div *ngIf="submit && f.claim_no.errors" class="invalid-feedback">
+                                          <div *ngIf="f.claim_no.errors.required">Claim No. is required</div>
+                                       </div>
+                                    </div>
+                                    <div class="field supplierBtnDiv">
+                                    
+                                       <button class=" commonBtn" type="button" (click)="FirstForm.patchValue({date_time: 1})" [ngClass] = "FirstForm.controls.date_time.value == 1 ? 'btn-def' : 'commonRedBordBtn' ">Time and Date</button>
+                                       <button class=" commonBtn" type="button" (click)="FirstForm.patchValue({date_time: 0})" [ngClass] ="FirstForm.controls.date_time.value == 0 ? 'btn-def' : 'commonRedBordBtn'">Urgent!</button>
+                                    </div>
+                                    <h3 class="popHead blueHead noBord"> Vehicle Info</h3>
+                                    <div class="field" *ngIf="FirstForm.controls.date_time.value == 1">
+                                       <label class="commonLabel">Time and Date</label>
+                                       <input type="date"  placeholder="Time and Date" formControlName="date_time">
+                                       <div *ngIf="submit && f.vin_number.errors" class="invalid-feedback">
+                                          <div *ngIf="f.vin_number.errors.required">VIN is required</div>
+                                       </div>
+                                    </div>
+                                    <div class="field">
+                                       <label class="commonLabel">VIN</label>
+                                       <input type="text" placeholder="VIN" formControlName="vin_number" />
+                                       <div *ngIf="submit && f.vin_number.errors" class="invalid-feedback">
+                                          <div *ngIf="f.vin_number.errors.required">VIN is required</div>
+                                       </div>
+                                    </div>
+                                    <div class="field">
+                                       <label class="commonLabel">Make</label>
+                                       <select placeholder="Toyota" formControlName="car_make_id" (change)="getModel($event)">
+                                          <option value="" [selected]=true disabled>--select Cars--</option>
+                                          <option [value]="make.make_id" *ngFor="let make of makesDetails">
+                                             {{make.make_name}}</option>
+                                       </select>
+                                       <div *ngIf="submit && f.car_make_id.errors" class="invalid-feedback">
+                                          <div *ngIf="f.car_make_id.errors.required">Make is required</div>
+                                       </div>
+                                    </div>
+                                    <div class="field">
+                                       <label class="commonLabel">Model</label>
+                                       <select placeholder="Toyota" formControlName="car_model_id">
+                                          <option value="" [selected]=true disabled>--select Model--</option>
+                                          <option [value]="model.model_id" *ngFor="let model of modelDetails">
+                                             {{model.model_name}}</option>
+                                       </select>
+                                       <div *ngIf="submit && f.car_model_id.errors" class="invalid-feedback">
+                                          <div *ngIf="f.car_model_id.errors.required">Model is required</div>
+                                       </div>
+                                    </div>
+                                    <div class="sub">
+                                       <button class="btn-def flr btnsld minWid78" type="submit"
+                                          [disabled]="secondForm">Next</button>
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="boxs b_shadow box-2 top SupplySelectionAreaRight boxShadow"
+                           [ngClass]="{'active':secondForm}">
+                           <div class="boxs-in">
+                              <div class="frm formDiv">
+                                 <form class="jform fontFamDiv" [formGroup]="SecondForm" (submit)="saveDetailsForm()">
+                                    <div class="field">
+                                       <label class="commonLabel">Year</label>
+                                       <select formControlName="car_year_id"  >
+                                          <option value='' [selected]=true disabled>--select Year--</option>
+                                          <option [value]="year.year_id" *ngFor="let year of yearDetails" >{{year.year_name}}</option>
+                                       </select>
+                                       <div *ngIf="submit && s.car_year_id.errors" class="invalid-feedback">
+                                          <div *ngIf="s.car_year_id.errors.required">Year is required</div>
+                                       </div>
+                                    </div>
+                                    <div class="field">
+                                       <label class="commonLabel">Series</label>
+                                       <input type="text" placeholder="ZZ152R" formControlName="car_series_id" />
+                                       <div *ngIf="submit && s.car_series_id.errors" class="invalid-feedback">
+                                          <div *ngIf="s.car_series_id.errors.required">Series is required</div>
+                                       </div>
+                                    </div>
+
+                                    <div class="field">
+                                       <label class="commonLabel">Gearbox</label>
+                                       <input type="text" placeholder="Automatic" formControlName="looking_for_part" />
+                                       <div *ngIf="submit && s.looking_for_part.errors" class="invalid-feedback">
+                                          <div *ngIf="s.looking_for_part.errors.required">Gearbox is required</div>
+                                       </div>
+                                    </div>
+                                    <div class="field">
+                                       <label class="commonLabel">Fuel Type</label>
+                                       <input type="text" placeholder="Petrol" formControlName="car_fuel_type_id" />
+                                       <div *ngIf="submit && s.car_fuel_type_id.errors" class="invalid-feedback">
+                                          <div *ngIf="s.car_fuel_type_id.errors.required">Fuel Type is required</div>
+                                       </div>
+                                    </div>
+                                    <div class="field">
+                                       <label class="commonLabel">DriveTrain</label>
+                                       <select formControlName="drive_train_id" >
+                                          <option value='' [selected]=true disabled>--select Drive Train Type--</option>
+                                          <option [value]="drive.maintance_id" *ngFor="let drive of driveDetails" >{{drive.maintance_value}}</option>
+                                       </select>
+                                       <div *ngIf="submit && s.drive_train_id.errors" class="invalid-feedback">
+                                          <div *ngIf="s.drive_train_id.errors.required">DriveTrain is required</div>
+                                       </div>
+                                    </div>
+                                    <h3 class="popHead blueHead noBord"> Vehicle photos</h3>
+                                    <div class="vehicleImgDiv">
+                                       <div class="vehicleImg">
+                                          <input type="file" (change)="partsImages(0,$event)">
+                                          <img src="{{imagesUrl[0] != undefined ?imagesUrl[0] : 'assets/images/target.png'}}" [ngClass]="{'chosseImg':imagesUrl[0] != 'undefined'}"> 
+
+                                          <!--  -->
+                                       </div>
+                                       <div class="vehicleImg">
+                                          <input type="file" (change)="partsImages(1,$event)">
+                                          <img src="{{imagesUrl[1] != undefined ?imagesUrl[1] : 'assets/images/vehicle.png'}}" [ngClass]="{'chosseImg':imagesUrl[1] != 'undefined'}"> 
+
+                                          <!--  -->
+                                       </div>
+                                       <div class="vehicleImg">
+                                          <input type="file" (change)="partsImages(2,$event)">
+                                          <img src="{{imagesUrl[2] != undefined ?imagesUrl[2] : 'assets/images/vehicle.png'}}" [ngClass]="{'chosseImg':imagesUrl[2] != 'undefined'}"> 
+                                          
+                                       </div>
+                                       <div class="vehicleImg">
+                                          <input type="file" (change)="partsImages(3,$event)">
+                                          <img src="{{imagesUrl[3] != undefined ?imagesUrl[3] : 'assets/images/vehicle.png'}}" [ngClass]="{'chosseImg':imagesUrl[3] != 'undefined'}"> 
+                                          
+                                       </div>
+                                    </div>
+                                    <div class="vehicleImgDiv">
+                                       <div class="vehicleImg">
+                                          <input type="file" (change)="partsImages(4,$event)">
+                                          <img src="{{imagesUrl[4] != undefined ?imagesUrl[4] : 'assets/images/vehicle.png'}}" [ngClass]="{'chosseImg':imagesUrl[4] != 'undefined'}"> 
+                                          
+                                       </div>
+                                       <div class="vehicleImg">
+                                          <input type="file" (change)="partsImages(5,$event)">
+                                          <img src="{{imagesUrl[5] != undefined ?imagesUrl[5] : 'assets/images/vehicle.png'}}" [ngClass]="{'chosseImg':imagesUrl[5] != 'undefined'}"> 
+                                          
+                                       </div>
+                                       <div class="vehicleImg">
+                                          <input type="file" (change)="partsImages(6,$event)">
+                                          <img src="{{imagesUrl[6] != undefined ?imagesUrl[6] : 'assets/images/vehicle.png'}}" [ngClass]="{'chosseImg':imagesUrl[6] != 'undefined'}"> 
+                                          
+                                       </div>
+                                       <div class="vehicleImg">
+                                          <input type="file" (change)="partsImages(7,$event)">
+                                          <img src="{{imagesUrl[7] != undefined ?imagesUrl[7] : 'assets/images/vehicle.png'}}" [ngClass]="{'chosseImg':imagesUrl[7] != 'undefined'}"> 
+                                       </div>
+                                    </div>
+                                    <div class="sub">
+                                       <button class="btn-def flr btnsld minWid78" type="button" (click)="saveSecondForm()">Next</button>
+                                       <button class="commonWhiteBtn flr btnsld minWid78" type="submit">Save</button>
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="boxs b_shadow box-3 top SupplySelectionAreaRight  boxShadow"
+                           [ngClass]="{'active':thirdForm}">
+                           <div class="boxs-in formDiv">
+                              <h4 class="popHead step2Head marB10">Parts Selection</h4>
+                              <div class="frm lookingDivParent">
+                                 <form class="jform">
+                                    <div>
+                                       <div class="field ">
+                                          <label class="commonLabel">Search Here</label>
+                                          <img src="assets/images/add.png" class="del newDel" alt="" />
+                                          <!-- <img src="assets/images/del.png" class="del" alt="" (click)="removeExahost()" -->
+                                          <input type="text" placeholder="Bonnet Lock" for />
+
+                                          <!-- <ul class="searchListExahost" *ngIf="searchBox">
+                                                      <li *ngFor="let part of partDetails" (click)="displayGroup(part.part_name,part.part_id)">{{part.part_name}} </li>
+                                                   </ul> -->
+                                       </div>
+                                    </div>
+
+                                    <div class=" ">
+                                       <div class="field min49 ">
+                                          <input type="text" name="" placeholder="Bonnet" />
+                                          <img class="iconsEx iconsEx2" src="assets/images/editicon1.png">
+                                          <img class="iconsEx " src="assets/images/deleteIcon.png">
+
+
+                                       </div>
+                                    </div>
+
+                                    <div class="sub">
+                                       <button class="btn-def flr btnsld minWid78" type="submit"
+                                          [disabled]="secondForm">Send</button>
+                                    </div>
+                                 </form>
                               </div>
                            </div>
                         </div>
@@ -190,21 +406,21 @@
                      <p class="id_n">B34333</p>
                   </div>
                   <div class="rating two">
-                      <ul class="list-inline text-left">
-                           <li><img src="assets/images/star_rated.png" alt="star_rated"></li>
-                           <li><img src="assets/images/star_rated.png" alt="star_rated"></li>
-                           <li><img src="assets/images/star_rated.png" alt="star_rated"></li>
-                           <li><img src="assets/images/star.png" alt="star"></li>
-                           <li class="numbers_outof">442/12</li>
-                       </ul>
-                  </div> 
-   
+                     <ul class="list-inline text-left">
+                        <li><img src="assets/images/star_rated.png" alt="star_rated"></li>
+                        <li><img src="assets/images/star_rated.png" alt="star_rated"></li>
+                        <li><img src="assets/images/star_rated.png" alt="star_rated"></li>
+                        <li><img src="assets/images/star.png" alt="star"></li>
+                        <li class="numbers_outof">442/12</li>
+                     </ul>
+                  </div>
+
                   <div class="imgw">
                      <img src="assets/images/carp.png" alt="" />
                   </div>
                   <span class="bll-titl">Toyota Camry 2007</span>
                   <span class="bl-par">2D / Auto / 2WD / 4 Cylinder</span>
-                  <span>VIN: JTFD45GG67782902</span>	
+                  <span>VIN: JTFD45GG67782902</span>
                   <div class="clearfix"></div>
                   <div class="tablpop partt supplier_table">
                      <table class="table_v" style="width:100%;">
@@ -236,14 +452,12 @@
       </div>
    </div>
    <!--==supplier-details end==-->
-   
-       <footer>
-         <div class="container">
-           <div class="row">
-   
-           </div>
+
+   <footer>
+      <div class="container">
+         <div class="row">
+
          </div>
-       </footer>
-     </div>
- 
- 
+      </div>
+   </footer>
+</div>

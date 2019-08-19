@@ -9,3 +9,12 @@
     margin: 0px 0 10px;
     padding: 0 0 10px;
 }
+.vehicleImgDiv .chosseImg {
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .vehicleImg {
+    height: 50px;
+}

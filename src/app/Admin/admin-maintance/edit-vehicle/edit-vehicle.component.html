@@ -10,19 +10,16 @@
           <div class="MaintancePop MaintancePopEditVehicle" *ngIf="maintenanceData">
             <div class="MaintanceSingle" *ngFor="let maintanData of maintenanceData.data1; let i = index">
               <h4 class="maintanceHead">{{maintanData.name}}</h4>
-              <app-edit-vehicle-child [maintanData]="maintanData" (valueSelected)="dataFromVehicleChild($event)"
-                (editData)="reciveData($event)" [updateEdit]="UpdateChildComponentData"></app-edit-vehicle-child>
+              <app-edit-vehicle-child [maintanData]="maintanData" (valueSelected)="dataFromVehicleChild($event)" (editData)="reciveData($event)" [updateEdit]="UpdateChildComponentData"></app-edit-vehicle-child>
               <div class="text-center">
-                <button class="btn commonBtnBlue widthUnset"
-                  (click)="DisplayMaintenancePopup(maintanData.name)">Add</button>
+                <button class="btn commonBtnBlue widthUnset" (click)="DisplayMaintenancePopup(maintanData.name)">Add</button>
               </div>
             </div>
           </div>
           <div class="MaintancePop MaintancePopEditVehicle" *ngIf="maintenanceData">
             <div class="MaintanceSingle" *ngFor="let maintanData of maintenanceData.data2">
               <h4 class="maintanceHead">{{maintanData.name}}</h4>
-              <app-edit-vehicle-child [maintanData]="maintanData" (valueSelected)="dataFromVehicleChild($event)"
-                (editData)="reciveData($event)"></app-edit-vehicle-child>
+              <app-edit-vehicle-child [maintanData]="maintanData" (valueSelected)="dataFromVehicleChild($event)" (editData)="reciveData($event)"></app-edit-vehicle-child>
               <div class="text-center">
                 <button class="btn commonBtnBlue widthUnset"
                   (click)="DisplayMaintenancePopup(maintanData.name)">Add</button>
@@ -35,40 +32,37 @@
   </div>
 </div>
 
-
-
-
 <!-- For Add -->
-<div id="maintenancePopup" class="overlayDiv">
 
+<!-- groupBodyType -->
+
+<div id="maintenancePopup" class="overlayDiv">
   <ng-container *ngIf="maintenanceSelectedType === 'Body Type'">
     <form [formGroup]="BodyType" class="newBtnPopup min500 " >
       <div class="form-group closeBtnDiv">
-        <h4 class="popHead">Maintenance and {{heading}}</h4> <span href="#" class="closeBtn" (click)="ClosePopUp()"><img
-            src="assets/images/cancel.png" alt=""></span>
+        <h4 class="popHead">Add {{heading}}</h4> <span href="#" class="closeBtn" (click)="ClosePopUp()"><img src="assets/images/cancel.png" alt=""></span>
       </div>
       <div class="padd2040">
         <div class="form-group ">
-          <input type="text" formControlName="maintance_value" class="commonInput">
-          <ng-container *ngIf="bIsSubmitted">
-        <span class="error" *ngIf="bodyF.maintance_value.errors?.required" >Maintainance Value is required</span>
-      </ng-container>
+          <input type="text" formControlName="maintance_value" class="commonInput" placeholder="Maintenance Value">
+          <div *ngIf="isBodyType">
+              <span *ngIf="groupBodyType.maintance_value.errors?.required" class="error">Maintenance value required</span>
+          </div>
+        
         </div>
         <div class="form-group ">
           <ng-container *ngIf="imageUrl" >
             <img [src]="imageUrl" height="100">
           </ng-container>
           <input type='file' (change)="onSelectFile($event)" formControlName="maintenance_image">
-          <ng-container *ngIf="bIsSubmitted">
-          <span class="error" *ngIf="bodyF.maintenance_image.errors?.required" >Image is required</span>
-        </ng-container>
+          <div *ngIf="isBodyType">
+              <span *ngIf="groupBodyType.maintenance_image.errors?.required" class="error">Image is required</span>
+          </div>
+         
         </div>
       </div>
       <div class="form-group">
-        
-              <button class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()">SAVE</button>
-      
-        
+              <button class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()" >SAVE</button>
       </div>
     </form>
   </ng-container>
@@ -76,12 +70,10 @@
 
   <form [formGroup]="maintenanceForm" class="newBtnPopup min500" *ngIf="maintenanceSelectedType != 'Body Type'">
     <div class="form-group closeBtnDiv">
-      <h4 class="popHead">Maintenance and {{heading}}</h4> <span href="#" class="closeBtn" (click)="ClosePopUp()"><img
+      <h4 class="popHead">Add {{heading}}</h4> <span href="#" class="closeBtn" (click)="ClosePopUp()"><img
           src="assets/images/cancel.png" alt=""></span>
     </div>
-
-
-
+                                <!-- For Make  -->
     <div *ngIf="maintenanceSelectedType === 'Make'" class="padd2040">
       <div class="form-group">
         <select formControlName="body_type_id" class="commonInput">
@@ -99,60 +91,81 @@
         </div>
       </div>
     </div>
+                             <!-- For model -->               
     <div *ngIf="maintenanceSelectedType === 'Model'" class="padd2040">
       <div class="form-group">
         <select formControlName="make_id" class="commonInput">
-          <option value="null">Select Make</option>
+          <option value="" selected>Select Make</option>
           <option *ngFor="let data of dropdownData" value="{{data.make_id}}">{{data.make_name}}</option>
         </select>
+        <div *ngIf="isSubmitted">
+          <label class="error" *ngIf="groupF.make_id.errors?.required"> Make name is required</label>
+        </div>
       </div>
       <div class="form-group">
         <input type="text" formControlName="model_name" placeholder="Enter model name" class="commonInput">
       </div>
+      <div *ngIf="isSubmitted">
+        <label class="error" *ngIf="groupF.model_name.errors?.required"> {{isSubmitted}}Model name is required</label>
+      </div>
     </div>
-
+                                  <!-- For Year -->
     <div *ngIf="maintenanceSelectedType === 'Year'" class="padd2040">
       <div class="form-group">
         <select formControlName="model_id" class="commonInput">
-          <option value="null">Select Model</option>
+          <option value="" selected>Select Model</option>
           <option *ngFor="let data of dropdownData" value="{{data.model_id}}">{{data.model_name}}</option>
         </select>
+        <div *ngIf="isSubmitted">
+          <label class="error" *ngIf="groupF.model_id.errors?.required"> Model type is required</label>
+        </div>
       </div>
       <div class="form-group">
         <input type="number" formControlName="year_name" placeholder="Enter year" maxlength="4"
           oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
           class="commonInput">
+          <div *ngIf="isSubmitted">
+            <label class="error" *ngIf="groupF.year_name.errors?.required"> Year is required</label>
+          </div>
       </div>
     </div>
-
+                        <!-- For Series -->
     <div *ngIf="maintenanceSelectedType === 'Series'" class="padd2040">
       <div class="form-group">
         <select formControlName="year_id" class="commonInput">
-          <option value="null">Select Year</option>
+          <option value="" selected>Select Year</option>
           <option *ngFor="let data of dropdownData" value="{{data.year_id}}">{{data.year_name}}</option>
         </select>
+        <div *ngIf="isSubmitted">
+          <label class="error" *ngIf="groupF.year_id.errors?.required">Year is required</label>
+        </div>
       </div>
       <div class="form-group">
         <input type="text" formControlName="series" placeholder="Enter series" class="commonInput">
+        <div *ngIf="isSubmitted">
+          <label class="error" *ngIf="groupF.series.errors?.required">Series is required</label>
+        </div>
       </div>
     </div>
+                            <!-- Transmission Type || Fuel Type ||  Engine Type -->
     <div
       *ngIf="maintenanceSelectedType === 'Transmission Type' || maintenanceSelectedType === 'Fuel Type' || maintenanceSelectedType === 'Engine Type'"
       class="padd2040">
       <div class="form-group">
         <input type="text" formControlName="maintance_value" placeholder="Enter {{maintenanceSelectedType}}"
           class="commonInput">
+          <div *ngIf="isSubmitted">
+              <label class="error" *ngIf="groupF.maintance_value.errors?.required">Maintenance value is required</label>
+          </div>
       </div>
     </div>
-
+                                        <!-- Common Submit button -->
     <div class="form-group">
       <button class="btn commonBlueBtn lightBlueBtn marT15" type="button" (click)="saveGroup()">SAVE</button>
     </div>
   </form>
 </div>
-
-
-<!-- For delete   -->
+                    <!-- For delete  maintenance data  -->
 <div class="overlayDiv" id="maintainDeletePopup">
   <div class="newBtnPopup">
     <div class="form-group closeBtnDiv">
@@ -174,115 +187,178 @@
 </div>
 
 
-
-
-
+<!-- *ngIf="groupBodyType" -->
 <div id="UpdatePopup" class="overlayDiv">
-
-
     <ng-container *ngIf="editTypeSelect == 'Body Type'">
-        <form [formGroup]="BodyType" class="newBtnPopup min500 " >
-          <div class="form-group closeBtnDiv">
-            <h4 class="popHead">maintenance and {{heading}}</h4> <span href="#" class="closeBtn" (click)="CloseUpdatePopup()"><img
-                src="assets/images/cancel.png" alt=""></span>
+
+      <form [formGroup]="BodyType" class="newBtnPopup min500 ">
+        <div class="form-group closeBtnDiv">
+          <h4 class="popHead">Edit {{heading}}</h4> <span href="#" class="closeBtn" (click)="CloseUpdatePopup()"><img
+              src="assets/images/cancel.png" alt=""></span>
+        </div>
+        <div class="padd2040">
+          <div class="form-group ">
+            <input type="text" formControlName="maintance_value" class="commonInput">
+            <div  *ngIf="isBodyTypeEdit">
+              <span class="error" *ngIf="groupBodyType.maintance_value.errors?.required">Maintenance Value is required</span>
+            </div>
           </div>
-          <div class="padd2040">
-            <div class="form-group ">
-             <input type="text" formControlName="maintance_value">
-            </div>
-            <div class="form-group ">
-          <img [src]="imageForEdit" height="100" >
-          <input type="file" formControlName="maintenance_image"  (change)="forBodyType($event)">
+          <div class="form-group ">
+            <img [src]="imageForEdit" height="100">
+            <input type="file" formControlName="maintenance_image" (change)="forBodyType($event)">
+            <div *ngIf="isBodyTypeEdit">
+                <span class="error" *ngIf="groupBodyType.maintenance_image.errors?.required">Image is required</span>
             </div>
           </div>
-          <div class="form-group">
-              <button class="btn commonBlueBtn lightBlueBtn" type="button" (click)="CloseUpdatePopup()">No</button>
-              <button class="btn commonBlueBtn" type="button" (click)="OnSubmitUpdateForm()">Yes</button>
-            </div>
-        </form>
-      </ng-container>
+
+        </div>
+        <div class="form-group">
+          <button class="btn commonBlueBtn lightBlueBtn" type="button" (click)="CloseUpdatePopup()">No</button>
+          <button class="btn commonBlueBtn" type="button" (click)="OnSubmitUpdateForm()">Yes</button>
+        </div>
+      </form>
+
+    </ng-container>
 
 
-      
-
+                                  <!-- For Edit  -->
   <form [formGroup]="UpdateForm" class="newBtnPopup min500" *ngIf="editTypeSelect != 'Body Type'">
     <div class="form-group closeBtnDiv">
       <h4 class="popHead">Edit {{editTypeSelect}}</h4> <span href="#" class="closeBtn" (click)="CloseUpdatePopup()"><img
           src="assets/images/cancel.png" alt=""></span>
     </div>
-
     <!--  Year -->
     <div class="padd2040" *ngIf=" editTypeSelect == 'Year' ">
       <div class="form-group">
         <select formControlName="model_id" class="commonInput">
-          <option value="null">Select Value</option>
+          <option value="" selected>Select Value</option>
           <option *ngFor="let data of dropdownData" value="{{data.model_id}}">{{data.model_name}}</option>
         </select>
+        <div *ngIf="isUpdated">
+          <span class="error" *ngIf="updateF.model_id.errors?.required">Please select model name</span>
+        </div>
       </div>
       <div class="form-group">
-        <input type="number" placeholder="{{fromChildComponent.year_name}}" formControlName="year_name"
-          class="commonInput">
+        <input type="number" placeholder="{{fromChildComponent.year_name}}" formControlName="year_name" class="commonInput">
+        <div *ngIf="isUpdated">
+            <span class="error" *ngIf="updateF.year_name.errors?.required">Year field is required</span>
+          </div>
       </div>
     </div>
     <!--  model -->
-
     <div class="padd2040" *ngIf="editTypeSelect == 'Model'">
       <div class="form-group">
         <select formControlName="make_id" class="commonInput">
-          <option value="null">Select Value</option>
+          <option value="" selected>Select Value</option>
           <option *ngFor="let data of dropdownData" value="{{data.make_id}}">{{data.make_name}}</option>
         </select>
+        <div *ngIf="isUpdated">
+            <span class="error" *ngIf="updateF.make_id.errors?.required">Make name field is required</span>
+          </div>
       </div>
       <div class="form-group">
-        <input type="text" placeholder="{{fromChildComponent.model_name}}" formControlName="model_name"
-          class="commonInput">
+        <input type="text" placeholder="{{fromChildComponent.model_name}}" formControlName="model_name" class="commonInput">
+        <div *ngIf="isUpdated">
+            <span class="error" *ngIf="updateF.model_name.errors?.required">Model name is required</span>
+          </div>
       </div>
     </div>
-
     <!--  make -->
-
     <div class="padd2040" *ngIf="editTypeSelect == 'Make'">
       <div class="form-group">
         <select formControlName="body_type_id" class="commonInput">
-          <option value="null">Select Value</option>
+          <option value="" selected>Select Value</option>
           <option *ngFor="let data of dropdownData" value="{{data.maintance_id}}">{{data.maintance_value}}</option>
         </select>
+        <div *ngIf="isUpdated">
+            <span class="error" *ngIf="updateF.body_type_id.errors?.required">Maintenance value is required</span>
+          </div>
       </div>
       <div class="form-group">
-
-        <input type="text" formControlName="make_name" placeholder="{{fromChildComponent.make_name}}"
-          class="commonInput">
+        <input type="text" formControlName="make_name" placeholder="{{fromChildComponent.make_name}}" class="commonInput">
+        <div *ngIf="isUpdated">
+            <span class="error" *ngIf="updateF.make_name.errors?.required">Make name is required</span>
+          </div>
       </div>
     </div>
-
     <!-- series -->
-
     <div class="padd2040" *ngIf="editTypeSelect == 'series'">
       <div class="form-group">
         <select formControlName="year_id" class="commonInput">
-          <option value="null">Select Value</option>
+          <option value="" selected>Select Value</option>
           <option *ngFor="let data of dropdownData" value="{{data.year_id}}">{{data.year_name}}</option>
         </select>
+        <div *ngIf="isUpdated">
+            <span class="error" *ngIf="updateF.year_id.errors?.required">Year is required</span>
+          </div>
       </div>
       <div class="form-group">
-
         <input type="text" placeholder="{{fromChildComponent.series}}" formControlName="series" class="commonInput">
+        <div *ngIf="isUpdated">
+            <span class="error" *ngIf="updateF.series.errors?.required">Series is required</span>
+          </div>
       </div>
     </div>
-
     <!-- For Common Three Groups  -->
-    <div class="padd2040" *ngIf="editTypeSelect == 'common'">
+    <div class="padd2040" *ngIf="editTypeSelect == 'Engine type' || editTypeSelect == 'Fuel type' || editTypeSelect == 'Transmission type' ">
       <div class="form-group">
-
-        <input type="text" formControlName="maintance_value" placeholder="{{fromChildComponent.maintance_value}}"
-          class="commonInput">
+        <input type="text" formControlName="maintance_value" placeholder="{{fromChildComponent.maintance_value}}" class="commonInput">
+        <div *ngIf="isUpdated">
+            <span class="error" *ngIf="updateF.maintance_value.errors?.required">Maintenance value is required</span>
+          </div>
       </div>
     </div>
-
-
     <div class="form-group">
       <button class="btn commonBlueBtn lightBlueBtn" type="button" (click)="CloseUpdatePopup()">No</button>
       <button class="btn commonBlueBtn" type="button" (click)="OnSubmitUpdateForm()">Yes</button>
     </div>
   </form>
+</div>
+
+
+
+<!-- Popups for user information -->
+
+<div id="addedPopup">
+  <div class="commonOverlay">
+    <div class="successPopupDiv">
+      <img src="images/Succecheck.png" class="successImg" alt="">
+      <div class="popupDetails">
+        <h2>Awesome !</h2>
+        <p>New {{heading}} added.</p>
+      </div>
+      <button class="commonBlueBtn popupBtn" (click)="addPopupClose()">OK</button>
+    </div>
+  </div>
+</div>
+
+
+<div id="deletePopup">
+  <div class="commonOverlay">
+    <div class="successPopupDiv deltPopup">
+      <img src="images/closexicon.png" class="closeBtn" alt="">
+      <div class="CancelImg">
+        <img src="images/cancel.png" alt="">
+      </div>
+      <div class="popupDetails ">
+        <h2>{{title}}</h2>
+        <p>{{heading}} Record deleted successfully</p>
+      </div>
+      <button class="commonWhiteBtn popupBtn" (click)="deletePopupClose()">OK</button>
+
+    </div>
+  </div>
+</div>
+
+<div id="editPopup">
+  <div class="commonOverlay">
+    <div class="successPopupDiv">
+      <img src="images/Succecheck.png" class="successImg" alt="">
+      <div class="popupDetails">
+        <h2>{{editTypeSelect}}</h2>
+        <p>{{updateData.before}} updated to {{updateData.after}} successfully</p>
+      </div>
+      <button class="commonBlueBtn popupBtn" (click)="editPopupClose()">OK</button>
+    </div>
+  </div>
 </div>

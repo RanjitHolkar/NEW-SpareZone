@@ -1,17 +1,37 @@
-<ul>
-  <li *ngFor="let data of maintanData; let i=index;">
-    <ng-container >
-        <p *ngIf="data.maintance_value" (click)="displayUpdatePopUp(data, i)">{{data.maintance_value}}</p>
-    </ng-container>
-    <!-- <p *ngIf="data.maintance_key == 'fuel_type'" (click)="displayUpdatePopUp(data, i)">{{data.maintance_value}}</p>
-    <p *ngIf="data.maintance_key == 'engine_type'" (click)="displayUpdatePopUp(data, i)">{{data.maintance_value}}</p> -->
-    <p *ngIf="data.make_name" (click)="displayUpdatePopUp(data, i)">{{data.make_name}}</p>
-    <p *ngIf="data.model_name" (click)="displayUpdatePopUp(data, i)">{{data.model_name}}</p>
-    <p *ngIf="data.year_name" (click)="displayUpdatePopUp(data, i)">{{data.year_name}}</p>
-    <p *ngIf="data.series" (click)="displayUpdatePopUp(data, i)">{{data.series}}</p>
-
+<!-- <ul>
+  <li *ngFor="let data of maintanData; let i=index;"> 
+        <p *ngIf="data.maintance_key == 'transmission_type'" (click)="displayUpdatePopUp(data, i)">{{data.maintance_value}} </p>
+        <p *ngIf="data.maintance_key == 'fuel_type'" (click)="displayUpdatePopUp(data, i)">{{data.maintance_value}} </p>
+        <p *ngIf="data.maintance_key == 'engine_type'" (click)="displayUpdatePopUp(data, i)">{{data.maintance_value}} </p>
+        <p *ngIf="data.maintance_key == 'body_type'" (click)="displayUpdatePopUp(data, i)">{{data.maintance_value}} </p>
+        <p *ngIf="data.make_name" (click)="displayUpdatePopUp(data, i)">{{data.make_name}}</p>
+        <p *ngIf="data.model_name" (click)="displayUpdatePopUp(data, i)">{{data.model_name}}</p>
+        <p *ngIf="data.year_name" (click)="displayUpdatePopUp(data, i)">{{data.year_name}}</p>
+        <p *ngIf="data.series" (click)="displayUpdatePopUp(data, i)">{{data.series}}</p>
+       
     <button type="button" class="closeRound" (click)="displayDeleteConfrimPopUp(data,i)">X</button>
+   
+  </li>
+</ul> -->
+
+
+<!-- This works here Now  --> 
+
+<!-- 
+  * Here when clicked on make it will load models on that perticular record 
+  * Similar chain will follow till end 
+ -->
+
+<ul>
+  <li  *ngFor="let make of getMakesData; let i=index">
+      <p *ngIf="make.make_name" (click)="getModelsService(i)">{{make.make_name}} {{i}}</p>
   </li>
 </ul>
 
 
+<!-- maintanance_value contains body-type transmission  fuel and engine type   -->
+
+<!-- *ngIf="data.maintance_value" -->
+
+
+<!--  <i class="fa fa-edit curPoi" title="Edit Category"></i> -->

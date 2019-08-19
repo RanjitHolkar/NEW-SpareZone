@@ -11,6 +11,8 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RoleGuardService } from './_guards/RoleGuardService';
+// import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
+import {SlideshowModule} from 'ng-simple-slideshow';
 
 
 @NgModule({
@@ -28,6 +30,9 @@ import { RoleGuardService } from './_guards/RoleGuardService';
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     InfiniteScrollModule,
+    SlideshowModule
+    // OwlDateTimeModule,
+    // OwlNativeDateTimeModule
   ],
   exports: [
     AppRoutingModule,
@@ -38,6 +43,7 @@ import { RoleGuardService } from './_guards/RoleGuardService';
   ],
   providers: [
     RoleGuardService,
+  
     {
       provide:HTTP_INTERCEPTORS,
       useClass:ErrorInterceptor,

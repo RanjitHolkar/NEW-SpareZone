@@ -102,4 +102,14 @@ export class AdminMaintanceService {
     return this.http.put(url, parameter).pipe(map((res:any)=> {return res}));
   }
 
+  
+  getMakes(number){
+    return this.http.get(`http://portfolio.theaxontech.com/CI/sparezone/Admin/Maintance/getMakes/${number}`).pipe(map((res:any)=> {return res}))
+  }
+
+
+  getModels(number){
+    return this.http.get(`http://portfolio.theaxontech.com/CI/sparezone/Admin/Maintance/getModel/${number}`).pipe(map((res:any)=> { return res}))
+  }
+
 }

@@ -15,3 +15,69 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none; 
     margin: 0; 
 }
+
+
+.commonOverlay{
+    position: fixed;
+    background-color: #00000094;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.successPopupDiv {
+    background-color: #fff;
+    max-width: 400px;
+    border-radius: 10px;
+    padding: 40px 20px;
+    text-align: center;
+    position: relative;
+}
+img.successImg{
+    margin-top: -105px;
+    width: 80px;
+}
+.popupDetails {
+    margin: 0px 30px 40px;
+}
+.popupDetails h2{
+    font-size: 35px;
+    /* color: #333; */
+    color: #119cee;
+}    
+.popupDetails p{
+    color: #9e9e9e;
+}
+button.commonBlueBtn.popupBtn {
+    min-width: 100px;
+    font-weight: 600;
+    height: 35px;
+}
+.successPopupDiv.deltPopup img{
+margin: 0;
+}
+.successPopupDiv .closeBtn {
+    width: unset;
+    position: absolute;
+    right: 22px;
+    top: 20px;
+    filter: grayscale(1);
+    opacity: 0.5;
+}
+.successPopupDiv .closeBtn:hover{
+    filter: grayscale(1);
+    opacity: 1;
+}
+.successPopupDiv.deltPopup .CancelImg img{
+    width: 70px;
+}
+.commonBlueBtn.ErrorBtn{
+    background-color: #e24c4b;
+    border: 2px solid #e24c4b;
+}
+.popupDetails h2.errorHead{
+    color: #e24c4b;
+}

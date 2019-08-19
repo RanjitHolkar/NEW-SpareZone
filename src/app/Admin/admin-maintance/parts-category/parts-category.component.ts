@@ -42,6 +42,7 @@ export class PartsCategoryComponent implements OnInit {
   /* Get Categories */
   getCategories() {
     this.adminmaintainservice.getCategories().subscribe((result: any) => {
+      console.log(result)
       this.categoryData = result.result;
       $('.overlayDivLoader').hide();
       if(this.categoryData.length > 0)

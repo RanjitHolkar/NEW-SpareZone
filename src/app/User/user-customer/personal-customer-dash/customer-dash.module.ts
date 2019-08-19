@@ -6,9 +6,10 @@ import { UserNavModule } from '../../user-nav/user-nav.module';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { PersonalCustomerSidebarComponent } from './personal-customer-sidebar/personal-customer-sidebar.component';
 import { BackgroundImageModule } from '../../../background-image/background-image.module';
+import { AddVehicleComponent } from './add-vehicle/add-vehicle.component';
 
 @NgModule({
-  declarations: [CustomerDashComponent, PersonalCustomerSidebarComponent],
+  declarations: [CustomerDashComponent, PersonalCustomerSidebarComponent, AddVehicleComponent],
   imports: [
     CommonModule,
     CustomerDashRoutingModule,

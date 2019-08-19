@@ -16,17 +16,38 @@ export class EditVehicleChildComponent implements OnInit {
   // From parent component
   @Input() maintanData: any;
   @Input() updateEdit:any;
-  dataFromChild:any;
   @Output() updateEditDataFromChild:any;
-  constructor() { }
+  index:any
+  getMakesData:any;
+
+  constructor(private service:AdminMaintanceService) { }
+
   ngOnInit() {
     this.maintanData = this.maintanData[this.maintanData.name1];
-
+    this.getMakeService();
   }
+
+
+  getMakeService(){
+    this.service.getMakes(5).subscribe(responce => {
+    this.getMakesData = responce.result
+    console.log(this.getMakesData)
+    }, error => console.log(error))
+  }
+
+getModelsService(index){
+  this.service.getModels(index).subscribe(modelResponce => {
+   console.log(modelResponce);
+  },error => {
+    console.log(error)
+  })
+}
+
 
    /* Display Delete popup */
    displayDeleteConfrimPopUp(data:any,index){
     $('#maintainDeletePopup').show();
+    console.log(data)
     data['index'] = index;
      this.valueSelected.emit(data);
   }
@@ -37,6 +58,8 @@ export class EditVehicleChildComponent implements OnInit {
   }
   
   displayUpdatePopUp(update:any,index){
+  
+    this.index = index
     update['index'] = index;
     this.editData.emit(update);
     $('#UpdatePopup').show();

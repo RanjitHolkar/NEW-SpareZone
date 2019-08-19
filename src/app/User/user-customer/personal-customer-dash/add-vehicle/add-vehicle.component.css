@@ -1,0 +1,138 @@
+/* Create Profile Tab Css Starts*/
+.width660{
+    min-width: 660px;
+    padding: 20px 40px;
+    }
+    .marL0{
+        margin-left: 0 !important;
+    }
+    .popSupplierText.paddTB .formgroup{
+        margin: 0 0 15px;
+    }
+    .popSupplierText.paddTB .formgroup label{
+        margin: 0;
+    }
+    .paddTB{
+        padding: 15px 0px 20px;
+    }
+    .custumPopHead.NewProfileHead{
+        display: flex;
+        justify-content: space-between;
+    }
+    .custumPopHead.NewProfileHead .popHead{
+        padding: 0;
+        color: #48a5ea;
+        font-size: 22px;
+    }
+    .custumPopHead.NewProfileHead span a img{
+        width: 90%;
+    }
+    .formgroup .quetionFeild {
+        position: absolute;
+        right: 0;
+        bottom: 7px;
+    }
+    .hexColor {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 50px;
+    }
+    .field-slide {
+        position: relative;
+        height: 53px;
+        margin-bottom: 35px;
+        width: 100%;
+        float: left;
+    }
+    .scrollingCars {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        width: 100%;
+        padding-bottom: 8px;
+    }
+    .mov {
+        display: flex;
+    }
+    .movr {
+        padding: 0 0px;
+        margin: 0 3px;
+    }
+    .movr .movr-in {
+        display: table;
+        width: 100%;
+        height: 45px;
+    }
+    .movr-in div {
+        display: table-cell;
+        vertical-align: bottom;
+    }
+    .movr .movr-in img {
+        display: table;
+        margin: 0 auto;
+        width: 60px;
+        height: 45px;
+        -o-object-fit: cover;
+        object-fit: contain;
+        border-radius: 3px;
+        padding: 2px;
+    }
+    label.popHead.blueText {
+        font-size: 17px;
+        font-weight: normal;
+        padding: 10px 0;
+    }
+    .uploadCar{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+    .addCar{
+    position: relative;
+    display: inline-block;
+    }
+    .addCar input {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+    }
+    .addCar img{
+        width: 50px;
+    }
+    .colorDiv{
+        display: flex;
+        justify-content: space-between;
+    }
+    .colorCode{
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        margin-right: 4px;
+    }
+    .colorCode.skyblue{
+        background-color: #48a5ea;
+    }
+    .colorCode.green{
+        background-color: #34ba26;
+    }
+    .colorCode.red{
+        background-color: #f20a15;
+    }
+    .colorCode.blue{
+        background-color: #220ee3;
+    }
+    .colorCode.black{
+        background-color: #061d20;
+    }
+    .colorCode.gray{
+        background-color: #e4e4e4;
+    }
+    .hexColor span a{
+        font-size: 15px;
+        text-decoration: underline;
+    }
+    .minWid90{
+        min-width: 92px;
+    }
+    /* Create Profile Tab Css Ends*/

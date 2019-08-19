@@ -130,7 +130,7 @@ form.jform .selectDiv select {
   }
   label.disF.width50.containerN{
     display: flex;
-    justify-content: end;
+    /* justify-content: end; */
   }
   .uploadDivTargetPop {
     width: 60px;
